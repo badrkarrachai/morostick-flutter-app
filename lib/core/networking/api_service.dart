@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:morostick/core/data/models/refresh_token_response_model.dart';
 import 'package:morostick/core/networking/api_constants.dart';
 import 'package:morostick/features/auth/forget_password/new_password/data/models/new_password_request_body.dart';
 import 'package:morostick/features/auth/forget_password/new_password/data/models/new_password_response.dart';

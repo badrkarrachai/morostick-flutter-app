@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:morostick/core/services/facebook_auth_service.dart';
 import 'package:morostick/core/services/google_auth_service.dart';
+import 'package:morostick/core/widgets/app_offline_banner.dart';
 import '../helpers/constants.dart';
 import '../helpers/shared_pref_helper.dart';
 import '../networking/api_constants.dart';
@@ -22,6 +23,9 @@ class AuthNavigationService extends ChangeNotifier {
   bool get isFirstTime => _isFirstTime;
   bool get isOffline => _isOffline;
 
+  OfflineReason? _offlineReason;
+  OfflineReason? get offlineReason => _offlineReason;
+
   AuthNavigationService({
     required GoogleAuthService googleAuthService,
     required FacebookAuthService facebookAuthService,
@@ -30,8 +34,9 @@ class AuthNavigationService extends ChangeNotifier {
     _initConnectivityListener();
   }
 
-  void setIsOffline(bool value) {
+  void setIsOffline(bool value, {OfflineReason? reason}) {
     _isOffline = value;
+    _offlineReason = value ? (reason ?? OfflineReason.noConnection) : null;
     notifyListeners();
   }
 
@@ -163,13 +168,18 @@ class AuthNavigationService extends ChangeNotifier {
     return token;
   }
 
+  static const Duration _connectTimeout = Duration(seconds: 3);
+  static const Duration _receiveTimeout = Duration(seconds: 5);
+  static const Duration _sendTimeout = Duration(seconds: 5);
+
   Future<bool> refreshTokenMethod() async {
     try {
       final hasConnection = await _checkConnectivity();
       if (!hasConnection) {
         _isOffline = true;
         notifyListeners();
-        return false;
+        // Keep existing token if offline
+        return _isAuthenticated;
       }
 
       final refreshToken =
@@ -179,7 +189,13 @@ class AuthNavigationService extends ChangeNotifier {
         return false;
       }
 
-      final dio = Dio();
+      final dio = Dio()
+        ..options = BaseOptions(
+          connectTimeout: _connectTimeout,
+          receiveTimeout: _receiveTimeout,
+          sendTimeout: _sendTimeout,
+        );
+
       final response = await dio.post(
         '${ApiConstants.apiBaseUrl}auth/refresh-token',
         options: Options(headers: {'X-Refresh-Token': refreshToken}),
@@ -196,6 +212,29 @@ class AuthNavigationService extends ChangeNotifier {
 
       await logout();
       return false;
+    } on DioException catch (e) {
+      debugPrint('Token refresh DioError: $e');
+
+      // Handle timeout cases - stay logged in
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.sendTimeout) {
+        _isOffline = true;
+        _offlineReason = OfflineReason.serverTimeout;
+        notifyListeners();
+        return _isAuthenticated;
+      }
+
+      // For other network errors, check connectivity
+      if (await _checkConnectivity()) {
+        await logout();
+      } else {
+        _isOffline = true;
+        notifyListeners();
+        // Keep existing login state if offline
+        return _isAuthenticated;
+      }
+      return false;
     } catch (e) {
       debugPrint('Token refresh failed: $e');
       if (await _checkConnectivity()) {
@@ -203,6 +242,8 @@ class AuthNavigationService extends ChangeNotifier {
       } else {
         _isOffline = true;
         notifyListeners();
+        // Keep existing login state if offline
+        return _isAuthenticated;
       }
       return false;
     }
@@ -223,15 +264,27 @@ class AuthNavigationService extends ChangeNotifier {
         // Online flow
         if (_shouldRefreshToken(accessToken)) {
           final refreshSuccessful = await refreshTokenMethod();
-          setAuthStatus(refreshSuccessful);
+          // For server timeout, keep the tokens and stay logged in
+          if (!refreshSuccessful &&
+              _offlineReason != OfflineReason.serverTimeout) {
+            setAuthStatus(false);
+          } else {
+            // Keep logged in for timeout or successful refresh
+            setAuthStatus(true);
+          }
         } else {
           setAuthStatus(true);
         }
       } else {
         // Offline flow
         if (refreshToken.isEmpty || _isRefreshTokenExpired(refreshToken)) {
-          await logout();
-          setAuthStatus(false);
+          // Don't logout if it's a server timeout
+          if (_offlineReason != OfflineReason.serverTimeout) {
+            await logout();
+            setAuthStatus(false);
+          } else {
+            setAuthStatus(true);
+          }
         } else {
           // Refresh token is still valid, stay logged in
           setAuthStatus(true);

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:morostick/core/data/models/general_response_model.dart';
 import 'package:morostick/core/helpers/extensions.dart';
+import 'package:morostick/core/networking/api_error_handler.dart';
 import 'package:morostick/core/routing/routes.dart';
 import 'package:morostick/core/theming/colors.dart';
-import 'package:morostick/core/widgets/app_snackbar.dart';
 import 'package:morostick/features/auth/forget_password/verify_code/logic/verify_code_cubit.dart';
 import 'package:morostick/features/auth/forget_password/verify_code/logic/verify_code_state.dart';
 
@@ -50,22 +49,14 @@ class VerifyCodeBlocListener extends StatelessWidget {
             );
           },
           error: (error, _) {
-            setupErrorState(context, error);
+            context
+                .read<VerifyCodeCubit>()
+                .updateCodeInputError(true, error.message);
+            ErrorHandler.setupErrorState(context, error);
           },
         );
       },
       child: child,
-    );
-  }
-
-  void setupErrorState(BuildContext context, GeneralResponse error) {
-    context.pop();
-    context.read<VerifyCodeCubit>().updateCodeInputError(true, error.message);
-    showAppSnackbar(
-      title: error.message,
-      duration: 3,
-      description: error.error?.details ??
-          "Something went wrong. Please try again later.",
     );
   }
 }

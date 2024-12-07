@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:morostick/core/services/auth_navigation_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +12,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late TabController _tabController;
   int _currentBottomIndex = 0;
+
+  Future<void> _handleLogout() async {
+    final authService = context.read<AuthNavigationService>();
+    final success = await authService.logout();
+
+    if (success && mounted) {
+      // Navigate to login screen and clear the stack
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        '/login', // Replace with your login route name
+        (route) => false,
+      );
+    }
+  }
 
   final List<String> _categories = [
     'Category 1',
@@ -47,7 +62,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         controller: _tabController,
         children: _categories.map((category) {
           return Center(
-            child: Text('Content for $category'),
+            child: GestureDetector(
+                onTap: _handleLogout, child: Text('Content for $category')),
           );
         }).toList(),
       ),
