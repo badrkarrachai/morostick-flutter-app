@@ -39,7 +39,13 @@ class AuthNavigationService extends ChangeNotifier {
     _connectivitySubscription = Connectivity()
         .onConnectivityChanged
         .listen((List<ConnectivityResult> results) {
+      bool wasOffline = _isOffline;
       _isOffline = results.contains(ConnectivityResult.none) || results.isEmpty;
+
+      // If coming back online, check token status
+      if (wasOffline && !_isOffline && _isAuthenticated) {
+        checkInitialStatus();
+      }
       notifyListeners();
     });
   }
@@ -122,11 +128,19 @@ class AuthNavigationService extends ChangeNotifier {
   Future<bool> logout() async {
     try {
       if (!await _checkConnectivity()) {
+        // Allow logout even when offline
+        await Future.wait<void>([
+          SharedPrefHelper.removeSecuredString(SharedPrefKeys.userToken),
+          SharedPrefHelper.removeSecuredString(SharedPrefKeys.refreshToken),
+        ]);
+        DioFactory.removeTokenFromHeader();
+        setAuthStatus(false);
         _isOffline = true;
         notifyListeners();
-        return false;
+        return true;
       }
 
+      // Online logout flow
       await Future.wait<void>([
         _googleAuthService.signOut(),
         _facebookAuthService.signOut(),
@@ -149,7 +163,7 @@ class AuthNavigationService extends ChangeNotifier {
     return token;
   }
 
-  Future<bool> refreshToken() async {
+  Future<bool> refreshTokenMethod() async {
     try {
       final hasConnection = await _checkConnectivity();
       if (!hasConnection) {
@@ -199,19 +213,33 @@ class AuthNavigationService extends ChangeNotifier {
         await SharedPrefHelper.getBool('has_seen_onboarding') ?? false;
     _isFirstTime = !hasSeenOnboarding;
 
-    String token =
+    String accessToken =
         await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
+    String refreshToken =
+        await SharedPrefHelper.getSecuredString(SharedPrefKeys.refreshToken);
 
-    if (token.isNotEmpty) {
-      if (_shouldRefreshToken(token) && await _checkConnectivity()) {
-        final refreshSuccessful = await refreshToken();
-        setAuthStatus(refreshSuccessful);
+    if (accessToken.isNotEmpty) {
+      if (await _checkConnectivity()) {
+        // Online flow
+        if (_shouldRefreshToken(accessToken)) {
+          final refreshSuccessful = await refreshTokenMethod();
+          setAuthStatus(refreshSuccessful);
+        } else {
+          setAuthStatus(true);
+        }
       } else {
-        setAuthStatus(true);
+        // Offline flow
+        if (refreshToken.isEmpty || _isRefreshTokenExpired(refreshToken)) {
+          await logout();
+          setAuthStatus(false);
+        } else {
+          // Refresh token is still valid, stay logged in
+          setAuthStatus(true);
+        }
       }
 
       if (isAuthenticated) {
-        DioFactory.setTokenIntoHeaderAfterLogin(token);
+        DioFactory.setTokenIntoHeaderAfterLogin(accessToken);
       }
     } else {
       setAuthStatus(false);

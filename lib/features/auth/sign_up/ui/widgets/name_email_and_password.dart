@@ -52,13 +52,13 @@ class _NameEmailAndPasswordState extends State<NameEmailAndPassword> {
       child: Column(
         children: [
           AppTextFormField(
-            hintText: 'Full Name',
+            hintText: 'Name',
             prefixIcon: const Icon(HugeIcons.strokeRoundedUser),
             validator: (value) {
               if (value == null ||
                   value.isEmpty ||
-                  !AppRegex.isFullNameValid(value)) {
-                return 'Please enter a valid full name';
+                  !AppRegex.isUserNameValid(value)) {
+                return 'Please enter a valid user name';
               }
             },
             controller: context.read<SignupCubit>().nameController,

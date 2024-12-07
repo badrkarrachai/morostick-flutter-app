@@ -39,7 +39,7 @@ class TokenInterceptor extends Interceptor {
     }
 
     if (err.response?.statusCode == 401) {
-      final isRefreshed = await _authService.refreshToken();
+      final isRefreshed = await _authService.refreshTokenMethod();
       if (isRefreshed) {
         await _retryFailedRequests();
         final token = await _authService.getAccessToken();

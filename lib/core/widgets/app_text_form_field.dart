@@ -16,6 +16,8 @@ class AppTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final Function(String?) validator;
   final Widget? prefixIcon;
+  final String? errorText; // Added to directly use with InputDecoration
+
   const AppTextFormField({
     super.key,
     this.contentPadding,
@@ -30,6 +32,7 @@ class AppTextFormField extends StatelessWidget {
     this.controller,
     required this.validator,
     this.prefixIcon,
+    this.errorText,
   });
 
   @override
@@ -69,6 +72,11 @@ class AppTextFormField extends StatelessWidget {
             width: 1.3,
           ),
           borderRadius: BorderRadius.circular(16.0),
+        ),
+        errorText: errorText,
+        errorStyle: TextStyles.font14DarkPurpleMedium.copyWith(
+          color: Colors.red,
+          fontSize: 12,
         ),
         hintStyle: hintStyle ?? TextStyles.font14HintTextRegular,
         hintText: hintText,
