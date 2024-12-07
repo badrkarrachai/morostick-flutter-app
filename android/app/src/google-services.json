@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "181109027255",
+    "project_id": "morostick-6f816",
+    "storage_bucket": "morostick-6f816.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181109027255:android:395269c146f54f2771b832",
+        "android_client_info": {
+          "package_name": "com.morostick.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181109027255-9i47ntm0i1s2c28qq5lipjf1gov7fd8h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.morostick.com",
+            "certificate_hash": "f76b7c392e8d67748813b0d159736e687f0424c7"
+          }
+        },
+        {
+          "client_id": "181109027255-ag5kq0aavg2if9rcuculk0t1m60neg95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQrDyszpmpOo8bdvPYtEiI3F4yuxJ4VzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181109027255-1s4lp2m21mc67chftuegthdas5dj3rhe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "181109027255-ntacfudm2jrm9m5rckf0882bgjko5e2s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.morostick.ma"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

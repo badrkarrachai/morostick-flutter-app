@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "238189443667",
+    "project_id": "morostick-f867d",
+    "storage_bucket": "morostick-f867d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238189443667:android:3b16dc10a3c6336e9664a6",
+        "android_client_info": {
+          "package_name": "com.morostickapp.ma"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA5ZvQvHSX8WegDJ5aYiED6WMV3eCOs5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
