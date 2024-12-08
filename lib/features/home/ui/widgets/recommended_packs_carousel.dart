@@ -71,7 +71,7 @@ class _RecommendedStickersCarouselState
         Padding(
           padding: EdgeInsets.only(left: 20.w, bottom: 12.h),
           child: Text(
-            'Recommended for you',
+            'Recommended For You',
             style: TextStyles.font14DarkPurpleSemiBold,
           ),
         ),
@@ -82,12 +82,14 @@ class _RecommendedStickersCarouselState
             viewportFraction: 0.9,
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 5),
-            autoPlayAnimationDuration: const Duration(milliseconds: 500),
-            autoPlayCurve: Curves.easeInOut,
+            autoPlayAnimationDuration: const Duration(milliseconds: 800),
+            autoPlayCurve: Curves.fastOutSlowIn,
             enlargeCenterPage: true,
             enlargeFactor: 0.3,
             onPageChanged: (index, reason) {
-              setState(() => _current = index);
+              if (mounted) {
+                setState(() => _current = index);
+              }
             },
           ),
           itemCount: stickerPacks.length,

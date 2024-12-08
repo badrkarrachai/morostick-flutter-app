@@ -66,6 +66,7 @@ dependencies:
   provider: ^6.1.2
   connectivity_plus: ^6.1.0
   carousel_slider: ^5.0.0
+  persistent_bottom_nav_bar: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -97,6 +98,8 @@ flutter:
     - assets/images/CommonImages/
     - assets/images/SnackBar/
     - assets/images/AppIcons/
+    - assets/images/PlatformsLogos/
+    - assets/images/NavigationBottomBar/
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -24,25 +24,22 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Morostick',
-            style: TextStyles.font24BoldBlack,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Morostick',
+          style: TextStyles.font24BoldBlack,
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.logout,
+            size: 24.sp,
+            color: ColorsManager.darkPurple,
           ),
-          IconButton(
-            icon: Icon(
-              Icons.logout,
-              size: 24.sp,
-              color: ColorsManager.darkPurple,
-            ),
-            onPressed: () => _handleLogout(context),
-          ),
-        ],
-      ),
+          onPressed: () => _handleLogout(context),
+        ),
+      ],
     );
   }
 }

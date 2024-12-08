@@ -13,6 +13,7 @@ import 'package:morostick/features/auth/login/ui/login_screen.dart';
 import 'package:morostick/features/auth/sign_up/logic/sign_up_cubit.dart';
 import 'package:morostick/features/auth/sign_up/ui/sign_up_screen.dart';
 import 'package:morostick/features/home/ui/home_screen.dart';
+import 'package:morostick/features/main_navigation/ui/main_navigation.dart';
 import 'package:morostick/features/onboarding/onboarding_screen.dart';
 
 // Route Types
@@ -115,7 +116,8 @@ class AppRouter {
     Routes.homeScreen: RouteConfig(
       path: Routes.homeScreen,
       type: RouteType.protected,
-      builder: (args) => const HomeScreen(),
+      builder: (args) =>
+          const MainNavigation(), // Changed from HomeScreen to MainNavigation
     ),
   };
 
@@ -142,7 +144,7 @@ class AppRouter {
       if (isFirstTime) {
         return const OnboardingScreen();
       } else if (isAuthenticated) {
-        return const HomeScreen();
+        return const MainNavigation();
       } else {
         return BlocProvider(
           create: (context) => getIt<LoginCubit>(),

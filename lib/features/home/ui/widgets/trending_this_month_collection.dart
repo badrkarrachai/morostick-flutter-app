@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/features/home/ui/widgets/recommended_packs_carousel.dart';
@@ -54,19 +55,17 @@ class TrendingThisMonthCollection extends StatelessWidget {
             style: TextStyles.font14DarkPurpleSemiBold,
           ),
         ),
-        SizedBox(
-          height: 170.h, // Adjust based on your needs
-          child: ListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            scrollDirection: Axis.horizontal,
-            itemCount: trendingPacks.length,
-            itemBuilder: (context, index) {
-              return TrendingPackCard(
-                pack: trendingPacks[index],
-              );
-            },
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: IntrinsicHeight(
+            child: Row(
+              children: trendingPacks
+                  .map((pack) => TrendingPackCard(pack: pack))
+                  .toList(),
+            ),
           ),
-        ),
+        )
       ],
     );
   }
@@ -110,7 +109,7 @@ class TrendingPackCard extends StatelessWidget {
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
-          SizedBox(height: 8.h),
+          verticalSpace(8),
           // Title
           Padding(
             padding: EdgeInsets.only(left: 4.w),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/theming/colors.dart';
+import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/widgets/app_text_form_field.dart';
 
 class HomeSearchBar extends StatelessWidget {
@@ -20,13 +21,14 @@ class HomeSearchBar extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: AppTextFormField(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
         controller: controller,
         hintText: 'Search',
         validator: _validateSearch,
+        hintStyle: TextStyles.font14HintTextRegular,
         prefixIcon: Icon(
           Icons.search,
-          size: 24.sp,
+          size: 22.sp,
           color: ColorsManager.grayPurple,
         ),
       ),

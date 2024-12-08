@@ -14,6 +14,7 @@ class ColorsManager {
   static const Color grayInputBackground = Color(0xFFF2F0F5);
   static const Color grayInputHintText = Color(0xFF9A9A9A);
   static const Color grayButtonBorder = Color(0xFFD8DADC);
+  static const Color whatsappGreen = Color(0xFF4AC858);
 
   // Colors for Sticker Pack Card
   static const Color royalPurple = Color(0xFF7E57C2); // Rich purple

@@ -15,6 +15,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  bool _showTitle = true;
 
   final List<String> _categories = [
     'For You',
@@ -36,35 +38,70 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       length: _categories.length,
       vsync: this,
     );
+
+    _scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (_scrollController.offset > 20 && _showTitle) {
+      setState(() => _showTitle = false);
+    } else if (_scrollController.offset <= 20 && !_showTitle) {
+      setState(() => _showTitle = true);
+    }
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     _searchController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
-            verticalSpace(5),
-            const HomeAppBar(),
-            verticalSpace(8),
-            HomeSearchBar(controller: _searchController),
-            verticalSpace(8),
-            HomeCategoriesTab(
-              tabController: _tabController,
-              categories: _categories,
+            // Collapsible Title
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 160),
+              padding: EdgeInsets.zero,
+              height: _showTitle ? kToolbarHeight : 0,
+              child: AppBar(
+                backgroundColor: Colors.white,
+                elevation: 0,
+                title: const HomeAppBar(),
+              ),
             ),
+
+            // Pinned Search and Categories
+            Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  verticalSpace(8),
+                  HomeSearchBar(controller: _searchController),
+                  verticalSpace(3),
+                  HomeCategoriesTab(
+                    tabController: _tabController,
+                    categories: _categories,
+                  ),
+                ],
+              ),
+            ),
+
+            // Scrollable Content
             Expanded(
               child: TabBarView(
                 controller: _tabController,
                 children: _categories.map((category) {
-                  return CategoryContent(categoryName: category);
+                  return SingleChildScrollView(
+                    controller: _scrollController,
+                    child: CategoryContent(categoryName: category),
+                  );
                 }).toList(),
               ),
             ),

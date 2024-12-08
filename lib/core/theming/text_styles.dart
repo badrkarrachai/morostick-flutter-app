@@ -109,6 +109,13 @@ class TextStyles {
     color: ColorsManager.mainPurple,
   );
 
+  static TextStyle font12PurpleRegular = TextStyle(
+    fontSize: 12.sp,
+    fontFamily: 'LexendDeca',
+    fontWeight: FontWeightHelper.regular,
+    color: ColorsManager.mainPurple,
+  );
+
   static TextStyle font13PurpleSemiBold = TextStyle(
     fontSize: 13.sp,
     fontFamily: 'LexendDeca',

@@ -28,4 +28,26 @@ class Images {
   static const String success = 'assets/images/SnackBar/Success.svg';
   static const String error = 'assets/images/SnackBar/Error.svg';
   static const String warning = 'assets/images/SnackBar/Warning.svg';
+
+  // PlatformsLogos
+  static const String whatsappLogo =
+      'assets/images/PlatformsLogos/Whatsapp.svg';
+
+  // NavigationBottomBar
+  static const String homeStroke =
+      'assets/images/NavigationBottomBar/HomeStroke.svg';
+  static const String homeFilled =
+      'assets/images/NavigationBottomBar/HomeFilled.svg';
+  static const String searchStroke =
+      'assets/images/NavigationBottomBar/SearchStroke.svg';
+  static const String searchFilled =
+      'assets/images/NavigationBottomBar/SearchFilled.svg';
+  static const String favouriteStroke =
+      'assets/images/NavigationBottomBar/FavoriteStroke.svg';
+  static const String favouriteFilled =
+      'assets/images/NavigationBottomBar/FavoriteFilled.svg';
+  static const String userStroke =
+      'assets/images/NavigationBottomBar/UserStroke.svg';
+  static const String userFilled =
+      'assets/images/NavigationBottomBar/UserFilled.svg';
 }
