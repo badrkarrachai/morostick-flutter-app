@@ -1,8 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:morostick/core/data/models/general_response_model.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
+import 'package:morostick/core/widgets/app_offline_banner.dart';
 import 'package:morostick/features/auth/login/data/models/login_request_body.dart';
 import 'package:morostick/features/auth/login/data/models/login_with_facebook_model.dart';
 import 'package:morostick/features/auth/login/data/models/login_with_google_model.dart';
@@ -92,16 +93,24 @@ class LoginCubit extends Cubit<LoginState> {
           ),
         ));
       }
-    } catch (e) {
-      String errorMessage = 'Failed to sign in with Facebook';
-      if (e is PlatformException) {
-        errorMessage = 'Platform error during Facebook sign in: ${e.message}';
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.sendTimeout) {
+        _authService.setIsOffline(true, reason: OfflineReason.serverTimeout);
       }
-
-      emit(LoginState.error(
+      emit(const LoginState.error(
         error: GeneralResponse(
           success: false,
-          message: errorMessage,
+          message: 'Failed to sign in with Facebook',
+          status: 500,
+        ),
+      ));
+    } catch (e) {
+      emit(const LoginState.error(
+        error: GeneralResponse(
+          success: false,
+          message: 'Failed to sign in with Facebook',
           status: 500,
         ),
       ));
@@ -140,16 +149,24 @@ class LoginCubit extends Cubit<LoginState> {
           ),
         ));
       }
-    } catch (e) {
-      String errorMessage = 'Failed to sign in with Google';
-      if (e is PlatformException) {
-        errorMessage = 'Platform error during sign in: ${e.message}';
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.sendTimeout) {
+        _authService.setIsOffline(true, reason: OfflineReason.serverTimeout);
       }
-
-      emit(LoginState.error(
+      emit(const LoginState.error(
         error: GeneralResponse(
           success: false,
-          message: errorMessage,
+          message: 'Failed to sign in with Google',
+          status: 500,
+        ),
+      ));
+    } catch (e) {
+      emit(const LoginState.error(
+        error: GeneralResponse(
+          success: false,
+          message: 'Failed to sign in with Google',
           status: 500,
         ),
       ));

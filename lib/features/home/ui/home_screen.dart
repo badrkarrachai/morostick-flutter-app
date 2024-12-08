@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:morostick/core/services/auth_navigation_service.dart';
+import 'package:morostick/core/helpers/spacing.dart';
+import 'package:morostick/features/home/ui/widgets/category_content.dart';
+import 'package:morostick/features/home/ui/widgets/home_app_bar.dart';
+import 'package:morostick/features/home/ui/widgets/home_categories_tab.dart';
+import 'package:morostick/features/home/ui/widgets/home_search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,26 +14,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late TabController _tabController;
-  int _currentBottomIndex = 0;
-
-  Future<void> _handleLogout() async {
-    final authService = context.read<AuthNavigationService>();
-    final success = await authService.logout();
-
-    if (success && mounted) {
-      // Navigate to login screen and clear the stack
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        '/login', // Replace with your login route name
-        (route) => false,
-      );
-    }
-  }
+  final TextEditingController _searchController = TextEditingController();
 
   final List<String> _categories = [
-    'Category 1',
-    'Category 2',
-    'Category 3',
-    'Category 4',
+    'For You',
+    'Trending',
+    'Love',
+    'Meme',
+    'Comedy',
+    'Gaming',
+    'Art',
+    'Music',
+    'Food',
+    'Lifestyle',
   ];
 
   @override
@@ -45,53 +41,35 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void dispose() {
     _tabController.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        bottom: TabBar(
-          controller: _tabController,
-          isScrollable: true, // Makes the tabs scrollable if many categories
-          tabs: _categories.map((category) => Tab(text: category)).toList(),
+      body: SafeArea(
+        child: Column(
+          children: [
+            verticalSpace(5),
+            const HomeAppBar(),
+            verticalSpace(8),
+            HomeSearchBar(controller: _searchController),
+            verticalSpace(8),
+            HomeCategoriesTab(
+              tabController: _tabController,
+              categories: _categories,
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: _categories.map((category) {
+                  return CategoryContent(categoryName: category);
+                }).toList(),
+              ),
+            ),
+          ],
         ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: _categories.map((category) {
-          return Center(
-            child: GestureDetector(
-                onTap: _handleLogout, child: Text('Content for $category')),
-          );
-        }).toList(),
-      ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentBottomIndex,
-        onDestinationSelected: (int index) {
-          setState(() {
-            _currentBottomIndex = index;
-          });
-        },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
       ),
     );
   }

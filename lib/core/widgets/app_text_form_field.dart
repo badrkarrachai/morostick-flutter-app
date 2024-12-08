@@ -16,7 +16,7 @@ class AppTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final Function(String?) validator;
   final Widget? prefixIcon;
-  final String? errorText; // Added to directly use with InputDecoration
+  final String? errorText;
 
   const AppTextFormField({
     super.key,
