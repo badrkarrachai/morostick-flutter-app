@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/images.dart';
@@ -77,15 +78,12 @@ class PackOutsidePreview extends StatelessWidget {
                               style: TextStyles.font14DarkPurpleSemiBold,
                             ),
                             SizedBox(width: 8.w),
-                            Text(
-                              timeAgo,
-                              style: TextStyles.font12GrayPurpleRegular,
-                            ),
                           ],
                         ),
                         verticalSpace(2),
                         // Author and Downloads
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               author,
@@ -96,8 +94,12 @@ class PackOutsidePreview extends StatelessWidget {
                               style: TextStyles.font11GrayPurpleRegular,
                             ),
                             Text(
-                              '${downloads / 1000}K downloads',
+                              '${downloads / 1000}K ',
                               style: TextStyles.font11GrayPurpleRegular,
+                            ),
+                            Icon(
+                              HugeIcons.strokeRoundedDownloadCircle01,
+                              size: 13.sp,
                             ),
                           ],
                         ),

@@ -16,7 +16,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  bool _showTitle = true;
 
   final List<String> _categories = [
     'For You',
@@ -38,16 +37,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       length: _categories.length,
       vsync: this,
     );
-
-    _scrollController.addListener(_scrollListener);
-  }
-
-  void _scrollListener() {
-    if (_scrollController.offset > 20 && _showTitle) {
-      setState(() => _showTitle = false);
-    } else if (_scrollController.offset <= 20 && !_showTitle) {
-      setState(() => _showTitle = true);
-    }
   }
 
   @override
@@ -61,53 +50,84 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          children: [
-            // Collapsible Title
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 160),
-              padding: EdgeInsets.zero,
-              height: _showTitle ? kToolbarHeight : 0,
-              child: AppBar(
+        child: NestedScrollView(
+          controller: _scrollController,
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverAppBar(
                 backgroundColor: Colors.white,
-                elevation: 0,
-                title: const HomeAppBar(),
+                floating: true,
+                snap: true,
+                toolbarHeight: kToolbarHeight + 5,
+                title:
+                    Container(color: Colors.white, child: const HomeAppBar()),
+                automaticallyImplyLeading: false,
+                surfaceTintColor: Colors.transparent,
+                shadowColor: Colors.transparent,
               ),
-            ),
-
-            // Pinned Search and Categories
-            Container(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  verticalSpace(8),
-                  HomeSearchBar(controller: _searchController),
-                  verticalSpace(3),
-                  HomeCategoriesTab(
-                    tabController: _tabController,
-                    categories: _categories,
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: _SliverAppBarDelegate(
+                  minHeight: 114,
+                  maxHeight: 114,
+                  child: Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        verticalSpace(8),
+                        HomeSearchBar(controller: _searchController),
+                        verticalSpace(8),
+                        HomeCategoriesTab(
+                          tabController: _tabController,
+                          categories: _categories,
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
-
-            // Scrollable Content
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: _categories.map((category) {
-                  return SingleChildScrollView(
-                    controller: _scrollController,
-                    child: CategoryContent(categoryName: category),
-                  );
-                }).toList(),
-              ),
-            ),
-          ],
+            ];
+          },
+          body: TabBarView(
+            controller: _tabController,
+            children: _categories.map((category) {
+              return CategoryContent(categoryName: category);
+            }).toList(),
+          ),
         ),
       ),
     );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  _SliverAppBarDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }

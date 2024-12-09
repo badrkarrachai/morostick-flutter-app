@@ -53,6 +53,13 @@ class TextStyles {
     color: ColorsManager.white,
   );
 
+  static TextStyle font18BlackSemiBold = TextStyle(
+    fontSize: 18.sp,
+    fontFamily: 'LexendDeca',
+    fontWeight: FontWeightHelper.semiBold,
+    color: ColorsManager.darkPurple,
+  );
+
   static TextStyle font14HintTextRegular = TextStyle(
     fontSize: 14.sp,
     fontFamily: 'LexendDeca',
@@ -107,6 +114,13 @@ class TextStyles {
     fontFamily: 'LexendDeca',
     fontWeight: FontWeightHelper.regular,
     color: ColorsManager.mainPurple,
+  );
+
+  static TextStyle font13DarkGrayRegular = TextStyle(
+    fontSize: 13.sp,
+    fontFamily: 'LexendDeca',
+    fontWeight: FontWeightHelper.regular,
+    color: ColorsManager.darkGray,
   );
 
   static TextStyle font12PurpleRegular = TextStyle(

@@ -50,4 +50,15 @@ class Images {
       'assets/images/NavigationBottomBar/UserStroke.svg';
   static const String userFilled =
       'assets/images/NavigationBottomBar/UserFilled.svg';
+
+  // TopMenuScreen
+  static const String account = 'assets/images/TopMenuScreen/Account.svg';
+  static const String inviteFriend =
+      'assets/images/TopMenuScreen/InviteAFriend.svg';
+  static const String privacyPolicy =
+      'assets/images/TopMenuScreen/PrivacyPolicy.svg';
+  static const String termsAndConditions =
+      'assets/images/TopMenuScreen/TermsAndConditions.svg';
+  static const String faq = 'assets/images/TopMenuScreen/Faq.svg';
+  static const String logOut = 'assets/images/TopMenuScreen/Logout.svg';
 }

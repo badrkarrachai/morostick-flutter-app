@@ -15,6 +15,7 @@ import 'package:morostick/features/auth/sign_up/ui/sign_up_screen.dart';
 import 'package:morostick/features/home/ui/home_screen.dart';
 import 'package:morostick/features/main_navigation/ui/main_navigation.dart';
 import 'package:morostick/features/onboarding/onboarding_screen.dart';
+import 'package:morostick/features/top_menu/ui/top_menu_screen.dart';
 
 // Route Types
 enum RouteType { public, auth, protected }
@@ -118,6 +119,11 @@ class AppRouter {
       type: RouteType.protected,
       builder: (args) =>
           const MainNavigation(), // Changed from HomeScreen to MainNavigation
+    ),
+    Routes.topMenuScreen: RouteConfig(
+      path: Routes.topMenuScreen,
+      type: RouteType.protected,
+      builder: (args) => const TopMenuScreen(),
     ),
   };
 

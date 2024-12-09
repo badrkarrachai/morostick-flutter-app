@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:morostick/core/services/auth_navigation_service.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:morostick/core/helpers/extensions.dart';
+import 'package:morostick/core/routing/routes.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/theming/colors.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
 
-  Future<void> _handleLogout(BuildContext context) async {
-    final authService = context.read<AuthNavigationService>();
-    final success = await authService.logout();
-
-    if (success) {
-      if (context.mounted) {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-          '/login',
-          (route) => false,
-        );
-      }
-    }
+  Future<void> _handleMenuTap(BuildContext context) async {
+    Navigator.of(context, rootNavigator: true)
+        .context
+        .pushNamed(Routes.topMenuScreen);
   }
 
   @override
@@ -33,11 +26,11 @@ class HomeAppBar extends StatelessWidget {
         ),
         IconButton(
           icon: Icon(
-            Icons.logout,
+            HugeIcons.strokeRoundedMenu01,
             size: 24.sp,
             color: ColorsManager.darkPurple,
           ),
-          onPressed: () => _handleLogout(context),
+          onPressed: () => _handleMenuTap(context),
         ),
       ],
     );
