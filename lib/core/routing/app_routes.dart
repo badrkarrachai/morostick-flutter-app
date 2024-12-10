@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:morostick/core/di/dependency_injection.dart';
 import 'package:morostick/core/routing/routes.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
+import 'package:morostick/features/auth/forget_password/new_password/logic/new_password_cubit.dart';
+import 'package:morostick/features/auth/forget_password/new_password/ui/new_password_screen.dart';
+import 'package:morostick/features/auth/forget_password/send_code/ui/send_code_screen.dart';
 import 'package:morostick/features/auth/web_view/logic/web_view_cubit.dart';
 import 'package:morostick/features/auth/web_view/ui/web_view_screen.dart';
 import 'package:morostick/features/auth/forget_password/send_code/logic/send_code_cubit.dart';
@@ -85,6 +88,14 @@ class AppRouter {
         child: const SignupScreen(),
       ),
     ),
+    Routes.forgetPasswordScreen: RouteConfig(
+      path: Routes.forgetPasswordScreen,
+      type: RouteType.auth,
+      builder: (args) => BlocProvider(
+        create: (context) => getIt<SendCodeCubit>(),
+        child: const SendCodeScreen(),
+      ),
+    ),
     Routes.verifyCodeScreen: RouteConfig(
       path: Routes.verifyCodeScreen,
       type: RouteType.auth,
@@ -112,13 +123,27 @@ class AppRouter {
         child: const VerifyCodeScreen(),
       ),
     ),
+    Routes.newPasswordScreen: RouteConfig(
+      path: Routes.newPasswordScreen,
+      type: RouteType.auth,
+      builder: (args) => BlocProvider(
+        create: (context) {
+          final cubit = getIt<NewPasswordCubit>();
+          if (args is Map<String, dynamic>) {
+            cubit.email = args['email'] as String;
+            cubit.code = args['code'] as String;
+          }
+          return cubit;
+        },
+        child: const NewPasswordScreen(),
+      ),
+    ),
 
     // Protected Routes
     Routes.homeScreen: RouteConfig(
       path: Routes.homeScreen,
       type: RouteType.protected,
-      builder: (args) =>
-          const MainNavigation(), // Changed from HomeScreen to MainNavigation
+      builder: (args) => const MainNavigation(),
     ),
     Routes.topMenuScreen: RouteConfig(
       path: Routes.topMenuScreen,

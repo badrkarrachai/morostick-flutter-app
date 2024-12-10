@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/widgets/app_text_form_field.dart';
+import 'package:morostick/features/main_navigation/ui/main_navigation.dart';
 
 class HomeSearchBar extends StatelessWidget {
   final TextEditingController controller;
@@ -22,10 +23,15 @@ class HomeSearchBar extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: AppTextFormField(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
+        height: 45,
         controller: controller,
         hintText: 'Search',
         validator: _validateSearch,
         hintStyle: TextStyles.font14HintTextRegular,
+        isEnabled: false,
+        onTap: () {
+          MainNavigation.controller.jumpToTab(1);
+        },
         prefixIcon: Icon(
           Icons.search,
           size: 22.sp,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:morostick/core/widgets/app_cached_network_image.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
@@ -95,18 +95,8 @@ class TrendingPackCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(16.r),
             ),
             padding: EdgeInsets.all(10.w),
-            child: CachedNetworkImage(
+            child: AppCachedImageExtensions.thumbnail(
               imageUrl: pack.imageUrl,
-              fit: BoxFit.contain,
-              placeholder: (context, url) => Container(
-                color: ColorsManager.grayInputBackground,
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: ColorsManager.mainPurple,
-                  ),
-                ),
-              ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
           verticalSpace(8),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:morostick/core/widgets/app_cached_network_image.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 
@@ -141,18 +141,8 @@ class CategoryItem extends StatelessWidget {
                 color: category.backgroundColor,
               ),
               padding: EdgeInsets.all(8.w),
-              child: CachedNetworkImage(
+              child: AppCachedImageExtensions.thumbnail(
                 imageUrl: category.imageUrl,
-                fit: BoxFit.contain,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
-                ),
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
-                  color: Colors.white,
-                ),
               ),
             ),
           ],

@@ -69,15 +69,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               SliverPersistentHeader(
                 pinned: true,
                 delegate: _SliverAppBarDelegate(
-                  minHeight: 114,
-                  maxHeight: 114,
+                  minHeight: 104,
+                  maxHeight: 104,
                   child: Container(
                     color: Colors.white,
                     child: Column(
                       children: [
-                        verticalSpace(8),
+                        verticalSpace(5),
                         HomeSearchBar(controller: _searchController),
-                        verticalSpace(8),
+                        verticalSpace(5),
                         HomeCategoriesTab(
                           tabController: _tabController,
                           categories: _categories,

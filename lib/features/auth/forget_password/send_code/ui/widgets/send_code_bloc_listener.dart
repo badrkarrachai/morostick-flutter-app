@@ -29,7 +29,7 @@ class SendCodeBlocListener extends StatelessWidget {
           },
           success: (forgetPasswordSendCodeResponse) {
             context.pop();
-            context.pushNamed(Routes.verifyCodeScreen,
+            context.pushReplacementNamed(Routes.verifyCodeScreen,
                 arguments: context.read<SendCodeCubit>().emailController.text);
           },
           error: (error) {

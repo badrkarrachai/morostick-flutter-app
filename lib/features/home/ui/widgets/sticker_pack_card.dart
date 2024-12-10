@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:morostick/core/widgets/app_cached_network_image.dart';
 import 'package:morostick/core/helpers/spacing.dart';
-import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/features/home/ui/widgets/recommended_packs_carousel.dart';
@@ -33,20 +32,10 @@ class StickerPackCard extends StatelessWidget {
             children: [
               Flexible(
                 flex: 1,
-                child: CachedNetworkImage(
+                child: AppCachedImageExtensions.thumbnail(
                   width: 110.w,
                   height: 110.h,
                   imageUrl: stickerPack.imageUrl,
-                  fit: BoxFit.contain,
-                  placeholder: (context, url) => Container(
-                    color: ColorsManager.mainPurple.withOpacity(0.1),
-                    child: const Center(
-                      child: CircularProgressIndicator(
-                        color: ColorsManager.mainPurple,
-                      ),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
               horizontalSpace(20),

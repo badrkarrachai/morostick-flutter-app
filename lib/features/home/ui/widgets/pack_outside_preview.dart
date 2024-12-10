@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:morostick/core/widgets/app_cached_network_image.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/images.dart';
@@ -44,27 +44,10 @@ class PackOutsidePreview extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      width: 31.w,
-                      height: 31.w,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(52.r),
-                        child: CachedNetworkImage(
-                          imageUrl: userImageUrl ??
-                              'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/Badr2.jpg',
-                          fit: BoxFit.contain,
-                          placeholder: (context, url) => Container(
-                            color: ColorsManager.grayInputBackground,
-                            child: const Center(
-                              child: CircularProgressIndicator(
-                                color: ColorsManager.mainPurple,
-                              ),
-                            ),
-                          ),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                        ),
-                      ),
+                    AppCachedImageExtensions.avatar(
+                      size: 31.w,
+                      imageUrl: userImageUrl ??
+                          'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/Badr2.jpg',
                     ),
                     horizontalSpace(8),
                     Column(
@@ -175,18 +158,8 @@ class StickerPreview extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
       ),
-      child: CachedNetworkImage(
+      child: AppCachedImageExtensions.thumbnail(
         imageUrl: imageUrl,
-        fit: BoxFit.contain,
-        placeholder: (context, url) => Container(
-          color: ColorsManager.grayInputBackground,
-          child: const Center(
-            child: CircularProgressIndicator(
-              color: ColorsManager.mainPurple,
-            ),
-          ),
-        ),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
     );
   }

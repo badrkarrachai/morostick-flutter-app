@@ -8,4 +8,5 @@ class Routes {
   static const String newPasswordScreen = '/newPassword';
   static const String webviewScreen = '/webviewScreen';
   static const String topMenuScreen = '/topMenuScreen';
+  static const String searchScreen = '/searchScreen';
 }
