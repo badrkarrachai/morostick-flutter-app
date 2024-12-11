@@ -98,7 +98,7 @@ class AppCachedNetworkImage extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: imageProvider,
-            fit: fit ?? BoxFit.cover,
+            fit: fit ?? BoxFit.contain,
             alignment: alignment ?? Alignment.center,
             repeat: repeat ?? ImageRepeat.noRepeat,
             scale: scale ?? 1.0,

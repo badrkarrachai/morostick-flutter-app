@@ -13,13 +13,14 @@ class SearchBarWidget extends StatelessWidget {
   });
 
   String? _validateSearch(String? value) {
-    return null; // Add validation if needed
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
     return AppTextFormField(
-      contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
+      height: 44.h,
+      contentPadding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 0.h),
       controller: controller,
       hintText: 'Search',
       validator: _validateSearch,
@@ -28,6 +29,32 @@ class SearchBarWidget extends StatelessWidget {
         Icons.search,
         size: 22.sp,
         color: ColorsManager.grayPurple,
+      ),
+      suffixIcon: ValueListenableBuilder<TextEditingValue>(
+        valueListenable: controller,
+        builder: (context, value, child) {
+          return AnimatedOpacity(
+            opacity: value.text.isNotEmpty ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 200),
+            child: Padding(
+              padding: EdgeInsets.all(12.w),
+              child: GestureDetector(
+                onTap: value.text.isNotEmpty ? () => controller.clear() : null,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: ColorsManager.inputClearIconGray,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.clear,
+                    size: 12.sp,
+                    color: ColorsManager.white,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

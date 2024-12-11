@@ -31,7 +31,7 @@ class PackOutsidePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 35.h),
+      padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 32.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

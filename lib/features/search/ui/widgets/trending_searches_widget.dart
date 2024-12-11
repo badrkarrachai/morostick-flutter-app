@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:morostick/core/widgets/app_cached_network_image.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
-import 'package:morostick/features/search/ui/search_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:morostick/features/search/ui/widgets/tabs/search_default_screen.dart';
 
 class TrendingSearchesWidget extends StatelessWidget {
   final List<TrendingItem> items;
@@ -26,9 +27,9 @@ class TrendingSearchesWidget extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            mainAxisSpacing: 16.h,
+            mainAxisSpacing: 10.h,
             crossAxisSpacing: 16.w,
-            childAspectRatio: 2.5,
+            childAspectRatio: 3.5,
           ),
           itemCount: items.length,
           itemBuilder: (context, index) =>
@@ -50,7 +51,7 @@ class TrendingItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8.w),
+      padding: EdgeInsets.all(5.w),
       decoration: BoxDecoration(
         color: ColorsManager.grayInputBackground,
         borderRadius: BorderRadius.circular(12.r),
@@ -63,21 +64,23 @@ class TrendingItemWidget extends StatelessWidget {
             height: 40.w,
             borderRadius: BorderRadius.circular(8.r),
           ),
-          horizontalSpace(8),
+          horizontalSpace(5),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  item.title,
-                  style: TextStyles.font14DarkPurpleMedium,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                Expanded(
+                  child: Text(
+                    item.title,
+                    style: TextStyles.font14DarkPurpleMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 if (item.isRising)
                   Icon(
-                    Icons.trending_up,
+                    HugeIcons.strokeRoundedArrowUpRight01,
                     color: ColorsManager.mainPurple,
                     size: 16.w,
                   ),

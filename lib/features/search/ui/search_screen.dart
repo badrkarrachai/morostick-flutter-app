@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
-import 'package:morostick/features/search/ui/widgets/recent_searches_widget.dart';
+import 'package:morostick/features/search/ui/widgets/category_content.dart';
 import 'package:morostick/features/search/ui/widgets/search_bar_widget.dart';
-import 'package:morostick/features/search/ui/widgets/trending_searches_widget.dart';
+import 'package:morostick/features/search/ui/widgets/search_categories_tab.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -13,91 +13,31 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends State<SearchScreen>
+    with TickerProviderStateMixin {
   final TextEditingController _searchController = TextEditingController();
-  final List<String> recentSearches = ['heart'];
-  final List<TrendingItem> trendingItems = [
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
-    TrendingItem(
-      'beşiktaş',
-      "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/TestStickrs%20(4).png",
-      false,
-    ),
+
+  late TabController _tabController;
+  final List<String> _categories = [
+    'Packs',
+    'Stickers',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+      length: _categories.length,
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,34 +48,44 @@ class _SearchScreenState extends State<SearchScreen> {
           children: [
             // Fixed Search Bar
             Padding(
-              padding: EdgeInsets.all(16.w),
-              child: SearchBarWidget(controller: _searchController),
+              padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 13.h),
+              child: Column(
+                children: [
+                  SearchBarWidget(controller: _searchController),
+                  verticalSpace(5),
+                  if (true)
+                    SearchCategoriesTab(
+                      tabController: _tabController,
+                      categories: _categories,
+                    ),
+                ],
+              ),
             ),
 
             // Scrollable Content
             Expanded(
-              child: CustomScrollView(
-                slivers: [
-                  SliverPadding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    sliver: SliverToBoxAdapter(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          RecentSearchesWidget(
-                            searches: recentSearches,
-                            onClearAll: () =>
-                                setState(() => recentSearches.clear()),
-                            onRemoveSearch: (search) =>
-                                setState(() => recentSearches.remove(search)),
+              child: TabBarView(
+                controller: _tabController,
+                children: _categories.map((category) {
+                  return LayoutBuilder(
+                    builder: (context, constraints) {
+                      return SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: constraints.maxHeight,
                           ),
-                          verticalSpace(24),
-                          TrendingSearchesWidget(items: trendingItems),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SearchCategoryContent(categoryName: category),
+                              verticalSpace(24),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
               ),
             ),
           ],
@@ -143,18 +93,4 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-}
-
-class TrendingItem {
-  final String title;
-  final String imageUrl;
-  final bool isRising;
-
-  TrendingItem(this.title, this.imageUrl, this.isRising);
 }
