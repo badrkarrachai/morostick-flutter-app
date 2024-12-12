@@ -19,6 +19,7 @@ class ColorsManager {
   static const Color darkGray = Color(0xFF757575); // Gray button border
   static const Color grayButtonBorder = Color(0xFFD8DADC);
   static const Color whatsappGreen = Color(0xFF4AC858);
+  static const Color normalRed = Color(0XFFF44336);
 
   // Colors for Sticker Pack Card
   static const Color royalPurple = Color(0xFF7E57C2); // Rich purple

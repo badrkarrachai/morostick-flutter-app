@@ -16,6 +16,7 @@ class PackOutsidePreview extends StatelessWidget {
   final String timeAgo;
   final List<String> stickerPreviews;
   final VoidCallback onAddPressed;
+  final Widget? actionButton;
 
   const PackOutsidePreview({
     super.key,
@@ -26,6 +27,7 @@ class PackOutsidePreview extends StatelessWidget {
     required this.timeAgo,
     required this.stickerPreviews,
     required this.onAddPressed,
+    this.actionButton,
   });
 
   @override
@@ -53,7 +55,7 @@ class PackOutsidePreview extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Title with red dot
+                        // Title
                         Row(
                           children: [
                             Text(
@@ -92,34 +94,35 @@ class PackOutsidePreview extends StatelessWidget {
                 ),
               ),
               // Add Button
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                  vertical: 8.h,
-                ),
-                decoration: BoxDecoration(
-                  color: ColorsManager.whatsappGreen
-                      .withOpacity(0.2), // WhatsApp green color
-                  borderRadius: BorderRadius.circular(24.r),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SvgPicture.asset(
-                      Images.whatsappLogo,
-                      width: 15.w,
-                      height: 15.w,
+              actionButton ??
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 8.h,
                     ),
-                    SizedBox(width: 4.w),
-                    Text(
-                      'Add',
-                      style: TextStyles.font13DarkPurpleSemiBold.copyWith(
-                        color: ColorsManager.darkPurple,
-                      ),
+                    decoration: BoxDecoration(
+                      color: ColorsManager.whatsappGreen
+                          .withOpacity(0.2), // WhatsApp green color
+                      borderRadius: BorderRadius.circular(24.r),
                     ),
-                  ],
-                ),
-              ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                          Images.whatsappLogo,
+                          width: 15.w,
+                          height: 15.w,
+                        ),
+                        SizedBox(width: 4.w),
+                        Text(
+                          'Add',
+                          style: TextStyles.font13DarkPurpleSemiBold.copyWith(
+                            color: ColorsManager.darkPurple,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
             ],
           ),
           // Stickers Preview

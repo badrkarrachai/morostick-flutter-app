@@ -4,7 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/images.dart';
 import 'package:morostick/core/theming/text_styles.dart';
+import 'package:morostick/features/favorites/ui/favorites_screen.dart';
 import 'package:morostick/features/home/ui/home_screen.dart';
+import 'package:morostick/features/profile/ui/profile_screen.dart';
 import 'package:morostick/features/search/ui/search_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
@@ -29,8 +31,8 @@ class _MainNavigationState extends State<MainNavigation> {
     return [
       const HomeScreen(),
       const SearchScreen(),
-      const Center(child: Text('Favorites')),
-      const Center(child: Text('Profile')),
+      const FavoritesScreen(),
+      const ProfileScreen(),
     ];
   }
 

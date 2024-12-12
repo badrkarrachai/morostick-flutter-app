@@ -4,12 +4,11 @@ import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/theming/colors.dart';
 
-class SearchCategoriesTab extends StatelessWidget {
+class FavoritesCategoriesTab extends StatelessWidget {
   final TabController tabController;
-
   final List<Map<String, dynamic>> categories;
 
-  const SearchCategoriesTab({
+  const FavoritesCategoriesTab({
     super.key,
     required this.tabController,
     required this.categories,

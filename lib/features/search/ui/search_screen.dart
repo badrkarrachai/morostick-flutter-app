@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/features/search/ui/widgets/category_content.dart';
@@ -18,9 +19,15 @@ class _SearchScreenState extends State<SearchScreen>
   final TextEditingController _searchController = TextEditingController();
 
   late TabController _tabController;
-  final List<String> _categories = [
-    'Packs',
-    'Stickers',
+  final List<Map<String, dynamic>> _categories = [
+    {
+      'title': 'Packs',
+      'icon': HugeIcons.strokeRoundedBlockchain01,
+    },
+    {
+      'title': 'Stickers',
+      'icon': HugeIcons.strokeRoundedLaughing,
+    },
   ];
 
   @override
@@ -77,7 +84,8 @@ class _SearchScreenState extends State<SearchScreen>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              SearchCategoryContent(categoryName: category),
+                              SearchCategoryContent(
+                                  categoryName: category['title']),
                               verticalSpace(24),
                             ],
                           ),

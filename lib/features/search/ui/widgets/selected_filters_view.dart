@@ -230,7 +230,7 @@ class SelectedFiltersView extends StatelessWidget {
         icon = Icons.search_rounded;
         break;
       case 'stickerType':
-        icon = Icons.play_arrow_rounded;
+        icon = Icons.motion_photos_on_rounded;
         break;
       default:
         icon = Icons.filter_alt_rounded;
