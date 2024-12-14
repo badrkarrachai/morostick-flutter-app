@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:morostick/core/di/dependency_injection.dart';
 import 'package:morostick/core/helpers/spacing.dart';
+import 'package:morostick/features/home/logic/for_you_tab_cubit.dart';
 import 'package:morostick/features/home/ui/widgets/category_content.dart';
 import 'package:morostick/features/home/ui/widgets/home_app_bar.dart';
 import 'package:morostick/features/home/ui/widgets/home_categories_tab.dart';
@@ -89,11 +92,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
             ];
           },
-          body: TabBarView(
-            controller: _tabController,
-            children: _categories.map((category) {
-              return CategoryContent(categoryName: category);
-            }).toList(),
+          body: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) {
+                  final cubit = getIt<ForYouCubit>();
+                  return cubit;
+                },
+              ),
+            ],
+            child: TabBarView(
+              controller: _tabController,
+              children: _categories.map((category) {
+                return CategoryContent(categoryName: category);
+              }).toList(),
+            ),
           ),
         ),
       ),

@@ -1,0 +1,1886 @@
+{
+  "status": 200,
+  "success": true,
+  "message": "For You content retrieved successfully",
+  "data": {
+    "recommended": [
+      {
+        "_id": "675b7fd84a0de0a951cc67e9",
+        "name": "bus",
+        "description": "You can't bypass the port without synthesizing the cross-platform XML port!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675c305f80451253e4f210d6",
+            "name": "index optimal index",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/35eb4d4f-1258-4d18-a320-188e121da004.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/35eb4d4f-1258-4d18-a320-188e121da004.webp",
+            "fileSize": 17896,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T13:02:23.004Z",
+            "updatedAt": "2024-12-13T13:02:23.100Z"
+          },
+          {
+            "_id": "675c306680451253e4f210e1",
+            "name": "override overriding Soft",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/ff369f2f-37cb-4853-aad0-06d5f2085f2d.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/ff369f2f-37cb-4853-aad0-06d5f2085f2d.webp",
+            "fileSize": 22272,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T13:02:30.831Z",
+            "updatedAt": "2024-12-13T13:02:30.950Z"
+          },
+          {
+            "_id": "675c307280451253e4f210ec",
+            "name": "Indiana Swaziland",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/a419c286-d47b-409f-9db8-77539478e1e5.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/a419c286-d47b-409f-9db8-77539478e1e5.webp",
+            "fileSize": 21748,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T13:02:42.319Z",
+            "updatedAt": "2024-12-13T13:02:42.421Z"
+          }
+        ],
+        "totalStickers": 3,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b7fdb4a0de0a951cc67f9",
+        "name": "alarm",
+        "description": "Use the 1080p SQL sensor, then you can override the virtual system!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675c308780451253e4f210f7",
+            "name": "Concrete Avenue Metical",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/5b581077-f924-465e-9695-57aead247dac.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/5b581077-f924-465e-9695-57aead247dac.webp",
+            "fileSize": 21656,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T13:03:03.330Z",
+            "updatedAt": "2024-12-13T13:03:03.431Z"
+          },
+          {
+            "_id": "675c308d80451253e4f21102",
+            "name": "Cook Bacon Wooden",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/ff0086fb-30e1-4f8e-9ac8-345bf491687c.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/ff0086fb-30e1-4f8e-9ac8-345bf491687c.webp",
+            "fileSize": 25008,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T13:03:09.809Z",
+            "updatedAt": "2024-12-13T13:03:09.919Z"
+          },
+          {
+            "_id": "675c309480451253e4f2110d",
+            "name": "redundant Ball Florida Gloves Savings",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/b2444295-cc03-4295-b0a5-418afe9b6be0.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/b2444295-cc03-4295-b0a5-418afe9b6be0.webp",
+            "fileSize": 25678,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T13:03:16.909Z",
+            "updatedAt": "2024-12-13T13:03:16.998Z"
+          },
+          {
+            "_id": "675c309b80451253e4f21118",
+            "name": "bottom-line application utilisation Plastic architectures",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/f01036c3-6d82-407e-94c4-97554db30c74.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/f01036c3-6d82-407e-94c4-97554db30c74.webp",
+            "fileSize": 24266,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 3,
+            "createdAt": "2024-12-13T13:03:23.619Z",
+            "updatedAt": "2024-12-13T13:03:23.728Z"
+          },
+          {
+            "_id": "675c30a280451253e4f21123",
+            "name": "Beauty seamless implement synergize Legacy",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/853b04a7-81b7-4529-bb06-9feea2ba1038.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/853b04a7-81b7-4529-bb06-9feea2ba1038.webp",
+            "fileSize": 27370,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 4,
+            "createdAt": "2024-12-13T13:03:30.549Z",
+            "updatedAt": "2024-12-13T13:03:30.649Z"
+          }
+        ],
+        "totalStickers": 5,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b7fcd4a0de0a951cc67d1",
+        "name": "circuit",
+        "description": "I'll parse the online HDD pixel, that should bandwidth the IB feed!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675c30c880451253e4f2112e",
+            "name": "24/7 Rustic Computer Garden Music",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/2305a81c-e346-4a4d-8bb8-be4ee814e23f.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/2305a81c-e346-4a4d-8bb8-be4ee814e23f.webp",
+            "fileSize": 40638,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T13:04:08.990Z",
+            "updatedAt": "2024-12-13T13:04:09.098Z"
+          },
+          {
+            "_id": "675c30ee80451253e4f21139",
+            "name": "granular Representative port",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/52214d95-41da-433a-a9d0-14c97ff0476b.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/52214d95-41da-433a-a9d0-14c97ff0476b.webp",
+            "fileSize": 49596,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T13:04:46.208Z",
+            "updatedAt": "2024-12-13T13:04:46.317Z"
+          },
+          {
+            "_id": "675c30f580451253e4f21144",
+            "name": "B2C flexibility",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/9699ee68-bea5-40b1-ac4d-d21537c5b9c8.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/9699ee68-bea5-40b1-ac4d-d21537c5b9c8.webp",
+            "fileSize": 24344,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T13:04:53.657Z",
+            "updatedAt": "2024-12-13T13:04:53.757Z"
+          }
+        ],
+        "totalStickers": 3,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b7fa54a0de0a951cc67c9",
+        "name": "interface",
+        "description": "Use the cross-platform TCP system, then you can copy the back-end driver!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675c310480451253e4f2114f",
+            "name": "Baby Infrastructure",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/60baf1a6-b82c-402f-a613-becd956b726f.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/60baf1a6-b82c-402f-a613-becd956b726f.webp",
+            "fileSize": 35240,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T13:05:08.964Z",
+            "updatedAt": "2024-12-13T13:05:09.067Z"
+          },
+          {
+            "_id": "675c310b80451253e4f2115a",
+            "name": "object-oriented Market",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/c0bd8859-5bec-4f2d-a6c7-c71fa3496d15.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/c0bd8859-5bec-4f2d-a6c7-c71fa3496d15.webp",
+            "fileSize": 34606,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T13:05:15.648Z",
+            "updatedAt": "2024-12-13T13:05:15.757Z"
+          },
+          {
+            "_id": "675c311280451253e4f21165",
+            "name": "Orchestrator connect Account intranet quantify",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/8a567542-dab9-45d4-b4d7-d917fe1cba2b.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/8a567542-dab9-45d4-b4d7-d917fe1cba2b.webp",
+            "fileSize": 24932,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T13:05:22.997Z",
+            "updatedAt": "2024-12-13T13:05:23.109Z"
+          },
+          {
+            "_id": "675c311c80451253e4f21170",
+            "name": "virtual Multi-layered orange Buckinghamshire",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/5c6a2de6-e5c2-4fdd-9cab-1fac9c55757a.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/5c6a2de6-e5c2-4fdd-9cab-1fac9c55757a.webp",
+            "fileSize": 28198,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 3,
+            "createdAt": "2024-12-13T13:05:32.358Z",
+            "updatedAt": "2024-12-13T13:05:32.456Z"
+          },
+          {
+            "_id": "675c312380451253e4f2117b",
+            "name": "Via Future Market Concrete",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/fa851222-f2ea-4f1d-a34e-2d81a4c09f44.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/fa851222-f2ea-4f1d-a34e-2d81a4c09f44.webp",
+            "fileSize": 16270,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 4,
+            "createdAt": "2024-12-13T13:05:39.457Z",
+            "updatedAt": "2024-12-13T13:05:39.558Z"
+          }
+        ],
+        "totalStickers": 5,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b7fcf4a0de0a951cc67d9",
+        "name": "transmitter",
+        "description": "The RAM protocol is down, compress the virtual card so we can synthesize the HTTP alarm!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675c313580451253e4f21186",
+            "name": "array maroon Fuerte",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/809984c7-5add-44b0-a694-69b41a95375e.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/809984c7-5add-44b0-a694-69b41a95375e.webp",
+            "fileSize": 22684,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T13:05:57.377Z",
+            "updatedAt": "2024-12-13T13:05:57.487Z"
+          },
+          {
+            "_id": "675c313c80451253e4f21191",
+            "name": "optical deposit framework connecting",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/87a0a011-2551-4023-b5e7-61b2b62eef95.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/87a0a011-2551-4023-b5e7-61b2b62eef95.webp",
+            "fileSize": 22104,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T13:06:04.577Z",
+            "updatedAt": "2024-12-13T13:06:04.687Z"
+          },
+          {
+            "_id": "675c314480451253e4f2119c",
+            "name": "primary generating Concrete Metal deposit",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/8297eb4f-01e2-44f3-bc5f-471a736b4980.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/8297eb4f-01e2-44f3-bc5f-471a736b4980.webp",
+            "fileSize": 27158,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T13:06:12.038Z",
+            "updatedAt": "2024-12-13T13:06:12.146Z"
+          },
+          {
+            "_id": "675c314c80451253e4f211a7",
+            "name": "Cambridgeshire USB",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/3cbff83d-4e01-4ad2-b795-3bdf98238958.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/3cbff83d-4e01-4ad2-b795-3bdf98238958.webp",
+            "fileSize": 37768,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 3,
+            "createdAt": "2024-12-13T13:06:20.947Z",
+            "updatedAt": "2024-12-13T13:06:21.056Z"
+          },
+          {
+            "_id": "675c315680451253e4f211b2",
+            "name": "Frozen synergy Keyboard e-tailers",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/a882ffff-a84a-498c-ae73-0f386a15225d.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/a882ffff-a84a-498c-ae73-0f386a15225d.webp",
+            "fileSize": 24670,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 4,
+            "createdAt": "2024-12-13T13:06:30.796Z",
+            "updatedAt": "2024-12-13T13:06:30.926Z"
+          }
+        ],
+        "totalStickers": 6,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      }
+    ],
+    "trending": [
+      {
+        "_id": "675b805b4a0de0a951cc683b",
+        "name": "Louisiana purple Hills",
+        "description": "programming the circuit won't do anything, we need to parse the optical FTP application!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675b8507b873ba739a84ae2f",
+            "name": "Checking Sleek North",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/98582fe4-a990-4175-9672-b7318b2a2792.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/98582fe4-a990-4175-9672-b7318b2a2792.webp",
+            "fileSize": 38620,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T00:51:19.381Z",
+            "updatedAt": "2024-12-13T00:51:19.493Z"
+          },
+          {
+            "_id": "675b850fb873ba739a84ae3a",
+            "name": "Locks Gorgeous",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/7d199af5-1685-4724-9b17-1418d723777a.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/7d199af5-1685-4724-9b17-1418d723777a.webp",
+            "fileSize": 20142,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T00:51:27.603Z",
+            "updatedAt": "2024-12-13T00:51:27.759Z"
+          },
+          {
+            "_id": "675b851ab873ba739a84ae45",
+            "name": "Berkshire Concrete alliance",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/71c0815d-cc0a-41ff-88cc-13e3c8a63dc6.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/71c0815d-cc0a-41ff-88cc-13e3c8a63dc6.webp",
+            "fileSize": 20996,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T00:51:38.853Z",
+            "updatedAt": "2024-12-13T00:51:38.980Z"
+          },
+          {
+            "_id": "675b8526b873ba739a84ae50",
+            "name": "Rhode Response Generic connect",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/f5e6f2a3-9054-46cc-9aa6-95feb74a77a2.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/f5e6f2a3-9054-46cc-9aa6-95feb74a77a2.webp",
+            "fileSize": 17822,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 3,
+            "createdAt": "2024-12-13T00:51:50.712Z",
+            "updatedAt": "2024-12-13T00:51:50.841Z"
+          },
+          {
+            "_id": "675b852fb873ba739a84ae5b",
+            "name": "Unbranded Liaison Innovative Buckinghamshire",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/207af922-f33e-4505-acfb-ee3595a460a4.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/207af922-f33e-4505-acfb-ee3595a460a4.webp",
+            "fileSize": 25686,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 4,
+            "createdAt": "2024-12-13T00:51:59.616Z",
+            "updatedAt": "2024-12-13T00:51:59.741Z"
+          }
+        ],
+        "totalStickers": 5,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b80514a0de0a951cc6833",
+        "name": "IB digital",
+        "description": "backing up the circuit won't do anything, we need to reboot the 1080p HDD circuit!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675c317e80451253e4f211c8",
+            "name": "Villages Response SSL Turnpike",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/710d1d0b-3709-463e-acff-1cde6aa16759.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/710d1d0b-3709-463e-acff-1cde6aa16759.webp",
+            "fileSize": 31688,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T13:07:10.086Z",
+            "updatedAt": "2024-12-13T13:07:10.195Z"
+          },
+          {
+            "_id": "675c318480451253e4f211d3",
+            "name": "Account Mount Wooden Dynamic",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/b696e485-fcf1-4990-a715-5798d786a425.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/b696e485-fcf1-4990-a715-5798d786a425.webp",
+            "fileSize": 21110,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T13:07:16.738Z",
+            "updatedAt": "2024-12-13T13:07:16.845Z"
+          },
+          {
+            "_id": "675c318b80451253e4f211de",
+            "name": "Market Dynamic India",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/f65a50e3-d31f-4ac9-b57d-4f0c65361495.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/f65a50e3-d31f-4ac9-b57d-4f0c65361495.webp",
+            "fileSize": 18544,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T13:07:23.516Z",
+            "updatedAt": "2024-12-13T13:07:23.626Z"
+          },
+          {
+            "_id": "675c319180451253e4f211e9",
+            "name": "Naira maximize Credit",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/d5323f54-93ed-483c-9e45-fb6ab5f4bf3d.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/d5323f54-93ed-483c-9e45-fb6ab5f4bf3d.webp",
+            "fileSize": 31228,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 3,
+            "createdAt": "2024-12-13T13:07:29.688Z",
+            "updatedAt": "2024-12-13T13:07:29.795Z"
+          },
+          {
+            "_id": "675c319c80451253e4f211f4",
+            "name": "Buckinghamshire Associate Plastic North",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/c062b9f2-0dad-4803-bdb3-a6b6b5bfe36e.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/c062b9f2-0dad-4803-bdb3-a6b6b5bfe36e.webp",
+            "fileSize": 32384,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 4,
+            "createdAt": "2024-12-13T13:07:40.046Z",
+            "updatedAt": "2024-12-13T13:07:40.146Z"
+          }
+        ],
+        "totalStickers": 5,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b80484a0de0a951cc6825",
+        "name": "bypass deposit",
+        "description": "Try to hack the RSS driver, maybe it will transmit the optical panel!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675b8559b873ba739a84ae68",
+            "name": "Frozen solid Kids",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/271ea68e-6789-44c4-b483-962e5e3162cd.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/271ea68e-6789-44c4-b483-962e5e3162cd.webp",
+            "fileSize": 27858,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T00:52:41.882Z",
+            "updatedAt": "2024-12-13T00:52:41.991Z"
+          },
+          {
+            "_id": "675b8561b873ba739a84ae73",
+            "name": "Cotton Nevada Borders optical Brand",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/d5a7b2dc-b789-4efd-80a7-d517f2fcf149.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/d5a7b2dc-b789-4efd-80a7-d517f2fcf149.webp",
+            "fileSize": 31838,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T00:52:49.197Z",
+            "updatedAt": "2024-12-13T00:52:49.351Z"
+          },
+          {
+            "_id": "675b8569b873ba739a84ae7e",
+            "name": "index Forward",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/77a2e115-b3e4-436e-b8d3-a46e19bdfd5c.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/77a2e115-b3e4-436e-b8d3-a46e19bdfd5c.webp",
+            "fileSize": 21802,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T00:52:57.849Z",
+            "updatedAt": "2024-12-13T00:52:57.974Z"
+          },
+          {
+            "_id": "675b8573b873ba739a84ae89",
+            "name": "invoice Ohio Colorado Functionality Pound",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/e6a8d56b-6d53-4c5f-832a-689bfe516ebb.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/e6a8d56b-6d53-4c5f-832a-689bfe516ebb.webp",
+            "fileSize": 22414,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 3,
+            "createdAt": "2024-12-13T00:53:07.260Z",
+            "updatedAt": "2024-12-13T00:53:07.385Z"
+          },
+          {
+            "_id": "675b857bb873ba739a84ae94",
+            "name": "generating payment SCSI",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/5b7ef70d-806f-4549-b300-ef2401bf9a07.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/5b7ef70d-806f-4549-b300-ef2401bf9a07.webp",
+            "fileSize": 21028,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 4,
+            "createdAt": "2024-12-13T00:53:15.903Z",
+            "updatedAt": "2024-12-13T00:53:16.013Z"
+          }
+        ],
+        "totalStickers": 5,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b80424a0de0a951cc681a",
+        "name": "grid-enabled firewall",
+        "description": "I'll connect the 1080p SMS bus, that should matrix the SDD driver!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [],
+        "totalStickers": 0,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b7fdd4a0de0a951cc6801",
+        "name": "interface",
+        "description": "We need to synthesize the digital FTP alarm!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675b85a5b873ba739a84aea1",
+            "name": "Ohio monetize program Fantastic Grass-roots",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/76324aaa-c5de-454f-845e-474105e41f75.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/76324aaa-c5de-454f-845e-474105e41f75.webp",
+            "fileSize": 67614,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T00:53:57.005Z",
+            "updatedAt": "2024-12-13T00:53:57.119Z"
+          },
+          {
+            "_id": "675b85acb873ba739a84aeac",
+            "name": "SDR Solutions tan",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/658b5303-e831-4e03-ac95-e9018c7c67f9.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/658b5303-e831-4e03-ac95-e9018c7c67f9.webp",
+            "fileSize": 10878,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T00:54:04.132Z",
+            "updatedAt": "2024-12-13T00:54:04.291Z"
+          },
+          {
+            "_id": "675b85b4b873ba739a84aeb7",
+            "name": "Jewelery Integration Polarised Internal Quality",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/49b7d827-855a-4f07-833f-4f665ffbd9f8.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/49b7d827-855a-4f07-833f-4f665ffbd9f8.webp",
+            "fileSize": 13718,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T00:54:12.043Z",
+            "updatedAt": "2024-12-13T00:54:12.179Z"
+          }
+        ],
+        "totalStickers": 3,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b7fdb4a0de0a951cc67f9",
+        "name": "alarm",
+        "description": "Use the 1080p SQL sensor, then you can override the virtual system!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675c308780451253e4f210f7",
+            "name": "Concrete Avenue Metical",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/5b581077-f924-465e-9695-57aead247dac.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/5b581077-f924-465e-9695-57aead247dac.webp",
+            "fileSize": 21656,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T13:03:03.330Z",
+            "updatedAt": "2024-12-13T13:03:03.431Z"
+          },
+          {
+            "_id": "675c308d80451253e4f21102",
+            "name": "Cook Bacon Wooden",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/ff0086fb-30e1-4f8e-9ac8-345bf491687c.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/ff0086fb-30e1-4f8e-9ac8-345bf491687c.webp",
+            "fileSize": 25008,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T13:03:09.809Z",
+            "updatedAt": "2024-12-13T13:03:09.919Z"
+          },
+          {
+            "_id": "675c309480451253e4f2110d",
+            "name": "redundant Ball Florida Gloves Savings",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/b2444295-cc03-4295-b0a5-418afe9b6be0.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/b2444295-cc03-4295-b0a5-418afe9b6be0.webp",
+            "fileSize": 25678,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T13:03:16.909Z",
+            "updatedAt": "2024-12-13T13:03:16.998Z"
+          },
+          {
+            "_id": "675c309b80451253e4f21118",
+            "name": "bottom-line application utilisation Plastic architectures",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/f01036c3-6d82-407e-94c4-97554db30c74.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/f01036c3-6d82-407e-94c4-97554db30c74.webp",
+            "fileSize": 24266,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 3,
+            "createdAt": "2024-12-13T13:03:23.619Z",
+            "updatedAt": "2024-12-13T13:03:23.728Z"
+          },
+          {
+            "_id": "675c30a280451253e4f21123",
+            "name": "Beauty seamless implement synergize Legacy",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/853b04a7-81b7-4529-bb06-9feea2ba1038.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/853b04a7-81b7-4529-bb06-9feea2ba1038.webp",
+            "fileSize": 27370,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 4,
+            "createdAt": "2024-12-13T13:03:30.549Z",
+            "updatedAt": "2024-12-13T13:03:30.649Z"
+          }
+        ],
+        "totalStickers": 5,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b7fd84a0de0a951cc67e9",
+        "name": "bus",
+        "description": "You can't bypass the port without synthesizing the cross-platform XML port!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675c305f80451253e4f210d6",
+            "name": "index optimal index",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/35eb4d4f-1258-4d18-a320-188e121da004.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/35eb4d4f-1258-4d18-a320-188e121da004.webp",
+            "fileSize": 17896,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T13:02:23.004Z",
+            "updatedAt": "2024-12-13T13:02:23.100Z"
+          },
+          {
+            "_id": "675c306680451253e4f210e1",
+            "name": "override overriding Soft",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/ff369f2f-37cb-4853-aad0-06d5f2085f2d.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/ff369f2f-37cb-4853-aad0-06d5f2085f2d.webp",
+            "fileSize": 22272,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T13:02:30.831Z",
+            "updatedAt": "2024-12-13T13:02:30.950Z"
+          },
+          {
+            "_id": "675c307280451253e4f210ec",
+            "name": "Indiana Swaziland",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/a419c286-d47b-409f-9db8-77539478e1e5.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/a419c286-d47b-409f-9db8-77539478e1e5.webp",
+            "fileSize": 21748,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T13:02:42.319Z",
+            "updatedAt": "2024-12-13T13:02:42.421Z"
+          }
+        ],
+        "totalStickers": 3,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b7fcf4a0de0a951cc67d9",
+        "name": "transmitter",
+        "description": "The RAM protocol is down, compress the virtual card so we can synthesize the HTTP alarm!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675c313580451253e4f21186",
+            "name": "array maroon Fuerte",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/809984c7-5add-44b0-a694-69b41a95375e.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/809984c7-5add-44b0-a694-69b41a95375e.webp",
+            "fileSize": 22684,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T13:05:57.377Z",
+            "updatedAt": "2024-12-13T13:05:57.487Z"
+          },
+          {
+            "_id": "675c313c80451253e4f21191",
+            "name": "optical deposit framework connecting",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/87a0a011-2551-4023-b5e7-61b2b62eef95.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/87a0a011-2551-4023-b5e7-61b2b62eef95.webp",
+            "fileSize": 22104,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T13:06:04.577Z",
+            "updatedAt": "2024-12-13T13:06:04.687Z"
+          },
+          {
+            "_id": "675c314480451253e4f2119c",
+            "name": "primary generating Concrete Metal deposit",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/8297eb4f-01e2-44f3-bc5f-471a736b4980.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/8297eb4f-01e2-44f3-bc5f-471a736b4980.webp",
+            "fileSize": 27158,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T13:06:12.038Z",
+            "updatedAt": "2024-12-13T13:06:12.146Z"
+          },
+          {
+            "_id": "675c314c80451253e4f211a7",
+            "name": "Cambridgeshire USB",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/3cbff83d-4e01-4ad2-b795-3bdf98238958.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/3cbff83d-4e01-4ad2-b795-3bdf98238958.webp",
+            "fileSize": 37768,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 3,
+            "createdAt": "2024-12-13T13:06:20.947Z",
+            "updatedAt": "2024-12-13T13:06:21.056Z"
+          },
+          {
+            "_id": "675c315680451253e4f211b2",
+            "name": "Frozen synergy Keyboard e-tailers",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/a882ffff-a84a-498c-ae73-0f386a15225d.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/a882ffff-a84a-498c-ae73-0f386a15225d.webp",
+            "fileSize": 24670,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 4,
+            "createdAt": "2024-12-13T13:06:30.796Z",
+            "updatedAt": "2024-12-13T13:06:30.926Z"
+          }
+        ],
+        "totalStickers": 6,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b7fcd4a0de0a951cc67d1",
+        "name": "circuit",
+        "description": "I'll parse the online HDD pixel, that should bandwidth the IB feed!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675c30c880451253e4f2112e",
+            "name": "24/7 Rustic Computer Garden Music",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/2305a81c-e346-4a4d-8bb8-be4ee814e23f.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/2305a81c-e346-4a4d-8bb8-be4ee814e23f.webp",
+            "fileSize": 40638,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T13:04:08.990Z",
+            "updatedAt": "2024-12-13T13:04:09.098Z"
+          },
+          {
+            "_id": "675c30ee80451253e4f21139",
+            "name": "granular Representative port",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/52214d95-41da-433a-a9d0-14c97ff0476b.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/52214d95-41da-433a-a9d0-14c97ff0476b.webp",
+            "fileSize": 49596,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T13:04:46.208Z",
+            "updatedAt": "2024-12-13T13:04:46.317Z"
+          },
+          {
+            "_id": "675c30f580451253e4f21144",
+            "name": "B2C flexibility",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/9699ee68-bea5-40b1-ac4d-d21537c5b9c8.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/9699ee68-bea5-40b1-ac4d-d21537c5b9c8.webp",
+            "fileSize": 24344,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T13:04:53.657Z",
+            "updatedAt": "2024-12-13T13:04:53.757Z"
+          }
+        ],
+        "totalStickers": 3,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      },
+      {
+        "_id": "675b7fa54a0de0a951cc67c9",
+        "name": "interface",
+        "description": "Use the cross-platform TCP system, then you can copy the back-end driver!",
+        "creator": {
+          "_id": "675b7d804a0de0a951cc67b2",
+          "username": "Badr Karrachai",
+          "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+        },
+        "previewStickers": [
+          {
+            "_id": "675c310480451253e4f2114f",
+            "name": "Baby Infrastructure",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/60baf1a6-b82c-402f-a613-becd956b726f.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/60baf1a6-b82c-402f-a613-becd956b726f.webp",
+            "fileSize": 35240,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 0,
+            "createdAt": "2024-12-13T13:05:08.964Z",
+            "updatedAt": "2024-12-13T13:05:09.067Z"
+          },
+          {
+            "_id": "675c310b80451253e4f2115a",
+            "name": "object-oriented Market",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/c0bd8859-5bec-4f2d-a6c7-c71fa3496d15.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/c0bd8859-5bec-4f2d-a6c7-c71fa3496d15.webp",
+            "fileSize": 34606,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 1,
+            "createdAt": "2024-12-13T13:05:15.648Z",
+            "updatedAt": "2024-12-13T13:05:15.757Z"
+          },
+          {
+            "_id": "675c311280451253e4f21165",
+            "name": "Orchestrator connect Account intranet quantify",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/8a567542-dab9-45d4-b4d7-d917fe1cba2b.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/8a567542-dab9-45d4-b4d7-d917fe1cba2b.webp",
+            "fileSize": 24932,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 2,
+            "createdAt": "2024-12-13T13:05:22.997Z",
+            "updatedAt": "2024-12-13T13:05:23.109Z"
+          },
+          {
+            "_id": "675c311c80451253e4f21170",
+            "name": "virtual Multi-layered orange Buckinghamshire",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/5c6a2de6-e5c2-4fdd-9cab-1fac9c55757a.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/5c6a2de6-e5c2-4fdd-9cab-1fac9c55757a.webp",
+            "fileSize": 28198,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 3,
+            "createdAt": "2024-12-13T13:05:32.358Z",
+            "updatedAt": "2024-12-13T13:05:32.456Z"
+          },
+          {
+            "_id": "675c312380451253e4f2117b",
+            "name": "Via Future Market Concrete",
+            "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/fa851222-f2ea-4f1d-a34e-2d81a4c09f44.webp",
+            "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/fa851222-f2ea-4f1d-a34e-2d81a4c09f44.webp",
+            "fileSize": 16270,
+            "dimensions": {
+              "width": 512,
+              "height": 512
+            },
+            "position": 4,
+            "createdAt": "2024-12-13T13:05:39.457Z",
+            "updatedAt": "2024-12-13T13:05:39.558Z"
+          }
+        ],
+        "totalStickers": 5,
+        "isAnimatedPack": false,
+        "stats": {
+          "downloads": 0,
+          "views": 0,
+          "favorites": 0
+        }
+      }
+    ],
+    "suggested": {
+      "packs": [
+        {
+          "_id": "675b7fcf4a0de0a951cc67d9",
+          "name": "transmitter",
+          "description": "The RAM protocol is down, compress the virtual card so we can synthesize the HTTP alarm!",
+          "creator": {
+            "_id": "675b7d804a0de0a951cc67b2",
+            "username": "Badr Karrachai",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+          },
+          "previewStickers": [
+            {
+              "_id": "675c313580451253e4f21186",
+              "name": "array maroon Fuerte",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/809984c7-5add-44b0-a694-69b41a95375e.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/809984c7-5add-44b0-a694-69b41a95375e.webp",
+              "fileSize": 22684,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 0,
+              "createdAt": "2024-12-13T13:05:57.377Z",
+              "updatedAt": "2024-12-13T13:05:57.487Z"
+            },
+            {
+              "_id": "675c313c80451253e4f21191",
+              "name": "optical deposit framework connecting",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/87a0a011-2551-4023-b5e7-61b2b62eef95.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/87a0a011-2551-4023-b5e7-61b2b62eef95.webp",
+              "fileSize": 22104,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 1,
+              "createdAt": "2024-12-13T13:06:04.577Z",
+              "updatedAt": "2024-12-13T13:06:04.687Z"
+            },
+            {
+              "_id": "675c314480451253e4f2119c",
+              "name": "primary generating Concrete Metal deposit",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/8297eb4f-01e2-44f3-bc5f-471a736b4980.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/8297eb4f-01e2-44f3-bc5f-471a736b4980.webp",
+              "fileSize": 27158,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 2,
+              "createdAt": "2024-12-13T13:06:12.038Z",
+              "updatedAt": "2024-12-13T13:06:12.146Z"
+            },
+            {
+              "_id": "675c314c80451253e4f211a7",
+              "name": "Cambridgeshire USB",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/3cbff83d-4e01-4ad2-b795-3bdf98238958.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/3cbff83d-4e01-4ad2-b795-3bdf98238958.webp",
+              "fileSize": 37768,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 3,
+              "createdAt": "2024-12-13T13:06:20.947Z",
+              "updatedAt": "2024-12-13T13:06:21.056Z"
+            },
+            {
+              "_id": "675c315680451253e4f211b2",
+              "name": "Frozen synergy Keyboard e-tailers",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/a882ffff-a84a-498c-ae73-0f386a15225d.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcf4a0de0a951cc67d9/a882ffff-a84a-498c-ae73-0f386a15225d.webp",
+              "fileSize": 24670,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 4,
+              "createdAt": "2024-12-13T13:06:30.796Z",
+              "updatedAt": "2024-12-13T13:06:30.926Z"
+            }
+          ],
+          "totalStickers": 6,
+          "isAnimatedPack": false,
+          "stats": {
+            "downloads": 0,
+            "views": 0,
+            "favorites": 0
+          }
+        },
+        {
+          "_id": "675b7fa54a0de0a951cc67c9",
+          "name": "interface",
+          "description": "Use the cross-platform TCP system, then you can copy the back-end driver!",
+          "creator": {
+            "_id": "675b7d804a0de0a951cc67b2",
+            "username": "Badr Karrachai",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+          },
+          "previewStickers": [
+            {
+              "_id": "675c310480451253e4f2114f",
+              "name": "Baby Infrastructure",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/60baf1a6-b82c-402f-a613-becd956b726f.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/60baf1a6-b82c-402f-a613-becd956b726f.webp",
+              "fileSize": 35240,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 0,
+              "createdAt": "2024-12-13T13:05:08.964Z",
+              "updatedAt": "2024-12-13T13:05:09.067Z"
+            },
+            {
+              "_id": "675c310b80451253e4f2115a",
+              "name": "object-oriented Market",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/c0bd8859-5bec-4f2d-a6c7-c71fa3496d15.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/c0bd8859-5bec-4f2d-a6c7-c71fa3496d15.webp",
+              "fileSize": 34606,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 1,
+              "createdAt": "2024-12-13T13:05:15.648Z",
+              "updatedAt": "2024-12-13T13:05:15.757Z"
+            },
+            {
+              "_id": "675c311280451253e4f21165",
+              "name": "Orchestrator connect Account intranet quantify",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/8a567542-dab9-45d4-b4d7-d917fe1cba2b.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/8a567542-dab9-45d4-b4d7-d917fe1cba2b.webp",
+              "fileSize": 24932,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 2,
+              "createdAt": "2024-12-13T13:05:22.997Z",
+              "updatedAt": "2024-12-13T13:05:23.109Z"
+            },
+            {
+              "_id": "675c311c80451253e4f21170",
+              "name": "virtual Multi-layered orange Buckinghamshire",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/5c6a2de6-e5c2-4fdd-9cab-1fac9c55757a.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/5c6a2de6-e5c2-4fdd-9cab-1fac9c55757a.webp",
+              "fileSize": 28198,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 3,
+              "createdAt": "2024-12-13T13:05:32.358Z",
+              "updatedAt": "2024-12-13T13:05:32.456Z"
+            },
+            {
+              "_id": "675c312380451253e4f2117b",
+              "name": "Via Future Market Concrete",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/fa851222-f2ea-4f1d-a34e-2d81a4c09f44.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fa54a0de0a951cc67c9/fa851222-f2ea-4f1d-a34e-2d81a4c09f44.webp",
+              "fileSize": 16270,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 4,
+              "createdAt": "2024-12-13T13:05:39.457Z",
+              "updatedAt": "2024-12-13T13:05:39.558Z"
+            }
+          ],
+          "totalStickers": 5,
+          "isAnimatedPack": false,
+          "stats": {
+            "downloads": 0,
+            "views": 0,
+            "favorites": 0
+          }
+        },
+        {
+          "_id": "675b7fdb4a0de0a951cc67f9",
+          "name": "alarm",
+          "description": "Use the 1080p SQL sensor, then you can override the virtual system!",
+          "creator": {
+            "_id": "675b7d804a0de0a951cc67b2",
+            "username": "Badr Karrachai",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+          },
+          "previewStickers": [
+            {
+              "_id": "675c308780451253e4f210f7",
+              "name": "Concrete Avenue Metical",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/5b581077-f924-465e-9695-57aead247dac.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/5b581077-f924-465e-9695-57aead247dac.webp",
+              "fileSize": 21656,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 0,
+              "createdAt": "2024-12-13T13:03:03.330Z",
+              "updatedAt": "2024-12-13T13:03:03.431Z"
+            },
+            {
+              "_id": "675c308d80451253e4f21102",
+              "name": "Cook Bacon Wooden",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/ff0086fb-30e1-4f8e-9ac8-345bf491687c.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/ff0086fb-30e1-4f8e-9ac8-345bf491687c.webp",
+              "fileSize": 25008,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 1,
+              "createdAt": "2024-12-13T13:03:09.809Z",
+              "updatedAt": "2024-12-13T13:03:09.919Z"
+            },
+            {
+              "_id": "675c309480451253e4f2110d",
+              "name": "redundant Ball Florida Gloves Savings",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/b2444295-cc03-4295-b0a5-418afe9b6be0.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/b2444295-cc03-4295-b0a5-418afe9b6be0.webp",
+              "fileSize": 25678,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 2,
+              "createdAt": "2024-12-13T13:03:16.909Z",
+              "updatedAt": "2024-12-13T13:03:16.998Z"
+            },
+            {
+              "_id": "675c309b80451253e4f21118",
+              "name": "bottom-line application utilisation Plastic architectures",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/f01036c3-6d82-407e-94c4-97554db30c74.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/f01036c3-6d82-407e-94c4-97554db30c74.webp",
+              "fileSize": 24266,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 3,
+              "createdAt": "2024-12-13T13:03:23.619Z",
+              "updatedAt": "2024-12-13T13:03:23.728Z"
+            },
+            {
+              "_id": "675c30a280451253e4f21123",
+              "name": "Beauty seamless implement synergize Legacy",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/853b04a7-81b7-4529-bb06-9feea2ba1038.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdb4a0de0a951cc67f9/853b04a7-81b7-4529-bb06-9feea2ba1038.webp",
+              "fileSize": 27370,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 4,
+              "createdAt": "2024-12-13T13:03:30.549Z",
+              "updatedAt": "2024-12-13T13:03:30.649Z"
+            }
+          ],
+          "totalStickers": 5,
+          "isAnimatedPack": false,
+          "stats": {
+            "downloads": 0,
+            "views": 0,
+            "favorites": 0
+          }
+        },
+        {
+          "_id": "675b80484a0de0a951cc6825",
+          "name": "bypass deposit",
+          "description": "Try to hack the RSS driver, maybe it will transmit the optical panel!",
+          "creator": {
+            "_id": "675b7d804a0de0a951cc67b2",
+            "username": "Badr Karrachai",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+          },
+          "previewStickers": [
+            {
+              "_id": "675b8559b873ba739a84ae68",
+              "name": "Frozen solid Kids",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/271ea68e-6789-44c4-b483-962e5e3162cd.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/271ea68e-6789-44c4-b483-962e5e3162cd.webp",
+              "fileSize": 27858,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 0,
+              "createdAt": "2024-12-13T00:52:41.882Z",
+              "updatedAt": "2024-12-13T00:52:41.991Z"
+            },
+            {
+              "_id": "675b8561b873ba739a84ae73",
+              "name": "Cotton Nevada Borders optical Brand",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/d5a7b2dc-b789-4efd-80a7-d517f2fcf149.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/d5a7b2dc-b789-4efd-80a7-d517f2fcf149.webp",
+              "fileSize": 31838,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 1,
+              "createdAt": "2024-12-13T00:52:49.197Z",
+              "updatedAt": "2024-12-13T00:52:49.351Z"
+            },
+            {
+              "_id": "675b8569b873ba739a84ae7e",
+              "name": "index Forward",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/77a2e115-b3e4-436e-b8d3-a46e19bdfd5c.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/77a2e115-b3e4-436e-b8d3-a46e19bdfd5c.webp",
+              "fileSize": 21802,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 2,
+              "createdAt": "2024-12-13T00:52:57.849Z",
+              "updatedAt": "2024-12-13T00:52:57.974Z"
+            },
+            {
+              "_id": "675b8573b873ba739a84ae89",
+              "name": "invoice Ohio Colorado Functionality Pound",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/e6a8d56b-6d53-4c5f-832a-689bfe516ebb.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/e6a8d56b-6d53-4c5f-832a-689bfe516ebb.webp",
+              "fileSize": 22414,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 3,
+              "createdAt": "2024-12-13T00:53:07.260Z",
+              "updatedAt": "2024-12-13T00:53:07.385Z"
+            },
+            {
+              "_id": "675b857bb873ba739a84ae94",
+              "name": "generating payment SCSI",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/5b7ef70d-806f-4549-b300-ef2401bf9a07.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80484a0de0a951cc6825/5b7ef70d-806f-4549-b300-ef2401bf9a07.webp",
+              "fileSize": 21028,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 4,
+              "createdAt": "2024-12-13T00:53:15.903Z",
+              "updatedAt": "2024-12-13T00:53:16.013Z"
+            }
+          ],
+          "totalStickers": 5,
+          "isAnimatedPack": false,
+          "stats": {
+            "downloads": 0,
+            "views": 0,
+            "favorites": 0
+          }
+        },
+        {
+          "_id": "675b80514a0de0a951cc6833",
+          "name": "IB digital",
+          "description": "backing up the circuit won't do anything, we need to reboot the 1080p HDD circuit!",
+          "creator": {
+            "_id": "675b7d804a0de0a951cc67b2",
+            "username": "Badr Karrachai",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+          },
+          "previewStickers": [
+            {
+              "_id": "675c317e80451253e4f211c8",
+              "name": "Villages Response SSL Turnpike",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/710d1d0b-3709-463e-acff-1cde6aa16759.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/710d1d0b-3709-463e-acff-1cde6aa16759.webp",
+              "fileSize": 31688,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 0,
+              "createdAt": "2024-12-13T13:07:10.086Z",
+              "updatedAt": "2024-12-13T13:07:10.195Z"
+            },
+            {
+              "_id": "675c318480451253e4f211d3",
+              "name": "Account Mount Wooden Dynamic",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/b696e485-fcf1-4990-a715-5798d786a425.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/b696e485-fcf1-4990-a715-5798d786a425.webp",
+              "fileSize": 21110,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 1,
+              "createdAt": "2024-12-13T13:07:16.738Z",
+              "updatedAt": "2024-12-13T13:07:16.845Z"
+            },
+            {
+              "_id": "675c318b80451253e4f211de",
+              "name": "Market Dynamic India",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/f65a50e3-d31f-4ac9-b57d-4f0c65361495.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/f65a50e3-d31f-4ac9-b57d-4f0c65361495.webp",
+              "fileSize": 18544,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 2,
+              "createdAt": "2024-12-13T13:07:23.516Z",
+              "updatedAt": "2024-12-13T13:07:23.626Z"
+            },
+            {
+              "_id": "675c319180451253e4f211e9",
+              "name": "Naira maximize Credit",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/d5323f54-93ed-483c-9e45-fb6ab5f4bf3d.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/d5323f54-93ed-483c-9e45-fb6ab5f4bf3d.webp",
+              "fileSize": 31228,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 3,
+              "createdAt": "2024-12-13T13:07:29.688Z",
+              "updatedAt": "2024-12-13T13:07:29.795Z"
+            },
+            {
+              "_id": "675c319c80451253e4f211f4",
+              "name": "Buckinghamshire Associate Plastic North",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/c062b9f2-0dad-4803-bdb3-a6b6b5bfe36e.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b80514a0de0a951cc6833/c062b9f2-0dad-4803-bdb3-a6b6b5bfe36e.webp",
+              "fileSize": 32384,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 4,
+              "createdAt": "2024-12-13T13:07:40.046Z",
+              "updatedAt": "2024-12-13T13:07:40.146Z"
+            }
+          ],
+          "totalStickers": 5,
+          "isAnimatedPack": false,
+          "stats": {
+            "downloads": 0,
+            "views": 0,
+            "favorites": 0
+          }
+        },
+        {
+          "_id": "675b805b4a0de0a951cc683b",
+          "name": "Louisiana purple Hills",
+          "description": "programming the circuit won't do anything, we need to parse the optical FTP application!",
+          "creator": {
+            "_id": "675b7d804a0de0a951cc67b2",
+            "username": "Badr Karrachai",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+          },
+          "previewStickers": [
+            {
+              "_id": "675b8507b873ba739a84ae2f",
+              "name": "Checking Sleek North",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/98582fe4-a990-4175-9672-b7318b2a2792.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/98582fe4-a990-4175-9672-b7318b2a2792.webp",
+              "fileSize": 38620,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 0,
+              "createdAt": "2024-12-13T00:51:19.381Z",
+              "updatedAt": "2024-12-13T00:51:19.493Z"
+            },
+            {
+              "_id": "675b850fb873ba739a84ae3a",
+              "name": "Locks Gorgeous",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/7d199af5-1685-4724-9b17-1418d723777a.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/7d199af5-1685-4724-9b17-1418d723777a.webp",
+              "fileSize": 20142,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 1,
+              "createdAt": "2024-12-13T00:51:27.603Z",
+              "updatedAt": "2024-12-13T00:51:27.759Z"
+            },
+            {
+              "_id": "675b851ab873ba739a84ae45",
+              "name": "Berkshire Concrete alliance",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/71c0815d-cc0a-41ff-88cc-13e3c8a63dc6.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/71c0815d-cc0a-41ff-88cc-13e3c8a63dc6.webp",
+              "fileSize": 20996,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 2,
+              "createdAt": "2024-12-13T00:51:38.853Z",
+              "updatedAt": "2024-12-13T00:51:38.980Z"
+            },
+            {
+              "_id": "675b8526b873ba739a84ae50",
+              "name": "Rhode Response Generic connect",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/f5e6f2a3-9054-46cc-9aa6-95feb74a77a2.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/f5e6f2a3-9054-46cc-9aa6-95feb74a77a2.webp",
+              "fileSize": 17822,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 3,
+              "createdAt": "2024-12-13T00:51:50.712Z",
+              "updatedAt": "2024-12-13T00:51:50.841Z"
+            },
+            {
+              "_id": "675b852fb873ba739a84ae5b",
+              "name": "Unbranded Liaison Innovative Buckinghamshire",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/207af922-f33e-4505-acfb-ee3595a460a4.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b805b4a0de0a951cc683b/207af922-f33e-4505-acfb-ee3595a460a4.webp",
+              "fileSize": 25686,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 4,
+              "createdAt": "2024-12-13T00:51:59.616Z",
+              "updatedAt": "2024-12-13T00:51:59.741Z"
+            }
+          ],
+          "totalStickers": 5,
+          "isAnimatedPack": false,
+          "stats": {
+            "downloads": 0,
+            "views": 0,
+            "favorites": 0
+          }
+        },
+        {
+          "_id": "675b7fcd4a0de0a951cc67d1",
+          "name": "circuit",
+          "description": "I'll parse the online HDD pixel, that should bandwidth the IB feed!",
+          "creator": {
+            "_id": "675b7d804a0de0a951cc67b2",
+            "username": "Badr Karrachai",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+          },
+          "previewStickers": [
+            {
+              "_id": "675c30c880451253e4f2112e",
+              "name": "24/7 Rustic Computer Garden Music",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/2305a81c-e346-4a4d-8bb8-be4ee814e23f.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/2305a81c-e346-4a4d-8bb8-be4ee814e23f.webp",
+              "fileSize": 40638,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 0,
+              "createdAt": "2024-12-13T13:04:08.990Z",
+              "updatedAt": "2024-12-13T13:04:09.098Z"
+            },
+            {
+              "_id": "675c30ee80451253e4f21139",
+              "name": "granular Representative port",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/52214d95-41da-433a-a9d0-14c97ff0476b.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/52214d95-41da-433a-a9d0-14c97ff0476b.webp",
+              "fileSize": 49596,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 1,
+              "createdAt": "2024-12-13T13:04:46.208Z",
+              "updatedAt": "2024-12-13T13:04:46.317Z"
+            },
+            {
+              "_id": "675c30f580451253e4f21144",
+              "name": "B2C flexibility",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/9699ee68-bea5-40b1-ac4d-d21537c5b9c8.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fcd4a0de0a951cc67d1/9699ee68-bea5-40b1-ac4d-d21537c5b9c8.webp",
+              "fileSize": 24344,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 2,
+              "createdAt": "2024-12-13T13:04:53.657Z",
+              "updatedAt": "2024-12-13T13:04:53.757Z"
+            }
+          ],
+          "totalStickers": 3,
+          "isAnimatedPack": false,
+          "stats": {
+            "downloads": 0,
+            "views": 0,
+            "favorites": 0
+          }
+        },
+        {
+          "_id": "675b7fd84a0de0a951cc67e9",
+          "name": "bus",
+          "description": "You can't bypass the port without synthesizing the cross-platform XML port!",
+          "creator": {
+            "_id": "675b7d804a0de0a951cc67b2",
+            "username": "Badr Karrachai",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+          },
+          "previewStickers": [
+            {
+              "_id": "675c305f80451253e4f210d6",
+              "name": "index optimal index",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/35eb4d4f-1258-4d18-a320-188e121da004.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/35eb4d4f-1258-4d18-a320-188e121da004.webp",
+              "fileSize": 17896,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 0,
+              "createdAt": "2024-12-13T13:02:23.004Z",
+              "updatedAt": "2024-12-13T13:02:23.100Z"
+            },
+            {
+              "_id": "675c306680451253e4f210e1",
+              "name": "override overriding Soft",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/ff369f2f-37cb-4853-aad0-06d5f2085f2d.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/ff369f2f-37cb-4853-aad0-06d5f2085f2d.webp",
+              "fileSize": 22272,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 1,
+              "createdAt": "2024-12-13T13:02:30.831Z",
+              "updatedAt": "2024-12-13T13:02:30.950Z"
+            },
+            {
+              "_id": "675c307280451253e4f210ec",
+              "name": "Indiana Swaziland",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/a419c286-d47b-409f-9db8-77539478e1e5.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fd84a0de0a951cc67e9/a419c286-d47b-409f-9db8-77539478e1e5.webp",
+              "fileSize": 21748,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 2,
+              "createdAt": "2024-12-13T13:02:42.319Z",
+              "updatedAt": "2024-12-13T13:02:42.421Z"
+            }
+          ],
+          "totalStickers": 3,
+          "isAnimatedPack": false,
+          "stats": {
+            "downloads": 0,
+            "views": 0,
+            "favorites": 0
+          }
+        },
+        {
+          "_id": "675b7fdd4a0de0a951cc6801",
+          "name": "interface",
+          "description": "We need to synthesize the digital FTP alarm!",
+          "creator": {
+            "_id": "675b7d804a0de0a951cc67b2",
+            "username": "Badr Karrachai",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+          },
+          "previewStickers": [
+            {
+              "_id": "675b85a5b873ba739a84aea1",
+              "name": "Ohio monetize program Fantastic Grass-roots",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/76324aaa-c5de-454f-845e-474105e41f75.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/76324aaa-c5de-454f-845e-474105e41f75.webp",
+              "fileSize": 67614,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 0,
+              "createdAt": "2024-12-13T00:53:57.005Z",
+              "updatedAt": "2024-12-13T00:53:57.119Z"
+            },
+            {
+              "_id": "675b85acb873ba739a84aeac",
+              "name": "SDR Solutions tan",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/658b5303-e831-4e03-ac95-e9018c7c67f9.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/658b5303-e831-4e03-ac95-e9018c7c67f9.webp",
+              "fileSize": 10878,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 1,
+              "createdAt": "2024-12-13T00:54:04.132Z",
+              "updatedAt": "2024-12-13T00:54:04.291Z"
+            },
+            {
+              "_id": "675b85b4b873ba739a84aeb7",
+              "name": "Jewelery Integration Polarised Internal Quality",
+              "webpUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/49b7d827-855a-4f07-833f-4f665ffbd9f8.webp",
+              "thumbnailUrl": "https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/675b7fdd4a0de0a951cc6801/49b7d827-855a-4f07-833f-4f665ffbd9f8.webp",
+              "fileSize": 13718,
+              "dimensions": {
+                "width": 512,
+                "height": 512
+              },
+              "position": 2,
+              "createdAt": "2024-12-13T00:54:12.043Z",
+              "updatedAt": "2024-12-13T00:54:12.179Z"
+            }
+          ],
+          "totalStickers": 3,
+          "isAnimatedPack": false,
+          "stats": {
+            "downloads": 0,
+            "views": 0,
+            "favorites": 0
+          }
+        },
+        {
+          "_id": "675b80424a0de0a951cc681a",
+          "name": "grid-enabled firewall",
+          "description": "I'll connect the 1080p SMS bus, that should matrix the SDD driver!",
+          "creator": {
+            "_id": "675b7d804a0de0a951cc67b2",
+            "username": "Badr Karrachai",
+            "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFDDQNnM4aVYHte8bITwPsqk5ZYIsq5ViCCY2DxW9qoyzjWk2Zfg=s96-c"
+          },
+          "previewStickers": [],
+          "totalStickers": 0,
+          "isAnimatedPack": false,
+          "stats": {
+            "downloads": 0,
+            "views": 0,
+            "favorites": 0
+          }
+        }
+      ],
+      "pagination": {
+        "currentPage": 1,
+        "pageSize": 20,
+        "totalPages": 1,
+        "totalItems": 10,
+        "hasNextPage": false,
+        "hasPrevPage": false
+      }
+    }
+  },
+  "metadata": {
+    "timestamp": "2024-12-13T13:07:51.787Z",
+    "version": "1.0.0"
+  }
+}

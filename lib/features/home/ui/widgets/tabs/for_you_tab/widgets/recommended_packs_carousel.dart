@@ -3,24 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
-import 'package:morostick/features/home/ui/widgets/sticker_pack_card.dart';
-
-class StickerPack {
-  final String title;
-  final String imageUrl;
-  final int stickerCount;
-  final Color? backgroundColor;
-
-  const StickerPack({
-    required this.title,
-    required this.imageUrl,
-    required this.stickerCount,
-    this.backgroundColor,
-  });
-}
+import 'package:morostick/features/home/data/models/for_you_tab_response.dart';
+import 'package:morostick/features/home/ui/widgets/tabs/for_you_tab/widgets/sticker_pack_card.dart';
 
 class RecommendedPacksCarousel extends StatefulWidget {
-  const RecommendedPacksCarousel({super.key});
+  final List<StickerPack> stickerPacks;
+
+  const RecommendedPacksCarousel({
+    super.key,
+    required this.stickerPacks,
+  });
 
   @override
   State<RecommendedPacksCarousel> createState() =>
@@ -31,40 +23,24 @@ class _RecommendedStickersCarouselState
     extends State<RecommendedPacksCarousel> {
   int _current = 0;
   final CarouselSliderController _controller = CarouselSliderController();
+  late List<Color> _packColors;
 
-  static List<StickerPack> stickerPacks = [
-    StickerPack(
-      title: 'Smart Pack',
-      imageUrl:
-          'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/pngwing.com%20(3).png',
-      stickerCount: 12,
-      backgroundColor: ColorsManager.getRandomColor(),
-    ),
-    StickerPack(
-      title: 'Dogs Stickers',
-      imageUrl:
-          'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/pngwing.com%20(2).png',
-      stickerCount: 17,
-      backgroundColor: ColorsManager.getRandomColor(),
-    ),
-    StickerPack(
-      title: 'Cats Stickers',
-      imageUrl:
-          'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/pngwing.com%20(1).png',
-      stickerCount: 20,
-      backgroundColor: ColorsManager.getRandomColor(),
-    ),
-    StickerPack(
-      title: 'Mood Stickers',
-      imageUrl:
-          'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/pngwing.com%20(4).png',
-      stickerCount: 13,
-      backgroundColor: ColorsManager.getRandomColor(),
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    // Generate colors for all packs once
+    _packColors = List.generate(
+      widget.stickerPacks.length,
+      (_) => ColorsManager.getRandomColor(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.stickerPacks.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -92,20 +68,23 @@ class _RecommendedStickersCarouselState
               }
             },
           ),
-          itemCount: stickerPacks.length,
+          itemCount: widget.stickerPacks.length,
           itemBuilder: (context, index, realIndex) {
             return StickerPackCard(
-              stickerPack: stickerPacks[index],
+              stickerPack: widget.stickerPacks[index],
               margin: EdgeInsets.symmetric(horizontal: 4.w),
+              color: _packColors[index],
             );
           },
         ),
-        SizedBox(height: 12.h),
-        CarouselIndicators(
-          itemCount: stickerPacks.length,
-          currentPage: _current,
-          activeColor: stickerPacks[_current].backgroundColor!, // Add this
-        ),
+        if (widget.stickerPacks.length > 1) ...[
+          SizedBox(height: 12.h),
+          CarouselIndicators(
+            itemCount: widget.stickerPacks.length,
+            currentPage: _current,
+            activeColor: _packColors[_current],
+          ),
+        ],
       ],
     );
   }

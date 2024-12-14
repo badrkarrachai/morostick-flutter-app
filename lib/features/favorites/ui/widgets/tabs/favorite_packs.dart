@@ -25,13 +25,13 @@ class _FavoritePacksState extends State<FavoritePacks> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SuggestedForYou(),
-                SuggestedForYou(),
-                SuggestedForYou(),
-                SuggestedForYou(),
-                SuggestedForYou(),
-                SuggestedForYou(),
-                SuggestedForYou(),
+                // SuggestedForYou(),
+                // SuggestedForYou(),
+                // SuggestedForYou(),
+                // SuggestedForYou(),
+                // SuggestedForYou(),
+                // SuggestedForYou(),
+                // SuggestedForYou(),
               ],
             ),
           ),

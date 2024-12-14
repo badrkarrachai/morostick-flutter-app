@@ -3,23 +3,30 @@ import 'package:morostick/core/widgets/app_cached_network_image.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:morostick/features/home/ui/widgets/recommended_packs_carousel.dart';
+import 'package:morostick/features/home/data/models/for_you_tab_response.dart';
 
 class StickerPackCard extends StatelessWidget {
   final StickerPack stickerPack;
   final EdgeInsetsGeometry? margin;
+  final Color color;
 
   const StickerPackCard({
     super.key,
     required this.stickerPack,
     this.margin,
+    required this.color,
   });
 
   @override
   Widget build(BuildContext context) {
+    // Make sure there are preview stickers available
+    if (stickerPack.previewStickers.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return Container(
       decoration: BoxDecoration(
-        color: stickerPack.backgroundColor,
+        color: color,
         borderRadius: BorderRadius.circular(16.r),
       ),
       padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -35,7 +42,7 @@ class StickerPackCard extends StatelessWidget {
                 child: AppCachedImageExtensions.thumbnail(
                   width: 110.w,
                   height: 110.h,
-                  imageUrl: stickerPack.imageUrl,
+                  imageUrl: stickerPack.previewStickers.first.webpUrl,
                 ),
               ),
               horizontalSpace(20),
@@ -46,12 +53,14 @@ class StickerPackCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      stickerPack.title.replaceAll(' ', '\n').toUpperCase(),
+                      stickerPack.name.toUpperCase(),
                       style: TextStyles.font23WhiteSemiBold,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      '${stickerPack.stickerCount} STICKERS',
+                      '${stickerPack.totalStickers} STICKERS',
                       style: TextStyles.font13GrayWhiteRegular,
                     ),
                   ],

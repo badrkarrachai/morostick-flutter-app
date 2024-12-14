@@ -158,6 +158,13 @@ class TextStyles {
     color: ColorsManager.darkPurple,
   );
 
+  static TextStyle font16DarkGraySemiBold = TextStyle(
+    fontSize: 16.sp,
+    fontFamily: 'LexendDeca',
+    fontWeight: FontWeightHelper.semiBold,
+    color: ColorsManager.middleGray,
+  );
+
   static TextStyle font14PurpleSemiBold = TextStyle(
     fontSize: 14.sp,
     fontFamily: 'LexendDeca',
@@ -207,8 +214,29 @@ class TextStyles {
     color: ColorsManager.grayPurple,
   );
 
+  static TextStyle font12MiddleGrayRegular = TextStyle(
+    fontSize: 12.sp,
+    fontFamily: 'LexendDeca',
+    fontWeight: FontWeightHelper.regular,
+    color: ColorsManager.middleGray,
+  );
+
   static TextStyle font11GrayPurpleRegular = TextStyle(
     fontSize: 11.sp,
+    fontFamily: 'LexendDeca',
+    fontWeight: FontWeightHelper.regular,
+    color: ColorsManager.grayPurple,
+  );
+
+  static TextStyle font18DarkPurpleSemiBold = TextStyle(
+    fontSize: 18.sp,
+    fontFamily: 'LexendDeca',
+    fontWeight: FontWeightHelper.semiBold,
+    color: ColorsManager.darkPurple,
+  );
+
+  static TextStyle font14GrayPurpleRegular = TextStyle(
+    fontSize: 14.sp,
     fontFamily: 'LexendDeca',
     fontWeight: FontWeightHelper.regular,
     color: ColorsManager.grayPurple,
