@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
-import 'package:morostick/features/home/ui/widgets/suggested_for_you.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FavoritePacks extends StatefulWidget {

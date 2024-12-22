@@ -23,6 +23,8 @@ mixin _$ForYouState {
   ForYouResponse? get data => throw _privateConstructorUsedError;
   int get currentPage => throw _privateConstructorUsedError;
   bool get hasReachedMax => throw _privateConstructorUsedError;
+  int get carouselCurrentPage => throw _privateConstructorUsedError;
+  List<Color> get carouselColors => throw _privateConstructorUsedError;
 
   /// Create a copy of ForYouState
   /// with the given fields replaced by the non-null parameter values.
@@ -44,7 +46,9 @@ abstract class $ForYouStateCopyWith<$Res> {
       GeneralResponse? error,
       ForYouResponse? data,
       int currentPage,
-      bool hasReachedMax});
+      bool hasReachedMax,
+      int carouselCurrentPage,
+      List<Color> carouselColors});
 }
 
 /// @nodoc
@@ -69,6 +73,8 @@ class _$ForYouStateCopyWithImpl<$Res, $Val extends ForYouState>
     Object? data = freezed,
     Object? currentPage = null,
     Object? hasReachedMax = null,
+    Object? carouselCurrentPage = null,
+    Object? carouselColors = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -99,6 +105,14 @@ class _$ForYouStateCopyWithImpl<$Res, $Val extends ForYouState>
           ? _value.hasReachedMax
           : hasReachedMax // ignore: cast_nullable_to_non_nullable
               as bool,
+      carouselCurrentPage: null == carouselCurrentPage
+          ? _value.carouselCurrentPage
+          : carouselCurrentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      carouselColors: null == carouselColors
+          ? _value.carouselColors
+          : carouselColors // ignore: cast_nullable_to_non_nullable
+              as List<Color>,
     ) as $Val);
   }
 }
@@ -118,7 +132,9 @@ abstract class _$$ForYouStateImplCopyWith<$Res>
       GeneralResponse? error,
       ForYouResponse? data,
       int currentPage,
-      bool hasReachedMax});
+      bool hasReachedMax,
+      int carouselCurrentPage,
+      List<Color> carouselColors});
 }
 
 /// @nodoc
@@ -141,6 +157,8 @@ class __$$ForYouStateImplCopyWithImpl<$Res>
     Object? data = freezed,
     Object? currentPage = null,
     Object? hasReachedMax = null,
+    Object? carouselCurrentPage = null,
+    Object? carouselColors = null,
   }) {
     return _then(_$ForYouStateImpl(
       isLoading: null == isLoading
@@ -171,6 +189,14 @@ class __$$ForYouStateImplCopyWithImpl<$Res>
           ? _value.hasReachedMax
           : hasReachedMax // ignore: cast_nullable_to_non_nullable
               as bool,
+      carouselCurrentPage: null == carouselCurrentPage
+          ? _value.carouselCurrentPage
+          : carouselCurrentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      carouselColors: null == carouselColors
+          ? _value._carouselColors
+          : carouselColors // ignore: cast_nullable_to_non_nullable
+              as List<Color>,
     ));
   }
 }
@@ -185,7 +211,10 @@ class _$ForYouStateImpl implements _ForYouState {
       this.error,
       this.data,
       this.currentPage = 1,
-      this.hasReachedMax = false});
+      this.hasReachedMax = false,
+      this.carouselCurrentPage = 0,
+      final List<Color> carouselColors = const []})
+      : _carouselColors = carouselColors;
 
   @override
   @JsonKey()
@@ -206,10 +235,21 @@ class _$ForYouStateImpl implements _ForYouState {
   @override
   @JsonKey()
   final bool hasReachedMax;
+  @override
+  @JsonKey()
+  final int carouselCurrentPage;
+  final List<Color> _carouselColors;
+  @override
+  @JsonKey()
+  List<Color> get carouselColors {
+    if (_carouselColors is EqualUnmodifiableListView) return _carouselColors;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_carouselColors);
+  }
 
   @override
   String toString() {
-    return 'ForYouState(isLoading: $isLoading, isLoadingMore: $isLoadingMore, hasError: $hasError, error: $error, data: $data, currentPage: $currentPage, hasReachedMax: $hasReachedMax)';
+    return 'ForYouState(isLoading: $isLoading, isLoadingMore: $isLoadingMore, hasError: $hasError, error: $error, data: $data, currentPage: $currentPage, hasReachedMax: $hasReachedMax, carouselCurrentPage: $carouselCurrentPage, carouselColors: $carouselColors)';
   }
 
   @override
@@ -228,12 +268,25 @@ class _$ForYouStateImpl implements _ForYouState {
             (identical(other.currentPage, currentPage) ||
                 other.currentPage == currentPage) &&
             (identical(other.hasReachedMax, hasReachedMax) ||
-                other.hasReachedMax == hasReachedMax));
+                other.hasReachedMax == hasReachedMax) &&
+            (identical(other.carouselCurrentPage, carouselCurrentPage) ||
+                other.carouselCurrentPage == carouselCurrentPage) &&
+            const DeepCollectionEquality()
+                .equals(other._carouselColors, _carouselColors));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, isLoadingMore,
-      hasError, error, data, currentPage, hasReachedMax);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      isLoadingMore,
+      hasError,
+      error,
+      data,
+      currentPage,
+      hasReachedMax,
+      carouselCurrentPage,
+      const DeepCollectionEquality().hash(_carouselColors));
 
   /// Create a copy of ForYouState
   /// with the given fields replaced by the non-null parameter values.
@@ -252,7 +305,9 @@ abstract class _ForYouState implements ForYouState {
       final GeneralResponse? error,
       final ForYouResponse? data,
       final int currentPage,
-      final bool hasReachedMax}) = _$ForYouStateImpl;
+      final bool hasReachedMax,
+      final int carouselCurrentPage,
+      final List<Color> carouselColors}) = _$ForYouStateImpl;
 
   @override
   bool get isLoading;
@@ -268,6 +323,10 @@ abstract class _ForYouState implements ForYouState {
   int get currentPage;
   @override
   bool get hasReachedMax;
+  @override
+  int get carouselCurrentPage;
+  @override
+  List<Color> get carouselColors;
 
   /// Create a copy of ForYouState
   /// with the given fields replaced by the non-null parameter values.

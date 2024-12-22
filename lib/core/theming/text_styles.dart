@@ -88,6 +88,13 @@ class TextStyles {
     color: ColorsManager.darkPurple,
   );
 
+  static TextStyle font12DarkPurpleRegular = TextStyle(
+    fontSize: 12.sp,
+    fontFamily: 'LexendDeca',
+    fontWeight: FontWeightHelper.regular,
+    color: ColorsManager.darkGray,
+  );
+
   static TextStyle font13DarkPurpleMedium = TextStyle(
     fontSize: 13.sp,
     fontFamily: 'LexendDeca',

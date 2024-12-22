@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:morostick/core/widgets/app_broken_widgets.dart';
 import 'package:morostick/core/widgets/app_cached_network_image.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
@@ -28,7 +29,7 @@ class TrendingThisMonthCollection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 12.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -36,35 +37,38 @@ class TrendingThisMonthCollection extends StatelessWidget {
                 'Trending This Month',
                 style: TextStyles.font14DarkPurpleSemiBold,
               ),
-              if (onSeeAllPressed != null)
-                TextButton(
-                  onPressed: onSeeAllPressed,
-                  child: Text(
-                    'See All',
-                    style: TextStyles.font13DarkPurpleMedium.copyWith(
-                      color: ColorsManager.mainPurple,
-                    ),
+              GestureDetector(
+                onTap: onSeeAllPressed,
+                child: Text(
+                  'See All',
+                  style: TextStyles.font13DarkPurpleMedium.copyWith(
+                    color: ColorsManager.mainPurple,
                   ),
                 ),
+              ),
             ],
           ),
         ),
-        verticalSpace(12.h),
-        SizedBox(
-          height: 160.h,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            itemCount: trendingPacks.length,
-            separatorBuilder: (context, index) => horizontalSpace(15.w),
-            itemBuilder: (context, index) => TrendingPackCard(
-              pack: trendingPacks[index],
-              onTap: onPackTapped != null
-                  ? () => onPackTapped!(trendingPacks[index])
-                  : null,
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Row(
+            children: List.generate(
+              trendingPacks.length,
+              (index) => Padding(
+                padding: EdgeInsets.only(
+                  right: index != trendingPacks.length - 1 ? 15.w : 0,
+                ),
+                child: TrendingPackCard(
+                  pack: trendingPacks[index],
+                  onTap: onPackTapped != null
+                      ? () => onPackTapped!(trendingPacks[index])
+                      : null,
+                ),
+              ),
             ),
           ),
-        ),
+        )
       ],
     );
   }
@@ -102,7 +106,8 @@ class TrendingPackCard extends StatelessWidget {
         height: 95.w,
         width: 95.w,
         decoration: BoxDecoration(
-          color: ColorsManager.getRandomColorWithOpacity(0.2),
+          color:
+              StickerPackColorManager.getColorWithOpacityForPack(pack.id, 0.2),
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
@@ -119,11 +124,7 @@ class TrendingPackCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.r),
               )
             : Center(
-                child: Icon(
-                  Icons.favorite,
-                  size: 32.sp,
-                  color: ColorsManager.mainPurple.withOpacity(0.5),
-                ),
+                child: brokenPackImage(),
               ),
       ),
     );
@@ -158,11 +159,7 @@ class TrendingPackCard extends StatelessWidget {
               ],
               if (pack.stats.favorites > 0) ...[
                 horizontalSpace(4.w),
-                Icon(
-                  Icons.favorite,
-                  size: 12.sp,
-                  color: ColorsManager.mainPurple,
-                ),
+                brokenPackImage(),
                 horizontalSpace(2.w),
                 Text(
                   '${pack.stats.favorites}',

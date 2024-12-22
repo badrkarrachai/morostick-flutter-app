@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:morostick/core/di/dependency_injection.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/images.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/features/favorites/ui/favorites_screen.dart';
+import 'package:morostick/features/home/logic/for_you_tab_cubit.dart';
 import 'package:morostick/features/home/ui/home_screen.dart';
 import 'package:morostick/features/profile/ui/profile_screen.dart';
 import 'package:morostick/features/search/ui/search_screen.dart';
@@ -29,7 +32,11 @@ class _MainNavigationState extends State<MainNavigation> {
 
   List<Widget> _buildScreens() {
     return [
-      const HomeScreen(),
+      MultiBlocProvider(providers: [
+        BlocProvider(
+          create: (context) => getIt<ForYouCubit>(),
+        ),
+      ], child: const HomeScreen()),
       const SearchScreen(),
       const FavoritesScreen(),
       const ProfileScreen(),

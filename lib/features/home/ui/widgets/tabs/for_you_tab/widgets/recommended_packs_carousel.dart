@@ -1,12 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/features/home/data/models/for_you_tab_response.dart';
+import 'package:morostick/features/home/logic/for_you_tab_cubit.dart';
+import 'package:morostick/features/home/logic/for_you_tab_state.dart';
 import 'package:morostick/features/home/ui/widgets/tabs/for_you_tab/widgets/sticker_pack_card.dart';
 
-class RecommendedPacksCarousel extends StatefulWidget {
+class RecommendedPacksCarousel extends StatelessWidget {
   final List<StickerPack> stickerPacks;
 
   const RecommendedPacksCarousel({
@@ -15,29 +18,8 @@ class RecommendedPacksCarousel extends StatefulWidget {
   });
 
   @override
-  State<RecommendedPacksCarousel> createState() =>
-      _RecommendedStickersCarouselState();
-}
-
-class _RecommendedStickersCarouselState
-    extends State<RecommendedPacksCarousel> {
-  int _current = 0;
-  final CarouselSliderController _controller = CarouselSliderController();
-  late List<Color> _packColors;
-
-  @override
-  void initState() {
-    super.initState();
-    // Generate colors for all packs once
-    _packColors = List.generate(
-      widget.stickerPacks.length,
-      (_) => ColorsManager.getRandomColor(),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (widget.stickerPacks.isEmpty) {
+    if (stickerPacks.isEmpty) {
       return const SizedBox.shrink();
     }
 
@@ -51,38 +33,12 @@ class _RecommendedStickersCarouselState
             style: TextStyles.font14DarkPurpleSemiBold,
           ),
         ),
-        CarouselSlider.builder(
-          carouselController: _controller,
-          options: CarouselOptions(
-            height: 150.h,
-            viewportFraction: 0.9,
-            autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 5),
-            autoPlayAnimationDuration: const Duration(milliseconds: 800),
-            autoPlayCurve: Curves.fastOutSlowIn,
-            enlargeCenterPage: true,
-            enlargeFactor: 0.3,
-            onPageChanged: (index, reason) {
-              if (mounted) {
-                setState(() => _current = index);
-              }
-            },
-          ),
-          itemCount: widget.stickerPacks.length,
-          itemBuilder: (context, index, realIndex) {
-            return StickerPackCard(
-              stickerPack: widget.stickerPacks[index],
-              margin: EdgeInsets.symmetric(horizontal: 4.w),
-              color: _packColors[index],
-            );
-          },
-        ),
-        if (widget.stickerPacks.length > 1) ...[
+        _CarouselSlider(stickerPacks: stickerPacks),
+        if (stickerPacks.length > 1) ...[
           SizedBox(height: 12.h),
-          CarouselIndicators(
-            itemCount: widget.stickerPacks.length,
-            currentPage: _current,
-            activeColor: _packColors[_current],
+          _CarouselIndicators(
+            itemCount: stickerPacks.length,
+            stickerPacks: stickerPacks,
           ),
         ],
       ],
@@ -90,17 +46,78 @@ class _RecommendedStickersCarouselState
   }
 }
 
-// Modify CarouselIndicators class:
+class _CarouselSlider extends StatelessWidget {
+  final List<StickerPack> stickerPacks;
+
+  const _CarouselSlider({
+    required this.stickerPacks,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider.builder(
+      options: CarouselOptions(
+        height: 150.h,
+        viewportFraction: 0.9,
+        autoPlay: true,
+        autoPlayInterval: const Duration(seconds: 5),
+        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+        autoPlayCurve: Curves.fastOutSlowIn,
+        enlargeCenterPage: true,
+        enlargeFactor: 0.3,
+        onPageChanged: (index, reason) {
+          context.read<ForYouCubit>().updateCarouselPage(index);
+        },
+      ),
+      itemCount: stickerPacks.length,
+      itemBuilder: (context, index, realIndex) {
+        return StickerPackCard(
+          stickerPack: stickerPacks[index],
+          margin: EdgeInsets.symmetric(horizontal: 4.w),
+          color:
+              StickerPackColorManager.getColorForPack(stickerPacks[index].id),
+        );
+      },
+    );
+  }
+}
+
+class _CarouselIndicators extends StatelessWidget {
+  final int itemCount;
+  final List<StickerPack> stickerPacks;
+
+  const _CarouselIndicators({
+    required this.itemCount,
+    required this.stickerPacks,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<ForYouCubit, ForYouState, int>(
+      selector: (state) => state.carouselCurrentPage,
+      builder: (context, currentPage) {
+        return CarouselIndicators(
+          itemCount: itemCount,
+          currentPage: currentPage,
+          activeColor: StickerPackColorManager.getColorForPack(
+            stickerPacks[currentPage].id,
+          ),
+        );
+      },
+    );
+  }
+}
+
 class CarouselIndicators extends StatelessWidget {
   final int itemCount;
   final int currentPage;
-  final Color activeColor; // Add this
+  final Color activeColor;
 
   const CarouselIndicators({
     super.key,
     required this.itemCount,
     required this.currentPage,
-    required this.activeColor, // Add this
+    required this.activeColor,
   });
 
   @override
@@ -112,24 +129,23 @@ class CarouselIndicators extends StatelessWidget {
         (index) => CarouselIndicator(
           isActive: index == currentPage,
           margin: EdgeInsets.symmetric(horizontal: 4.w),
-          activeColor: activeColor, // Add this
+          activeColor: activeColor,
         ),
       ),
     );
   }
 }
 
-// Modify CarouselIndicator class:
 class CarouselIndicator extends StatelessWidget {
   final bool isActive;
   final EdgeInsetsGeometry? margin;
-  final Color activeColor; // Add this
+  final Color activeColor;
 
   const CarouselIndicator({
     super.key,
     required this.isActive,
     this.margin,
-    required this.activeColor, // Add this
+    required this.activeColor,
   });
 
   @override
@@ -141,9 +157,7 @@ class CarouselIndicator extends StatelessWidget {
       height: 8.h,
       margin: margin,
       decoration: BoxDecoration(
-        color: isActive
-            ? activeColor
-            : activeColor.withOpacity(0.3), // Use activeColor here
+        color: isActive ? activeColor : activeColor.withOpacity(0.3),
         borderRadius: BorderRadius.circular(4.r),
       ),
     );

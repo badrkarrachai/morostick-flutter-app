@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:morostick/core/data/models/general_response_model.dart';
 import 'package:morostick/features/home/data/models/for_you_tab_response.dart';
@@ -14,5 +15,7 @@ class ForYouState with _$ForYouState {
     ForYouResponse? data,
     @Default(1) int currentPage,
     @Default(false) bool hasReachedMax,
+    @Default(0) int carouselCurrentPage,
+    @Default([]) List<Color> carouselColors,
   }) = _ForYouState;
 }

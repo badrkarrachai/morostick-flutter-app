@@ -60,3 +60,21 @@ class ColorsManager {
     return cardColors[_random.nextInt(cardColors.length)].withOpacity(opacity);
   }
 }
+
+class StickerPackColorManager {
+  static final Map<String, Color> _packColors = {};
+
+  static Color getColorForPack(String packId) {
+    return _packColors.putIfAbsent(
+        packId, () => ColorsManager.getRandomColor());
+  }
+
+  static Color getColorWithOpacityForPack(String packId, double opacity) {
+    return getColorForPack(packId).withOpacity(opacity);
+  }
+
+  // Optional: Clear cache if needed (e.g., when logging out)
+  static void clearCache() {
+    _packColors.clear();
+  }
+}

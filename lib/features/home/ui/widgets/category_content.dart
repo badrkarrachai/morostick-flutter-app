@@ -31,11 +31,21 @@ class _CategoryContentState extends State<CategoryContent> {
     }
 
     // Default content for other categories
-    return Center(
-      child: Text(
-        'Content for ${widget.categoryName}',
-        style: TextStyles.font15DarkPurpleMedium,
-      ),
+    return CustomScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      slivers: [
+        SliverOverlapInjector(
+          handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+        ),
+        SliverFillRemaining(
+          child: Center(
+            child: Text(
+              'Content for ${widget.categoryName}',
+              style: TextStyles.font15DarkPurpleMedium,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -45,17 +55,24 @@ class TrendingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          verticalSpace(16),
-          const TopCategories(),
-          verticalSpace(16),
-          // const SuggestedForYou(),
-          // const SuggestedForYou(),
-        ],
-      ),
+    return CustomScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      slivers: [
+        SliverOverlapInjector(
+          handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              verticalSpace(16),
+              const TopCategories(),
+              verticalSpace(16),
+              // const SuggestedForYou(),
+              // const SuggestedForYou(),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -65,20 +82,27 @@ class LoveContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          verticalSpace(16),
-          // const SuggestedForYou(),
-          // const SuggestedForYou(),
-          // const SuggestedForYou(),
-          // const SuggestedForYou(),
-          // const SuggestedForYou(),
-          // const SuggestedForYou(),
-          // const SuggestedForYou(),
-        ],
-      ),
+    return CustomScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      slivers: [
+        SliverOverlapInjector(
+          handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              verticalSpace(16),
+              // const SuggestedForYou(),
+              // const SuggestedForYou(),
+              // const SuggestedForYou(),
+              // const SuggestedForYou(),
+              // const SuggestedForYou(),
+              // const SuggestedForYou(),
+              // const SuggestedForYou(),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

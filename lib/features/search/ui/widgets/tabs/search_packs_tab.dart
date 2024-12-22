@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:morostick/core/helpers/spacing.dart';
-import 'package:morostick/features/home/ui/widgets/suggested_for_you.dart';
 import 'package:morostick/features/search/ui/widgets/selected_filters_view.dart';
 import 'package:morostick/features/search/ui/widgets/serach_filters_bottom_sheet.dart';
 

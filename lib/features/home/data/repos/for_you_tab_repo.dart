@@ -9,7 +9,7 @@ class HomeRepo {
   HomeRepo(this._apiService);
 
   Future<ApiResult<ForYouResponse>> getForYouTab(int page,
-      {int limit = 5}) async {
+      {int limit = 10}) async {
     try {
       final response = await _apiService.getMoreSuggested(page, limit);
       return ApiResult.success(response);

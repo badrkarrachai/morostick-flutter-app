@@ -9,6 +9,8 @@ import 'package:morostick/features/home/ui/widgets/tabs/for_you_tab/widgets/no_d
 import 'package:morostick/features/home/ui/widgets/tabs/for_you_tab/widgets/recommended_packs_carousel.dart';
 import 'package:morostick/features/home/ui/widgets/suggested_for_you.dart';
 import 'package:morostick/features/home/ui/widgets/tabs/for_you_tab/widgets/trending_this_month_collection.dart';
+import 'package:toastification/toastification.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ForYouTab extends StatefulWidget {
   const ForYouTab({super.key});
@@ -19,7 +21,7 @@ class ForYouTab extends StatefulWidget {
 
 class _ForYouTabState extends State<ForYouTab>
     with AutomaticKeepAliveClientMixin {
-  final ScrollController _scrollController = ScrollController();
+  DateTime? _lastLoadTime;
 
   @override
   bool get wantKeepAlive => true;
@@ -28,53 +30,72 @@ class _ForYouTabState extends State<ForYouTab>
   void initState() {
     super.initState();
     _initializeData();
-    _scrollController.addListener(_scrollListener);
   }
 
   void _initializeData() {
-    // Only fetch if we don't have any data
     if (context.read<ForYouCubit>().state.data == null) {
       context.read<ForYouCubit>().getForYouContent();
     }
   }
 
-  @override
-  void dispose() {
-    _scrollController.removeListener(_scrollListener);
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _scrollListener() {
-    if (_isNearBottom && !_isLoadingMore && !_hasReachedMax) {
-      context.read<ForYouCubit>().loadMoreContent();
+  bool _shouldLoadMore(ScrollNotification notification) {
+    final forYouCubit = context.read<ForYouCubit>();
+    if (forYouCubit.state.isLoadingMore || forYouCubit.state.hasReachedMax) {
+      return false;
     }
-  }
 
-  bool get _isNearBottom {
-    if (!_scrollController.hasClients) return false;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll - 200);
-  }
+    // Throttle the load more calls
+    if (_lastLoadTime != null) {
+      final timeSinceLastLoad = DateTime.now().difference(_lastLoadTime!);
+      if (timeSinceLastLoad.inMilliseconds < 500) {
+        return false;
+      }
+    }
 
-  bool get _isLoadingMore => context.read<ForYouCubit>().state.isLoadingMore;
-  bool get _hasReachedMax => context.read<ForYouCubit>().state.hasReachedMax;
+    // Get metrics from the notification
+    final metrics = notification.metrics;
+    final maxScroll = metrics.maxScrollExtent;
+    final currentScroll = metrics.pixels;
+    final loadMoreThreshold = maxScroll * 0.85;
+
+    // Only load more if we're scrolling downward and near the bottom
+    if (notification is ScrollUpdateNotification) {
+      final isScrollingDown =
+          notification.scrollDelta != null && notification.scrollDelta! > 0;
+
+      if (isScrollingDown && currentScroll >= loadMoreThreshold) {
+        _lastLoadTime = DateTime.now();
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return RefreshIndicator(
-      onRefresh: () async {
-        context.read<ForYouCubit>().getForYouContent();
+
+    return NotificationListener<ScrollNotification>(
+      onNotification: (ScrollNotification notification) {
+        if (_shouldLoadMore(notification)) {
+          context.read<ForYouCubit>().loadMoreContent();
+        }
+        return false;
       },
       child: BlocConsumer<ForYouCubit, ForYouState>(
+        buildWhen: (previous, current) =>
+            previous.isLoading != current.isLoading ||
+            previous.hasError != current.hasError ||
+            previous.data != current.data ||
+            previous.isLoadingMore != current.isLoadingMore,
         listener: (context, state) {
           if (state.hasError && state.error != null) {
             final error = state.error!;
             if (!error.success && !error.message.contains("Internet")) {
               showAppSnackbar(
                 title: error.message,
+                type: ToastificationType.error,
                 description: error.error?.details ??
                     "Something went wrong, please try again later",
               );
@@ -107,35 +128,43 @@ class _ForYouTabState extends State<ForYouTab>
             return const SizedBox.shrink();
           }
 
-          return SingleChildScrollView(
-            controller: _scrollController,
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                verticalSpace(16),
-                RecommendedPacksCarousel(
-                  stickerPacks: forYouData.recommended,
-                ),
-                verticalSpace(16),
-                TrendingThisMonthCollection(
-                  trendingPacks: forYouData.trending,
-                ),
-                verticalSpace(25),
-                ...[
-                  SuggestedForYou(
-                    suggestedPacks: forYouData.suggested.packs,
-                  ),
-                ],
-                if (state.isLoadingMore)
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Center(
-                      child: CircularProgressIndicator(),
+          return CustomScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            slivers: [
+              SliverOverlapInjector(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    verticalSpace(16),
+                    RecommendedPacksCarousel(
+                      stickerPacks: forYouData.recommended,
                     ),
-                  ),
-              ],
-            ),
+                    verticalSpace(25),
+                    TrendingThisMonthCollection(
+                      trendingPacks: forYouData.trending,
+                    ),
+                    verticalSpace(25),
+                    SuggestedForYou(
+                      suggestedPacks: forYouData.suggested.packs,
+                    ),
+                    if (true)
+                      Center(
+                        child: SizedBox(
+                          width: 25.h,
+                          height: 25.w,
+                          child: const CircularProgressIndicator(
+                            strokeWidth: 3,
+                          ),
+                        ),
+                      ),
+                    verticalSpace(20),
+                  ],
+                ),
+              ),
+            ],
           );
         },
       ),

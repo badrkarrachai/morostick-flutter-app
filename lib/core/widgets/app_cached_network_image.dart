@@ -84,7 +84,7 @@ class AppCachedNetworkImage extends StatelessWidget {
           placeholderBuilder?.call(context, url) ?? _buildDefaultShimmer(),
       errorWidget: (context, url, error) =>
           errorBuilder?.call(context, url, error) ?? _buildDefaultError(),
-      fadeInDuration: fadeInDuration ?? const Duration(milliseconds: 500),
+      fadeInDuration: fadeInDuration ?? const Duration(milliseconds: 300),
       useOldImageOnUrlChange: useOldImageOnUrlChange,
       progressIndicatorBuilder: loadingOverlay != null
           ? (context, url, progress) => Stack(
@@ -184,6 +184,7 @@ extension AppCachedImageExtensions on AppCachedNetworkImage {
     BorderRadius? borderRadius,
     Border? border,
     Color? backgroundColor,
+    final Widget Function(BuildContext, String, dynamic)? errorBuilder,
   }) {
     return AppCachedNetworkImage(
       imageUrl: imageUrl,
@@ -193,6 +194,7 @@ extension AppCachedImageExtensions on AppCachedNetworkImage {
       borderRadius: borderRadius,
       border: border,
       backgroundColor: backgroundColor,
+      errorBuilder: errorBuilder,
     );
   }
 
@@ -206,6 +208,19 @@ extension AppCachedImageExtensions on AppCachedNetworkImage {
       size: size,
       border: border ?? Border.all(color: Colors.transparent, width: 1),
       backgroundColor: Colors.transparent,
+      errorBuilder: (context, url, error) => Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          Icons.person,
+          color: Colors.grey[400],
+          size: size * 0.5,
+        ),
+      ),
     );
   }
 

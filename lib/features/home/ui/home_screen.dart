@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:morostick/core/di/dependency_injection.dart';
 import 'package:morostick/core/helpers/spacing.dart';
-import 'package:morostick/features/home/logic/for_you_tab_cubit.dart';
 import 'package:morostick/features/home/ui/widgets/category_content.dart';
 import 'package:morostick/features/home/ui/widgets/home_app_bar.dart';
 import 'package:morostick/features/home/ui/widgets/home_categories_tab.dart';
@@ -16,11 +13,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  late TabController _tabController;
+  late final TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
 
-  final List<String> _categories = [
+  static const List<String> _categories = [
     'For You',
     'Trending',
     'Love',
@@ -46,7 +42,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void dispose() {
     _tabController.dispose();
     _searchController.dispose();
-    _scrollController.dispose();
     super.dispose();
   }
 
@@ -55,58 +50,55 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Scaffold(
       body: SafeArea(
         child: NestedScrollView(
-          controller: _scrollController,
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
                 backgroundColor: Colors.white,
                 floating: true,
-                snap: true,
+                snap: false,
+                pinned: false,
                 toolbarHeight: kToolbarHeight + 5,
-                title:
-                    Container(color: Colors.white, child: const HomeAppBar()),
+                title: Container(
+                  color: Colors.white,
+                  child: const HomeAppBar(),
+                ),
                 automaticallyImplyLeading: false,
                 surfaceTintColor: Colors.transparent,
                 shadowColor: Colors.transparent,
+                elevation: 0,
               ),
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: _SliverAppBarDelegate(
-                  minHeight: 104,
-                  maxHeight: 104,
-                  child: Container(
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        verticalSpace(5),
-                        HomeSearchBar(controller: _searchController),
-                        verticalSpace(5),
-                        HomeCategoriesTab(
-                          tabController: _tabController,
-                          categories: _categories,
-                        ),
-                      ],
+              SliverOverlapAbsorber(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _SliverAppBarDelegate(
+                    minHeight: 105,
+                    maxHeight: 105,
+                    child: Container(
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          verticalSpace(5),
+                          HomeSearchBar(controller: _searchController),
+                          verticalSpace(5),
+                          HomeCategoriesTab(
+                            tabController: _tabController,
+                            categories: _categories,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ];
           },
-          body: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) {
-                  final cubit = getIt<ForYouCubit>();
-                  return cubit;
-                },
-              ),
-            ],
-            child: TabBarView(
-              controller: _tabController,
-              children: _categories.map((category) {
-                return CategoryContent(categoryName: category);
-              }).toList(),
-            ),
+          body: TabBarView(
+            controller: _tabController,
+            children: _categories.map((category) {
+              return CategoryContent(categoryName: category);
+            }).toList(),
           ),
         ),
       ),
@@ -119,7 +111,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final double maxHeight;
   final Widget child;
 
-  _SliverAppBarDelegate({
+  const _SliverAppBarDelegate({
     required this.minHeight,
     required this.maxHeight,
     required this.child,

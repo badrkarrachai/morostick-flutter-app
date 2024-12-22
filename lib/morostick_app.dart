@@ -5,6 +5,7 @@ import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/widgets/app_offline_banner.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -45,32 +46,34 @@ class MoroStickApp extends StatelessWidget {
         designSize: const Size(375, 812),
         minTextAdapt: true,
         child: RepaintBoundary(
-          child: MaterialApp(
-            navigatorKey: navigatorKey,
-            title: 'MoroStick App',
-            theme: _theme,
-            debugShowCheckedModeBanner: false,
-            initialRoute: '/',
-            onGenerateRoute: _appRouter.generateRoute,
-            builder: (context, child) {
-              if (child == null) return const SizedBox.shrink();
+          child: ToastificationWrapper(
+            child: MaterialApp(
+              navigatorKey: navigatorKey,
+              title: 'MoroStick App',
+              theme: _theme,
+              debugShowCheckedModeBanner: false,
+              initialRoute: '/',
+              onGenerateRoute: _appRouter.generateRoute,
+              builder: (context, child) {
+                if (child == null) return const SizedBox.shrink();
 
-              return MediaQuery(
-                data: MediaQuery.of(context).copyWith(
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-                child: Scaffold(
-                  body: Stack(
-                    children: [
-                      child,
-                      SafeArea(
-                        child: OfflineStateHandler(authService: authService),
-                      ),
-                    ],
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(
+                    textScaler: const TextScaler.linear(1.0),
                   ),
-                ),
-              );
-            },
+                  child: Scaffold(
+                    body: Stack(
+                      children: [
+                        child,
+                        SafeArea(
+                          child: OfflineStateHandler(authService: authService),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),

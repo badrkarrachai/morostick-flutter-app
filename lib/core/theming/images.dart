@@ -61,4 +61,11 @@ class Images {
       'assets/images/TopMenuScreen/TermsAndConditions.svg';
   static const String faq = 'assets/images/TopMenuScreen/Faq.svg';
   static const String logOut = 'assets/images/TopMenuScreen/Logout.svg';
+
+  // AppIcon
+  static const String appSvgIcon = 'assets/images/AppIcons/MianSvgIcon.svg';
+
+  // ProfileScreen
+  static const String profileAvatar =
+      'assets/images/ProfileScreen/NoProfileImage.png';
 }
