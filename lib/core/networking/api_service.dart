@@ -14,6 +14,7 @@ import 'package:morostick/features/auth/sign_up/data/models/sign_up_request_body
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_response.dart';
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_with_facebook_model.dart';
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_with_google_model.dart';
+import 'package:morostick/features/home/data/models/for_you_tab_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_service.g.dart';
@@ -22,11 +23,7 @@ part 'api_service.g.dart';
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
-  @POST(ApiConstants.refreshToken)
-  Future<LoginResponse> refreshToken(
-    @Header('X-Refresh-Token') String refreshToken,
-  );
-
+  // Auth routes
   @POST(ApiConstants.login)
   Future<LoginResponse> login(
     @Body() LoginRequestBody loginRequestBody,
@@ -70,5 +67,12 @@ abstract class ApiService {
   @POST(ApiConstants.resetPassword)
   Future<NewPasswordResponse> resetPassword(
     @Body() NewPasswordRequestBody resetPasswordRequestBody,
+  );
+
+  // Home routes
+  @GET(ApiConstants.getForYouTab)
+  Future<ForYouResponse> getMoreSuggested(
+    @Query('page') int page,
+    @Query('limit') int limit,
   );
 }

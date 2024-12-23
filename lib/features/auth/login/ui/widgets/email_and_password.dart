@@ -4,11 +4,9 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:morostick/core/helpers/app_regex.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
-import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/widgets/app_text_form_field.dart';
 import 'package:morostick/features/auth/login/logic/login_cubit.dart';
 import 'package:morostick/features/auth/login/logic/login_state.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EmailAndPassword extends StatefulWidget {
   const EmailAndPassword({super.key});
@@ -64,16 +62,20 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
             children: [
               AppTextFormField(
                 hintText: 'Email',
-                prefixIcon: const Icon(HugeIcons.strokeRoundedMail02),
+                prefixIcon: const Icon(
+                  HugeIcons.strokeRoundedMail02,
+                  color: ColorsManager.darkGray,
+                ),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
+                  if (value == null ||
+                      value.isEmpty ||
+                      !AppRegex.isEmailValid(value)) {
                     return 'Please enter an email';
                   }
-                  if (!AppRegex.isEmailValid(value)) {
-                    return 'Please enter a valid email';
-                  }
+
                   return null;
                 },
+                errorText: emailErrorMessage,
                 controller: context.read<LoginCubit>().emailController,
                 // Override background color when there's an error
                 backgroundColor: hasError && emailErrorMessage != null
@@ -99,27 +101,14 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
                       )
                     : null,
               ),
-              if (emailErrorMessage != null) ...[
-                verticalSpace(8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 16.w),
-                    child: Text(
-                      emailErrorMessage,
-                      style: TextStyles.font14DarkPurpleMedium.copyWith(
-                        color: Colors.red,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
               verticalSpace(18),
               AppTextFormField(
                 controller: context.read<LoginCubit>().passwordController,
                 hintText: 'Password',
-                prefixIcon: const Icon(HugeIcons.strokeRoundedSquareLock02),
+                prefixIcon: const Icon(
+                  HugeIcons.strokeRoundedSquareLock02,
+                  color: ColorsManager.darkGray,
+                ),
                 isObscureText: isObscureText,
                 suffixIcon: GestureDetector(
                   onTap: () {
@@ -131,6 +120,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
                     isObscureText ? Icons.visibility_off : Icons.visibility,
                   ),
                 ),
+                errorText: passwordErrorMessage,
                 // Override background color when there's an error
                 backgroundColor: hasError && passwordErrorMessage != null
                     ? Colors.red.withOpacity(0.1)
@@ -161,22 +151,6 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
                   return null;
                 },
               ),
-              if (passwordErrorMessage != null) ...[
-                verticalSpace(8),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 16.w),
-                    child: Text(
-                      passwordErrorMessage,
-                      style: TextStyles.font14DarkPurpleMedium.copyWith(
-                        color: Colors.red,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
             ],
           ),
         );

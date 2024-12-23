@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:morostick/core/data/models/general_response_model.dart';
+import 'package:morostick/core/helpers/extensions.dart';
+import 'package:morostick/core/widgets/app_snackbar.dart';
+import 'package:toastification/toastification.dart';
 
 import 'api_constants.dart';
 
@@ -144,6 +148,29 @@ extension DataSourceExtension on DataSource {
 
 class ErrorHandler implements Exception {
   late GeneralResponse apiErrorModel;
+
+  static void setupErrorState(BuildContext context, GeneralResponse error) {
+    context.pop();
+    if (error.message == "Timeout Error") return;
+    if (error.status == 400) {
+      showAppSnackbar(
+        title: error.message,
+        duration: 3,
+        type: ToastificationType.warning,
+        description: error.error?.details ??
+            "Something went wrong. Please try again later.",
+      );
+      return;
+    }
+
+    showAppSnackbar(
+      title: error.message,
+      duration: 3,
+      type: ToastificationType.error,
+      description: error.error?.details ??
+          "Something went wrong. Please try again later.",
+    );
+  }
 
   ErrorHandler.handle(dynamic error) {
     if (error is DioException) {
