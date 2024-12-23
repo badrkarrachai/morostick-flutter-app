@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:morostick/core/helpers/app_regex.dart';
+import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/widgets/app_text_form_field.dart';
 import 'package:morostick/features/auth/forget_password/send_code/logic/send_code_cubit.dart';
 
@@ -21,7 +22,10 @@ class _EmailInputState extends State<EmailInput> {
         children: [
           AppTextFormField(
             hintText: 'Email',
-            prefixIcon: const Icon(HugeIcons.strokeRoundedMail02),
+            prefixIcon: const Icon(
+              HugeIcons.strokeRoundedMail02,
+              color: ColorsManager.darkGray,
+            ),
             validator: (value) {
               if (value == null ||
                   value.isEmpty ||

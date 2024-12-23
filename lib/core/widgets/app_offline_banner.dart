@@ -5,6 +5,9 @@ import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/morostick_app.dart';
 import 'package:morostick/core/helpers/extensions.dart';
 
+// Add this enum at the top of the file
+enum OfflineReason { noConnection, serverTimeout }
+
 class CustomDialog extends StatefulWidget {
   final Widget child;
   final Color barrierColor;
@@ -58,10 +61,17 @@ class _CustomDialogState extends State<CustomDialog> {
 }
 
 class OfflineDialog extends StatelessWidget {
-  const OfflineDialog({super.key});
+  final OfflineReason reason;
+
+  const OfflineDialog({
+    super.key,
+    required this.reason,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final isServerTimeout = reason == OfflineReason.serverTimeout;
+
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -81,14 +91,18 @@ class OfflineDialog extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    Icons.wifi_off_rounded,
+                    isServerTimeout
+                        ? Icons.cloud_off_rounded
+                        : Icons.wifi_off_rounded,
                     color: ColorsManager.mainPurple,
                     size: 40.r,
                   ),
                 ),
                 SizedBox(height: 16.h),
                 Text(
-                  'No Internet Connection',
+                  isServerTimeout
+                      ? 'Server Not Responding'
+                      : 'No Internet Connection',
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
@@ -97,7 +111,9 @@ class OfflineDialog extends StatelessWidget {
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  'Seems like you are not connected to the internet. But you can still use the app.',
+                  isServerTimeout
+                      ? 'Our servers are currently not responding. Don\'t worry, you can still use the app.'
+                      : 'Seems like you are not connected to the internet. But you can still use the app.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14.sp,
@@ -140,12 +156,12 @@ class OfflineDialog extends StatelessWidget {
 class DialogManager {
   static bool _isDialogShowing = false;
 
-  static void showOfflineDialog() {
+  static void showOfflineDialog(OfflineReason reason) {
     if (!_isDialogShowing) {
       _isDialogShowing = true;
       CustomDialog.show(
         barrierColor: Colors.black.withOpacity(0.5),
-        child: const OfflineDialog(),
+        child: OfflineDialog(reason: reason),
       ).then((_) => _isDialogShowing = false);
     }
   }
@@ -166,10 +182,17 @@ class OfflineStateHandler extends StatefulWidget {
 class _OfflineStateHandlerState extends State<OfflineStateHandler> {
   bool _wasOffline = false;
 
-  @override
-  void didUpdateWidget(OfflineStateHandler oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _checkOfflineStatus();
+  void _checkOfflineStatus() {
+    final isOffline = widget.authService.isOffline;
+    if (isOffline && !_wasOffline) {
+      _wasOffline = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        DialogManager.showOfflineDialog(
+            widget.authService.offlineReason ?? OfflineReason.noConnection);
+      });
+    } else if (!isOffline) {
+      _wasOffline = false;
+    }
   }
 
   @override
@@ -178,16 +201,10 @@ class _OfflineStateHandlerState extends State<OfflineStateHandler> {
     _checkOfflineStatus();
   }
 
-  void _checkOfflineStatus() {
-    final isOffline = widget.authService.isOffline;
-    if (isOffline && !_wasOffline) {
-      _wasOffline = true;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        DialogManager.showOfflineDialog();
-      });
-    } else if (!isOffline) {
-      _wasOffline = false;
-    }
+  @override
+  void didUpdateWidget(OfflineStateHandler oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _checkOfflineStatus();
   }
 
   @override

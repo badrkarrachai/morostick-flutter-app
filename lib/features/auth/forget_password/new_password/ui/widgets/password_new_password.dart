@@ -55,7 +55,10 @@ class _PasswordNewPasswordState extends State<PasswordNewPassword> {
             children: [
               AppTextFormField(
                 hintText: 'New Password',
-                prefixIcon: const Icon(HugeIcons.strokeRoundedMail02),
+                prefixIcon: const Icon(
+                  HugeIcons.strokeRoundedSquareLock02,
+                  color: ColorsManager.darkGray,
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a new password';
@@ -116,7 +119,10 @@ class _PasswordNewPasswordState extends State<PasswordNewPassword> {
                 controller:
                     context.read<NewPasswordCubit>().newPasswordController,
                 hintText: 'Confirm Password',
-                prefixIcon: const Icon(HugeIcons.strokeRoundedSquareLock02),
+                prefixIcon: const Icon(
+                  HugeIcons.strokeRoundedSquareLock02,
+                  color: ColorsManager.darkGray,
+                ),
                 isObscureText: isObscureTextConfirmPassword,
                 suffixIcon: GestureDetector(
                   onTap: () {

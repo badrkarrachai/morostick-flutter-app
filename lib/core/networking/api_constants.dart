@@ -4,6 +4,7 @@ import 'package:morostick/core/data/models/general_response_model.dart';
 class ApiConstants {
   static String apiBaseUrl = AppConfig.apiBaseUrl;
 
+  // Auth routes
   static const String login = "auth/login";
   static const String signup = "auth/register";
   static const String useAuthGoogle = "auth/google/mobile";
@@ -12,6 +13,9 @@ class ApiConstants {
   static const String verifyOtp = "auth/verify-otp";
   static const String resetPassword = "auth/reset-password";
   static const String refreshToken = 'auth/refresh-token';
+
+  // Home routes
+  static const String getForYouTab = "home/for-you";
 }
 
 class ErrorConstantData {

@@ -17,26 +17,25 @@ import 'package:morostick/features/auth/login/logic/login_cubit.dart';
 import 'package:morostick/features/auth/sign_up/data/repos/sign_up_repo.dart';
 import 'package:morostick/features/auth/sign_up/logic/sign_up_cubit.dart';
 import 'package:morostick/features/auth/web_view/logic/web_view_cubit.dart';
+import 'package:morostick/features/home/data/repos/for_you_tab_repo.dart';
+import 'package:morostick/features/home/logic/for_you_tab_cubit.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setupGetIt() async {
-  // Core Services
+  // Auth Services
   getIt.registerLazySingleton<GoogleAuthService>(
     () => GoogleAuthService(),
   );
-
   getIt.registerLazySingleton<FacebookAuthService>(
     () => FacebookAuthService(),
   );
-
   getIt.registerLazySingleton<AuthNavigationService>(
     () => AuthNavigationService(
       googleAuthService: getIt<GoogleAuthService>(),
       facebookAuthService: getIt<FacebookAuthService>(),
     ),
   );
-
   DioFactory.init(getIt<AuthNavigationService>());
 
   // Dio & ApiService
@@ -74,4 +73,11 @@ Future<void> setupGetIt() async {
 
   // webview
   getIt.registerFactory<WebViewCubit>(() => WebViewCubit());
+
+  // home
+  getIt.registerLazySingleton<HomeRepo>(() => HomeRepo(getIt()));
+  getIt.registerFactory<ForYouCubit>(() => ForYouCubit(
+        getIt<HomeRepo>(),
+        getIt<AuthNavigationService>(),
+      ));
 }
