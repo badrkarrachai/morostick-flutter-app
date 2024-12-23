@@ -4,6 +4,7 @@ import 'package:hugeicons/hugeicons.dart';
 
 import 'package:morostick/core/helpers/app_regex.dart';
 import 'package:morostick/core/helpers/spacing.dart';
+import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/widgets/app_text_form_field.dart';
 import 'package:morostick/features/auth/sign_up/logic/sign_up_cubit.dart';
 
@@ -53,7 +54,10 @@ class _NameEmailAndPasswordState extends State<NameEmailAndPassword> {
         children: [
           AppTextFormField(
             hintText: 'Name',
-            prefixIcon: const Icon(HugeIcons.strokeRoundedUser),
+            prefixIcon: const Icon(
+              HugeIcons.strokeRoundedUser,
+              color: ColorsManager.darkGray,
+            ),
             validator: (value) {
               if (value == null ||
                   value.isEmpty ||
@@ -66,7 +70,10 @@ class _NameEmailAndPasswordState extends State<NameEmailAndPassword> {
           verticalSpace(18),
           AppTextFormField(
             hintText: 'Email',
-            prefixIcon: const Icon(HugeIcons.strokeRoundedMail02),
+            prefixIcon: const Icon(
+              HugeIcons.strokeRoundedMail02,
+              color: ColorsManager.darkGray,
+            ),
             validator: (value) {
               if (value == null ||
                   value.isEmpty ||
@@ -80,7 +87,10 @@ class _NameEmailAndPasswordState extends State<NameEmailAndPassword> {
           AppTextFormField(
             controller: context.read<SignupCubit>().passwordController,
             hintText: 'Password',
-            prefixIcon: const Icon(HugeIcons.strokeRoundedSquareLock02),
+            prefixIcon: const Icon(
+              HugeIcons.strokeRoundedSquareLock02,
+              color: ColorsManager.darkGray,
+            ),
             isObscureText: isObscureText,
             suffixIcon: GestureDetector(
               onTap: () {

@@ -8,6 +8,14 @@ import 'package:morostick/features/home/ui/widgets/home_search_bar.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  static void switchToTrendingTab(BuildContext context, int pageIndex) {
+    final _HomeScreenState? state =
+        context.findAncestorStateOfType<_HomeScreenState>();
+    if (state != null) {
+      state._tabController.animateTo(pageIndex);
+    }
+  }
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }

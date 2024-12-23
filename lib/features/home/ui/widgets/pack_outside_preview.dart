@@ -60,7 +60,7 @@ class PackOutsidePreview extends StatelessWidget {
                       AppCachedImageExtensions.avatar(
                         size: 31.w,
                         imageUrl: userImageUrl ??
-                            'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/Badr2.jpg',
+                            'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/ProfileScreen/NoProfileImage.png',
                       ),
                       horizontalSpace(8),
                       ConstrainedBox(

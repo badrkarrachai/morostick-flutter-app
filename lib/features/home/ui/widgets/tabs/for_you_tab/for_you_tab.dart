@@ -4,6 +4,7 @@ import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/widgets/app_snackbar.dart';
 import 'package:morostick/features/home/logic/for_you_tab_cubit.dart';
 import 'package:morostick/features/home/logic/for_you_tab_state.dart';
+import 'package:morostick/features/home/ui/home_screen.dart';
 import 'package:morostick/features/home/ui/widgets/tabs/for_you_tab/widgets/for_you_loading_shimmer.dart';
 import 'package:morostick/features/home/ui/widgets/tabs/for_you_tab/widgets/no_data.dart';
 import 'package:morostick/features/home/ui/widgets/tabs/for_you_tab/widgets/recommended_packs_carousel.dart';
@@ -39,6 +40,9 @@ class _ForYouTabState extends State<ForYouTab>
   }
 
   bool _shouldLoadMore(ScrollNotification notification) {
+    // Only handle vertical scroll notifications
+    if (notification.metrics.axis != Axis.vertical) return false;
+
     final forYouCubit = context.read<ForYouCubit>();
     if (forYouCubit.state.isLoadingMore || forYouCubit.state.hasReachedMax) {
       return false;
@@ -51,6 +55,9 @@ class _ForYouTabState extends State<ForYouTab>
         return false;
       }
     }
+
+    // Check if notification is from our main scroll view, not from child scrollable
+    if (notification.depth != 0) return false;
 
     // Get metrics from the notification
     final metrics = notification.metrics;
@@ -145,12 +152,15 @@ class _ForYouTabState extends State<ForYouTab>
                     verticalSpace(25),
                     TrendingThisMonthCollection(
                       trendingPacks: forYouData.trending,
+                      onSeeAllPressed: () {
+                        HomeScreen.switchToTrendingTab(context, 1);
+                      },
                     ),
                     verticalSpace(25),
                     SuggestedForYou(
                       suggestedPacks: forYouData.suggested.packs,
                     ),
-                    if (true)
+                    if (state.isLoadingMore)
                       Center(
                         child: SizedBox(
                           width: 25.h,

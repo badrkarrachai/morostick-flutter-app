@@ -62,7 +62,10 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
             children: [
               AppTextFormField(
                 hintText: 'Email',
-                prefixIcon: const Icon(HugeIcons.strokeRoundedMail02),
+                prefixIcon: const Icon(
+                  HugeIcons.strokeRoundedMail02,
+                  color: ColorsManager.darkGray,
+                ),
                 validator: (value) {
                   if (value == null ||
                       value.isEmpty ||
@@ -102,7 +105,10 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
               AppTextFormField(
                 controller: context.read<LoginCubit>().passwordController,
                 hintText: 'Password',
-                prefixIcon: const Icon(HugeIcons.strokeRoundedSquareLock02),
+                prefixIcon: const Icon(
+                  HugeIcons.strokeRoundedSquareLock02,
+                  color: ColorsManager.darkGray,
+                ),
                 isObscureText: isObscureText,
                 suffixIcon: GestureDetector(
                   onTap: () {

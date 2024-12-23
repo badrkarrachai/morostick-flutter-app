@@ -4,8 +4,8 @@ class AppRegex {
         .hasMatch(email);
   }
 
-  static bool isUserNameValid(String fullName) {
-    return RegExp(r'^[a-zA-Z0-9]{2,}(\s[a-zA-Z0-9]{2,})+$').hasMatch(fullName);
+  static bool isUserNameValid(String userName) {
+    return RegExp(r'^[a-zA-Z0-9][a-zA-Z0-9_ ]{2,}$').hasMatch(userName);
   }
 
   static bool isPasswordValid(String password) {

@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hugeicons/hugeicons.dart';
-import 'package:morostick/core/widgets/app_snackbar.dart';
 
 class GoogleAuthService {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -18,13 +15,6 @@ class GoogleAuthService {
       }
       return null;
     } catch (e) {
-      showAppSnackbar(
-        title: "Error",
-        icon: HugeIcons.strokeRoundedCancelCircle,
-        color: Colors.red,
-        duration: 3,
-        description: "Error in the google service. Please try again later.",
-      );
       rethrow;
     }
   }
@@ -33,13 +23,6 @@ class GoogleAuthService {
     try {
       await _googleSignIn.signOut();
     } catch (e) {
-      showAppSnackbar(
-        title: "Error",
-        icon: HugeIcons.strokeRoundedCancelCircle,
-        color: Colors.red,
-        duration: 3,
-        description: "Error in the google service, please try again later.",
-      );
       rethrow;
     }
   }
