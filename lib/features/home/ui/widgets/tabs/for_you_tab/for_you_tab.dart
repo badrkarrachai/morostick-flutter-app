@@ -111,7 +111,19 @@ class _ForYouTabState extends State<ForYouTab>
         },
         builder: (context, state) {
           if (state.isLoading) {
-            return const ForYouTabShimmer();
+            return CustomScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                slivers: [
+                  SliverOverlapInjector(
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                        context),
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                      [const ForYouTabShimmer()],
+                    ),
+                  ),
+                ]);
           }
 
           if (state.hasError) {
@@ -131,50 +143,82 @@ class _ForYouTabState extends State<ForYouTab>
           }
 
           final forYouData = state.data?.forYouData;
-          if (forYouData == null) {
-            return const SizedBox.shrink();
-          }
-
-          return CustomScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            slivers: [
-              SliverOverlapInjector(
-                handle:
-                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-              ),
-              SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    verticalSpace(16),
-                    RecommendedPacksCarousel(
-                      stickerPacks: forYouData.recommended,
-                    ),
-                    verticalSpace(25),
-                    TrendingThisMonthCollection(
-                      trendingPacks: forYouData.trending,
-                      onSeeAllPressed: () {
-                        HomeScreen.switchToTrendingTab(context, 1);
-                      },
-                    ),
-                    verticalSpace(25),
-                    SuggestedForYou(
-                      suggestedPacks: forYouData.suggested.packs,
-                    ),
-                    if (state.isLoadingMore)
-                      Center(
-                        child: SizedBox(
-                          width: 25.h,
-                          height: 25.w,
-                          child: const CircularProgressIndicator(
-                            strokeWidth: 3,
-                          ),
-                        ),
-                      ),
-                    verticalSpace(20),
-                  ],
+          if (forYouData == null ||
+              forYouData.recommended!.isEmpty &&
+                  forYouData.trending!.isEmpty &&
+                  forYouData.suggested!.packs!.isEmpty) {
+            return RefreshIndicator(
+              onRefresh: () async {
+                if (state.isLoading) {
+                  return;
+                }
+                context.read<ForYouCubit>().refresh();
+              },
+              edgeOffset: 50,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: NoDataWidget(
+                    title: "No Data",
+                    message: "No data found for you",
+                    onRefresh: () {
+                      context.read<ForYouCubit>().getForYouContent();
+                    },
+                  ),
                 ),
               ),
-            ],
+            );
+          }
+
+          return RefreshIndicator(
+            onRefresh: () async {
+              if (state.isLoading) {
+                return;
+              }
+              context.read<ForYouCubit>().refresh();
+              _initializeData();
+            },
+            edgeOffset: 50,
+            child: CustomScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              slivers: [
+                SliverOverlapInjector(
+                  handle:
+                      NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                ),
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      verticalSpace(16),
+                      RecommendedPacksCarousel(
+                        stickerPacks: forYouData.recommended ?? [],
+                      ),
+                      verticalSpace(25),
+                      TrendingThisMonthCollection(
+                        trendingPacks: forYouData.trending ?? [],
+                        onSeeAllPressed: () {
+                          HomeScreen.switchToTrendingTab(context, 1);
+                        },
+                      ),
+                      verticalSpace(25),
+                      SuggestedForYou(
+                        suggestedPacks: forYouData.suggested?.packs ?? [],
+                      ),
+                      if (state.isLoadingMore)
+                        Center(
+                          child: SizedBox(
+                            width: 25.h,
+                            height: 25.w,
+                            child: const CircularProgressIndicator(
+                              strokeWidth: 3,
+                            ),
+                          ),
+                        ),
+                      verticalSpace(20),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),

@@ -125,7 +125,7 @@ class ProfileForm extends StatelessWidget {
           border: Border.all(width: 1, color: ColorsManager.grayButtonBorder),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -182,7 +182,7 @@ class ProfileForm extends StatelessWidget {
             color: ColorsManager.lighterPurple,
             borderRadius: BorderRadius.circular(12.r),
             border: Border.all(
-              color: ColorsManager.mainPurple.withOpacity(0.1),
+              color: ColorsManager.mainPurple.withValues(alpha: 0.1),
               width: 1,
             ),
           ),
@@ -191,7 +191,7 @@ class ProfileForm extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(8.r),
                 decoration: BoxDecoration(
-                  color: ColorsManager.mainPurple.withOpacity(0.1),
+                  color: ColorsManager.mainPurple.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Icon(

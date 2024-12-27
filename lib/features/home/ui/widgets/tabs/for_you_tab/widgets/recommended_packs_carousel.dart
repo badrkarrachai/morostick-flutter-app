@@ -55,27 +55,36 @@ class _CarouselSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      options: CarouselOptions(
-        height: 150.h,
-        viewportFraction: 0.9,
-        autoPlay: true,
-        autoPlayInterval: const Duration(seconds: 5),
-        autoPlayAnimationDuration: const Duration(milliseconds: 800),
-        autoPlayCurve: Curves.fastOutSlowIn,
-        enlargeCenterPage: true,
-        enlargeFactor: 0.3,
-        onPageChanged: (index, reason) {
-          context.read<ForYouCubit>().updateCarouselPage(index);
-        },
-      ),
-      itemCount: stickerPacks.length,
-      itemBuilder: (context, index, realIndex) {
-        return StickerPackCard(
-          stickerPack: stickerPacks[index],
-          margin: EdgeInsets.symmetric(horizontal: 4.w),
-          color:
-              StickerPackColorManager.getColorForPack(stickerPacks[index].id),
+    return BlocBuilder<ForYouCubit, ForYouState>(
+      buildWhen: (previous, current) =>
+          previous.carouselColors != current.carouselColors,
+      builder: (context, state) {
+        return CarouselSlider.builder(
+          options: CarouselOptions(
+            height: 150.h,
+            viewportFraction: 0.9,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 5),
+            autoPlayAnimationDuration: const Duration(milliseconds: 800),
+            autoPlayCurve: Curves.fastOutSlowIn,
+            enlargeCenterPage: true,
+            enlargeFactor: 0.3,
+            onPageChanged: (index, reason) {
+              context.read<ForYouCubit>().updateCarouselPage(index);
+            },
+          ),
+          itemCount: stickerPacks.length,
+          itemBuilder: (context, index, realIndex) {
+            final color = index < state.carouselColors.length
+                ? state.carouselColors[index]
+                : ColorsManager.getRandomColor();
+
+            return StickerPackCard(
+              stickerPack: stickerPacks[index],
+              margin: EdgeInsets.symmetric(horizontal: 4.w),
+              color: color,
+            );
+          },
         );
       },
     );
@@ -93,15 +102,20 @@ class _CarouselIndicators extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<ForYouCubit, ForYouState, int>(
-      selector: (state) => state.carouselCurrentPage,
-      builder: (context, currentPage) {
+    return BlocBuilder<ForYouCubit, ForYouState>(
+      buildWhen: (previous, current) =>
+          previous.carouselCurrentPage != current.carouselCurrentPage ||
+          previous.carouselColors != current.carouselColors,
+      builder: (context, state) {
+        final currentPage = state.carouselCurrentPage;
+        final color = currentPage < state.carouselColors.length
+            ? state.carouselColors[currentPage]
+            : ColorsManager.getRandomColor();
+
         return CarouselIndicators(
           itemCount: itemCount,
           currentPage: currentPage,
-          activeColor: StickerPackColorManager.getColorForPack(
-            stickerPacks[currentPage].id,
-          ),
+          activeColor: color,
         );
       },
     );
@@ -157,7 +171,7 @@ class CarouselIndicator extends StatelessWidget {
       height: 8.h,
       margin: margin,
       decoration: BoxDecoration(
-        color: isActive ? activeColor : activeColor.withOpacity(0.3),
+        color: isActive ? activeColor : activeColor.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(4.r),
       ),
     );

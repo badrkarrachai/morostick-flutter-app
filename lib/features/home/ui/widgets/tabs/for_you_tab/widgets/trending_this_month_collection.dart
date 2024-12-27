@@ -53,6 +53,7 @@ class TrendingThisMonthCollection extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: List.generate(
               trendingPacks.length,
               (index) => Padding(
@@ -111,16 +112,16 @@ class TrendingPackCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
           ],
         ),
         padding: EdgeInsets.all(10.w),
-        child: pack.previewStickers.isNotEmpty
+        child: pack.stickers!.isNotEmpty
             ? AppCachedImageExtensions.thumbnail(
-                imageUrl: pack.previewStickers.first.webpUrl,
+                imageUrl: pack.trayIcon ?? '',
                 borderRadius: BorderRadius.circular(8.r),
               )
             : Center(
@@ -137,7 +138,7 @@ class TrendingPackCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            pack.name,
+            pack.name ?? '',
             style: TextStyles.font13DarkPurpleMedium,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -149,7 +150,7 @@ class TrendingPackCard extends StatelessWidget {
                 '${pack.totalStickers} stickers',
                 style: TextStyles.font11GrayPurpleRegular,
               ),
-              if (pack.isAnimatedPack) ...[
+              if (pack.isAnimatedPack!) ...[
                 horizontalSpace(4.w),
                 Icon(
                   Icons.animation,
@@ -157,12 +158,12 @@ class TrendingPackCard extends StatelessWidget {
                   color: ColorsManager.grayPurple,
                 ),
               ],
-              if (pack.stats.favorites > 0) ...[
+              if (pack.stats!.favorites! > 0) ...[
                 horizontalSpace(4.w),
                 brokenPackImage(),
                 horizontalSpace(2.w),
                 Text(
-                  '${pack.stats.favorites}',
+                  '${pack.stats!.favorites}',
                   style: TextStyles.font11GrayPurpleRegular,
                 ),
               ],

@@ -32,12 +32,12 @@ class ForYouCubit extends Cubit<ForYouState> {
       response.when(
         success: (forYouResponse) {
           final hasReachedMax =
-              forYouResponse.forYouData?.suggested.pagination.hasNextPage ==
+              forYouResponse.forYouData?.suggested?.pagination?.hasNextPage ==
                   false;
 
           // Generate colors for recommended packs
           final colors = List.generate(
-            forYouResponse.forYouData?.recommended.length ?? 0,
+            forYouResponse.forYouData?.recommended?.length ?? 0,
             (_) => ColorsManager.getRandomColor(),
           );
 
@@ -46,6 +46,7 @@ class ForYouCubit extends Cubit<ForYouState> {
             data: forYouResponse,
             hasReachedMax: hasReachedMax,
             carouselColors: colors,
+            carouselCurrentPage: 0,
           ));
         },
         failure: (error) {
@@ -58,7 +59,8 @@ class ForYouCubit extends Cubit<ForYouState> {
       );
     } on DioException catch (e) {
       _handleDioError(e);
-    } catch (e) {
+    } catch (e, stacktrace) {
+      print(stacktrace.toString());
       _handleGenericError(e.toString());
     }
   }
@@ -74,11 +76,12 @@ class ForYouCubit extends Cubit<ForYouState> {
 
       response.when(
         success: (moreData) {
-          if (moreData.forYouData?.suggested.packs != null &&
+          if (moreData.forYouData?.suggested?.packs != null &&
               state.data != null) {
             final updatedData = _mergeForYouData(state.data!, moreData);
             final hasReachedMax =
-                moreData.forYouData!.suggested.pagination.hasNextPage == false;
+                moreData.forYouData!.suggested?.pagination?.hasNextPage ==
+                    false;
 
             emit(state.copyWith(
               isLoadingMore: false,
@@ -180,8 +183,21 @@ class ForYouCubit extends Cubit<ForYouState> {
     emit(state.copyWith(hasError: false, error: null));
   }
 
-  void refresh() {
-    getForYouContent();
+  Future<void> refresh() async {
+    // Wait for new data before generating new colors
+    await getForYouContent();
+
+    // Generate new colors based on current data length
+    final recommendedLength = state.data?.forYouData?.recommended?.length ?? 0;
+    final newColors = List.generate(
+      recommendedLength,
+      (_) => ColorsManager.getRandomColor(),
+    );
+
+    emit(state.copyWith(
+      carouselColors: newColors,
+      carouselCurrentPage: 0,
+    ));
   }
 
   void updateCarouselPage(int page) {

@@ -30,13 +30,13 @@ class PackHeader extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             ColorsManager.mainPurple,
-            ColorsManager.mainPurple.withOpacity(0.8),
+            ColorsManager.mainPurple.withValues(alpha: 0.8),
           ],
         ),
         borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
-            color: ColorsManager.mainPurple.withOpacity(0.2),
+            color: ColorsManager.mainPurple.withValues(alpha: 0.2),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -53,7 +53,7 @@ class PackHeader extends StatelessWidget {
                 width: 100.w,
                 height: 100.w,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.1),
+                  color: Colors.white.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20.r),
                 ),
               ),
@@ -73,7 +73,7 @@ class PackHeader extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withValues(alpha: 0.1),
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),

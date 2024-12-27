@@ -16,7 +16,7 @@ class MoroStickApp extends StatelessWidget {
   // Cache theme data
   static final _theme = ThemeData(
     primaryColor: ColorsManager.mainPurple,
-    highlightColor: ColorsManager.mainPurple.withOpacity(0.2),
+    highlightColor: ColorsManager.mainPurple.withValues(alpha: 0.2),
     secondaryHeaderColor: ColorsManager.secondaryLightPurple,
     scaffoldBackgroundColor: ColorsManager.backgroundLightColor,
     platform: TargetPlatform.android,

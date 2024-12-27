@@ -79,7 +79,7 @@ class _PasswordNewPasswordState extends State<PasswordNewPassword> {
                     context.read<NewPasswordCubit>().confirmPasswordController,
                 // Override background color when there's an error
                 backgroundColor: hasError
-                    ? Colors.red.withOpacity(0.1)
+                    ? Colors.red.withValues(alpha: 0.1)
                     : ColorsManager.grayInputBackground,
                 // Override border colors when there's an error
                 enabledBorder: hasError
@@ -139,7 +139,7 @@ class _PasswordNewPasswordState extends State<PasswordNewPassword> {
                 ),
                 // Override background color when there's an error
                 backgroundColor: hasError
-                    ? Colors.red.withOpacity(0.1)
+                    ? Colors.red.withValues(alpha: 0.1)
                     : ColorsManager.grayInputBackground,
                 // Override border colors when there's an error
                 enabledBorder: hasError

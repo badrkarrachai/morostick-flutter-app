@@ -15,7 +15,7 @@ class ApiConstants {
   static const String refreshToken = 'auth/refresh-token';
 
   // Home routes
-  static const String getForYouTab = "home/for-you";
+  static const String getForYouTab = "home/for-you-tab";
 }
 
 class ErrorConstantData {

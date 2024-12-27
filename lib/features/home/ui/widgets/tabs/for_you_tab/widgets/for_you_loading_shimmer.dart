@@ -56,6 +56,46 @@ class RecommendedPacksCarouselShimmer extends StatelessWidget {
             ),
           ),
         ),
+        verticalSpace(15),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppShimmerLoading(
+              child: Container(
+                height: 8.h,
+                width: 60.w,
+                margin: EdgeInsets.symmetric(horizontal: 4.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+              ),
+            ),
+            AppShimmerLoading(
+              child: Container(
+                height: 8.h,
+                width: 8.w,
+                margin: EdgeInsets.symmetric(horizontal: 4.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+              ),
+            ),
+            AppShimmerLoading(
+              child: Container(
+                height: 8.h,
+                width: 8.w,
+                margin: EdgeInsets.symmetric(horizontal: 4.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+              ),
+            ),
+          ],
+        ),
+        verticalSpace(10),
       ],
     );
   }

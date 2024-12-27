@@ -121,11 +121,11 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       emit(const LoginState.loading());
 
-      final String? idToken = await _googleAuthService.getIdToken();
+      final String? accessToken = await _googleAuthService.getAccessToken();
 
-      if (idToken != null) {
+      if (accessToken != null) {
         final response = await _loginRepo.loginWithGoogle(
-          GoogleSignInRequestBody(idToken: idToken),
+          GoogleSignInRequestBody(accessToken: accessToken),
         );
 
         response.when(
@@ -144,7 +144,7 @@ class LoginCubit extends Cubit<LoginState> {
         emit(const LoginState.error(
           error: GeneralResponse(
             success: false,
-            message: 'Failed to get Google ID token',
+            message: 'Failed to get Google access token',
             status: 400,
           ),
         ));

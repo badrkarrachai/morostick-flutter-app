@@ -42,7 +42,7 @@ class StickerGrid extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -81,7 +81,7 @@ class StickerGrid extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(4.r),
                 decoration: BoxDecoration(
-                  color: ColorsManager.mainPurple.withOpacity(0.9),
+                  color: ColorsManager.mainPurple.withValues(alpha: 0.9),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -99,11 +99,11 @@ class StickerGrid extends StatelessWidget {
   Widget _buildFavoriteButton(int index) {
     return Container(
       decoration: BoxDecoration(
-        color: ColorsManager.white.withOpacity(0.9),
+        color: ColorsManager.white.withValues(alpha: 0.9),
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),

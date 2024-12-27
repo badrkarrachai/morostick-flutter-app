@@ -90,7 +90,7 @@ class _WebviewScreenState extends State<WebviewScreen> {
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.purple.withOpacity(0.1),
+                              color: Colors.purple.withValues(alpha: 0.1),
                               offset: const Offset(0, 20),
                               spreadRadius: -10,
                               blurRadius: 16,

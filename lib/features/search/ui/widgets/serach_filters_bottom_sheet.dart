@@ -84,10 +84,10 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: ColorsManager.mainPurple.withOpacity(0.05),
+                    color: ColorsManager.mainPurple.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12.r),
                     border: Border.all(
-                      color: ColorsManager.mainPurple.withOpacity(0.1),
+                      color: ColorsManager.mainPurple.withValues(alpha: 0.1),
                     ),
                   ),
                   child: Material(

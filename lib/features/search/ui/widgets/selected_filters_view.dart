@@ -33,8 +33,8 @@ class SelectedFiltersView extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  ColorsManager.mainPurple.withOpacity(0.08),
-                  ColorsManager.mainPurple.withOpacity(0.03),
+                  ColorsManager.mainPurple.withValues(alpha: 0.08),
+                  ColorsManager.mainPurple.withValues(alpha: 0.03),
                 ],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
@@ -65,7 +65,8 @@ class SelectedFiltersView extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.r),
                     ),
-                    backgroundColor: ColorsManager.mainPurple.withOpacity(0.1),
+                    backgroundColor:
+                        ColorsManager.mainPurple.withValues(alpha: 0.1),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -101,11 +102,12 @@ class SelectedFiltersView extends StatelessWidget {
                   padding: EdgeInsets.only(right: 6.w, left: 16.w),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: ColorsManager.mainPurple.withOpacity(0.1),
+                      color: ColorsManager.mainPurple.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(20.r),
                       boxShadow: [
                         BoxShadow(
-                          color: ColorsManager.mainPurple.withOpacity(0.08),
+                          color:
+                              ColorsManager.mainPurple.withValues(alpha: 0.08),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
@@ -158,8 +160,8 @@ class SelectedFiltersView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20.r),
                             boxShadow: [
                               BoxShadow(
-                                color:
-                                    ColorsManager.mainPurple.withOpacity(0.08),
+                                color: ColorsManager.mainPurple
+                                    .withValues(alpha: 0.08),
                                 blurRadius: 8,
                                 offset: const Offset(0, 2),
                               ),
@@ -209,7 +211,7 @@ class SelectedFiltersView extends StatelessWidget {
                       ),
                     ),
                   );
-                }).toList(),
+                }),
               ],
             ),
           ),

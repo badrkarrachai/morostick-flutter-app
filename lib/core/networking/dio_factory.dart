@@ -70,12 +70,13 @@ class DioFactory {
             return handler.next(response);
           },
         ),
-        if (kDebugMode)
-          PrettyDioLogger(
-            requestBody: true,
-            requestHeader: true,
-            responseHeader: true,
-          ),
+        // For debugging purpose
+        // if (kDebugMode)
+        //   PrettyDioLogger(
+        //     requestBody: true,
+        //     requestHeader: true,
+        //     responseHeader: true,
+        //   ),
       ]);
     }
   }

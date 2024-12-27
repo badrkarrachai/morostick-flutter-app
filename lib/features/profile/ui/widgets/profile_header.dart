@@ -51,7 +51,7 @@ class _CoverImage extends StatelessWidget {
       height: 180.h,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: ColorsManager.mainPurple.withOpacity(0.1),
+        color: ColorsManager.mainPurple.withValues(alpha: 0.1),
       ),
       child: Stack(
         children: [
@@ -105,7 +105,7 @@ class _ProfileImage extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),

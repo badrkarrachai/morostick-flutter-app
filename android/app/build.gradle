@@ -3,7 +3,6 @@ plugins {
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
-    id 'com.google.gms.google-services'
 }
 
 android {
@@ -29,11 +28,21 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        resValue "string", "server_client_id", "181109027255-ag5kq0aavg2if9rcuculk0t1m60neg95.apps.googleusercontent.com"
-        multiDexEnabled true
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("mykey.jks")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
@@ -48,8 +57,6 @@ android {
 dependencies {
     implementation "com.google.android.gms:play-services-auth:20.7.0"
     // ... other dependencies ...
-    implementation platform('com.google.firebase:firebase-bom:33.5.1')
-    implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.facebook.android:facebook-login:latest.release'
 }
 

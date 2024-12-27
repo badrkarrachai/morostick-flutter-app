@@ -81,7 +81,7 @@ class TopMenuItemWidget extends StatelessWidget {
                 child: CupertinoSwitch(
                   value: item.switchValue,
                   onChanged: item.onToggle,
-                  activeColor: ColorsManager.mainPurple,
+                  activeTrackColor: ColorsManager.mainPurple,
                 ),
               )
           ],

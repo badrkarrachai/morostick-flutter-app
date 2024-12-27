@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:morostick/core/helpers/number_and_text_formatter.dart';
+import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/theming/colors.dart';
 
@@ -29,12 +30,13 @@ class NoDataWidget extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              verticalSpace(70),
               // Icon
               Container(
                 width: 100.w,
                 height: 100.w,
                 decoration: BoxDecoration(
-                  color: ColorsManager.middleGray.withOpacity(0.2),
+                  color: ColorsManager.middleGray.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
                 ),
                 child: Stack(

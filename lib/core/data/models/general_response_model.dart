@@ -8,14 +8,16 @@ class GeneralResponse {
   final bool success;
   final String message;
   final ErrorDetails? error;
-  final dynamic data;
+  final Map<String, dynamic>?
+      data; // Changed from dynamic to Map<String, dynamic>?
 
-  const GeneralResponse(
-      {required this.status,
-      required this.success,
-      required this.message,
-      this.error,
-      this.data});
+  const GeneralResponse({
+    required this.status,
+    required this.success,
+    required this.message,
+    this.error,
+    this.data,
+  });
 
   factory GeneralResponse.fromJson(Map<String, dynamic> json) =>
       _$GeneralResponseFromJson(json);
@@ -46,9 +48,10 @@ class Metadata {
   final String? timestamp;
   final String? version;
 
-  Metadata({
-    required this.timestamp,
-    required this.version,
+  const Metadata({
+    // Added const
+    this.timestamp, // Removed required since they're nullable
+    this.version,
   });
 
   factory Metadata.fromJson(Map<String, dynamic> json) =>

@@ -20,7 +20,7 @@ class StickerPackCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Make sure there are preview stickers available
-    if (stickerPack.previewStickers.isEmpty) {
+    if (stickerPack.stickers == null || stickerPack.stickers!.isEmpty) {
       return const SizedBox.shrink();
     }
 
@@ -42,7 +42,7 @@ class StickerPackCard extends StatelessWidget {
                 child: AppCachedImageExtensions.thumbnail(
                   width: 110.w,
                   height: 110.h,
-                  imageUrl: stickerPack.previewStickers.first.webpUrl,
+                  imageUrl: stickerPack.trayIcon ?? '',
                 ),
               ),
               horizontalSpace(20),
@@ -53,7 +53,7 @@ class StickerPackCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      stickerPack.name.toUpperCase(),
+                      stickerPack.name!.toUpperCase(),
                       style: TextStyles.font23WhiteSemiBold,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

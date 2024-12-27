@@ -353,7 +353,7 @@ class _ApiService implements ApiService {
     )
         .compose(
           _dio.options,
-          'home/for-you',
+          'home/for-you-tab',
           queryParameters: queryParameters,
           data: _data,
         )

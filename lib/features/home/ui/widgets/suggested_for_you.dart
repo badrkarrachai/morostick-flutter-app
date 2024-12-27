@@ -17,21 +17,20 @@ class SuggestedForYou extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: List.generate(suggestedPacks.length, (index) {
         final pack = suggestedPacks[index];
-        final previewUrls = pack.previewStickers
+        final List<String> previewUrls = pack.stickers!
             .take(5)
-            .map((sticker) => sticker.webpUrl)
+            .map((sticker) => sticker.webpUrl ?? '')
             .toList();
 
-        final timeAgo = pack.previewStickers.isNotEmpty
-            ? Jiffy.parseFromDateTime(pack.previewStickers.first.createdAt)
-                .fromNow()
+        final timeAgo = pack.stickers!.isNotEmpty
+            ? Jiffy.parseFromDateTime(pack.stickers!.first.createdAt!).fromNow()
             : '';
 
         return PackOutsidePreview(
           userImageUrl: pack.creator.avatarUrl,
-          title: pack.name,
-          author: pack.creator.username,
-          downloads: pack.stats.downloads,
+          title: pack.name ?? '',
+          author: pack.creator.name ?? '',
+          downloads: pack.stats?.downloads ?? 0,
           timeAgo: timeAgo,
           stickerPreviews: previewUrls,
           onAddPressed: () {

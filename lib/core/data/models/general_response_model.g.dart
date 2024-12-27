@@ -14,7 +14,7 @@ GeneralResponse _$GeneralResponseFromJson(Map<String, dynamic> json) =>
       error: json['error'] == null
           ? null
           : ErrorDetails.fromJson(json['error'] as Map<String, dynamic>),
-      data: json['data'],
+      data: json['data'] as Map<String, dynamic>?,
     );
 
 Map<String, dynamic> _$GeneralResponseToJson(GeneralResponse instance) =>

@@ -114,7 +114,7 @@ class PackOutsidePreview extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: ColorsManager.whatsappGreen
-                            .withOpacity(0.2), // WhatsApp green color
+                            .withValues(alpha: 0.2), // WhatsApp green color
                         borderRadius: BorderRadius.circular(24.r),
                       ),
                       child: Row(

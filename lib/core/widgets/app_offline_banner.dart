@@ -87,7 +87,7 @@ class OfflineDialog extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(16.r),
                   decoration: BoxDecoration(
-                    color: ColorsManager.mainPurple.withOpacity(0.2),
+                    color: ColorsManager.mainPurple.withValues(alpha: 0.2),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -160,7 +160,7 @@ class DialogManager {
     if (!_isDialogShowing) {
       _isDialogShowing = true;
       CustomDialog.show(
-        barrierColor: Colors.black.withOpacity(0.5),
+        barrierColor: Colors.black.withValues(alpha: 0.5),
         child: OfflineDialog(reason: reason),
       ).then((_) => _isDialogShowing = false);
     }
