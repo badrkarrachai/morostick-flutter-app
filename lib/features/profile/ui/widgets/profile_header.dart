@@ -60,7 +60,7 @@ class _CoverImage extends StatelessWidget {
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
-            errorBuilder: (context, url, error) => Center(
+            errorWidget: Center(
               child: Icon(
                 Icons.image_outlined,
                 color: ColorsManager.mainPurple,
@@ -122,7 +122,7 @@ class _ProfileImage extends StatelessWidget {
                   width: 100.w,
                   height: 100.w,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, url, error) => Icon(
+                  errorWidget: Icon(
                     Icons.person_outline_rounded,
                     color: ColorsManager.mainPurple,
                     size: 40.sp,

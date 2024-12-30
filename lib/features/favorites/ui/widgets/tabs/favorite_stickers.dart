@@ -155,7 +155,7 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
                     imageUrl: url,
                     fit: BoxFit.contain,
                     borderRadius: BorderRadius.circular(16.r),
-                    errorBuilder: (context, url, error) => Container(
+                    errorWidget: Container(
                       color: ColorsManager.lighterPurple,
                       child: Icon(
                         Icons.emoji_emotions_outlined,

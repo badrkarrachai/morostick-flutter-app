@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:morostick/core/data/models/pack_model.dart';
 import 'package:morostick/core/widgets/app_broken_widgets.dart';
 import 'package:morostick/core/widgets/app_cached_network_image.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
-import 'package:morostick/features/home/data/models/for_you_tab_response.dart';
 
 class TrendingThisMonthCollection extends StatelessWidget {
   final List<StickerPack> trendingPacks;
@@ -120,7 +120,7 @@ class TrendingPackCard extends StatelessWidget {
         ),
         padding: EdgeInsets.all(10.w),
         child: pack.stickers!.isNotEmpty
-            ? AppCachedImageExtensions.thumbnail(
+            ? AppCachedNetworkImage.thumbnail(
                 imageUrl: pack.trayIcon ?? '',
                 borderRadius: BorderRadius.circular(8.r),
               )

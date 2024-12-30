@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:morostick/core/data/models/pack_model.dart';
 import 'package:morostick/core/widgets/app_cached_network_image.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:morostick/features/home/data/models/for_you_tab_response.dart';
 
 class StickerPackCard extends StatelessWidget {
   final StickerPack stickerPack;
@@ -39,7 +39,7 @@ class StickerPackCard extends StatelessWidget {
             children: [
               Flexible(
                 flex: 1,
-                child: AppCachedImageExtensions.thumbnail(
+                child: AppCachedNetworkImage.thumbnail(
                   width: 110.w,
                   height: 110.h,
                   imageUrl: stickerPack.trayIcon ?? '',

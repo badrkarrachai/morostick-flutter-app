@@ -1,66 +1,10 @@
+// sticker_pack_model.dart
 import 'package:json_annotation/json_annotation.dart';
-import 'package:morostick/core/data/models/general_response_model.dart';
 
-part 'for_you_tab_response.g.dart';
-
-@JsonSerializable()
-class ForYouResponse extends GeneralResponse {
-  ForYouData? get forYouData =>
-      data != null ? ForYouData.fromJson(data!) : null;
-
-  const ForYouResponse({
-    required super.status,
-    required super.success,
-    required super.message,
-    super.error,
-    super.data,
-    required this.metadata,
-  });
-
-  final Metadata metadata;
-
-  factory ForYouResponse.fromJson(Map<String, dynamic> json) =>
-      _$ForYouResponseFromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() => _$ForYouResponseToJson(this);
-}
-
-@JsonSerializable()
-class ForYouData {
-  final List<StickerPack>? recommended;
-  final List<StickerPack>? trending;
-  final SuggestedData? suggested;
-
-  ForYouData({
-    this.recommended,
-    this.trending,
-    this.suggested,
-  });
-
-  factory ForYouData.fromJson(Map<String, dynamic> json) =>
-      _$ForYouDataFromJson(json);
-  Map<String, dynamic> toJson() => _$ForYouDataToJson(this);
-}
-
-@JsonSerializable()
-class SuggestedData {
-  final List<StickerPack>? packs;
-  final PaginationData? pagination;
-
-  SuggestedData({
-    this.packs,
-    this.pagination,
-  });
-
-  factory SuggestedData.fromJson(Map<String, dynamic> json) =>
-      _$SuggestedDataFromJson(json);
-  Map<String, dynamic> toJson() => _$SuggestedDataToJson(this);
-}
+part 'pack_model.g.dart';
 
 @JsonSerializable()
 class StickerPack {
-  @JsonKey(name: 'id')
   final String id;
   final String? name;
   final String? description;
@@ -76,10 +20,9 @@ class StickerPack {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  @JsonKey(name: 'id')
   String get packId => id;
 
-  StickerPack({
+  const StickerPack({
     required this.id,
     this.name,
     this.description,
@@ -103,15 +46,13 @@ class StickerPack {
 
 @JsonSerializable()
 class Creator {
-  @JsonKey(name: 'id')
   final String id;
   final String? name;
   final String? avatarUrl;
 
-  @JsonKey(name: 'id')
   String get creatorId => id;
 
-  Creator({
+  const Creator({
     required this.id,
     this.name,
     this.avatarUrl,
@@ -124,7 +65,6 @@ class Creator {
 
 @JsonSerializable()
 class Sticker {
-  @JsonKey(name: 'id')
   final String id;
   final String? packId;
   final String? name;
@@ -142,10 +82,9 @@ class Sticker {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  @JsonKey(name: 'id')
   String get stickerId => id;
 
-  Sticker({
+  const Sticker({
     required this.id,
     this.packId,
     this.name,
@@ -170,11 +109,50 @@ class Sticker {
 }
 
 @JsonSerializable()
+class Category {
+  final String id;
+  final String? name;
+  final String? slug;
+  final String? description;
+  final List<String>? emoji;
+  final String? trayIcon;
+  final bool? isActive;
+  final int? order;
+  final bool? isGenerated;
+  final int? tabindex;
+  final CategoryStats? stats;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final bool? isStatic;
+
+  const Category({
+    required this.id,
+    this.name,
+    this.slug,
+    this.description,
+    this.emoji,
+    this.trayIcon,
+    this.isActive,
+    this.order,
+    this.isGenerated,
+    this.tabindex,
+    this.stats,
+    this.createdAt,
+    this.updatedAt,
+    this.isStatic = false,
+  });
+
+  factory Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
+}
+
+@JsonSerializable()
 class Dimensions {
   final int? width;
   final int? height;
 
-  Dimensions({
+  const Dimensions({
     this.width,
     this.height,
   });
@@ -185,47 +163,13 @@ class Dimensions {
 }
 
 @JsonSerializable()
-class Category {
-  @JsonKey(name: 'id')
-  final String id;
-  final String? name;
-  final String? slug;
-  final String? description;
-  final List<String>? emoji;
-  final bool? isActive;
-  final int? order;
-  final bool? isGenerated;
-  final CategoryStats? stats;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-
-  Category({
-    required this.id,
-    this.name,
-    this.slug,
-    this.description,
-    this.emoji,
-    this.isActive,
-    this.order,
-    this.isGenerated,
-    this.stats,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
-  Map<String, dynamic> toJson() => _$CategoryToJson(this);
-}
-
-@JsonSerializable()
 class CategoryStats {
   final int? packCount;
   final int? stickerCount;
   final int? totalViews;
   final int? totalDownloads;
 
-  CategoryStats({
+  const CategoryStats({
     this.packCount,
     this.stickerCount,
     this.totalViews,
@@ -243,7 +187,7 @@ class PackStats {
   final int? views;
   final int? favorites;
 
-  PackStats({
+  const PackStats({
     this.downloads,
     this.views,
     this.favorites,
@@ -260,7 +204,7 @@ class StickerStats {
   final int? views;
   final int? favorites;
 
-  StickerStats({
+  const StickerStats({
     this.downloads,
     this.views,
     this.favorites,
@@ -269,42 +213,4 @@ class StickerStats {
   factory StickerStats.fromJson(Map<String, dynamic> json) =>
       _$StickerStatsFromJson(json);
   Map<String, dynamic> toJson() => _$StickerStatsToJson(this);
-}
-
-@JsonSerializable()
-class PaginationData {
-  final int? currentPage;
-  final int? pageSize;
-  final int? totalPages;
-  final int? totalItems;
-  final bool? hasNextPage;
-  final bool? hasPrevPage;
-
-  PaginationData({
-    this.currentPage,
-    this.pageSize,
-    this.totalPages,
-    this.totalItems,
-    this.hasNextPage,
-    this.hasPrevPage,
-  });
-
-  factory PaginationData.fromJson(Map<String, dynamic> json) =>
-      _$PaginationDataFromJson(json);
-  Map<String, dynamic> toJson() => _$PaginationDataToJson(this);
-}
-
-@JsonSerializable()
-class Metadata {
-  final DateTime? timestamp;
-  final String? version;
-
-  Metadata({
-    this.timestamp,
-    this.version,
-  });
-
-  factory Metadata.fromJson(Map<String, dynamic> json) =>
-      _$MetadataFromJson(json);
-  Map<String, dynamic> toJson() => _$MetadataToJson(this);
 }

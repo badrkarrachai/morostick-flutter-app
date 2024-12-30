@@ -7,7 +7,10 @@ import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/images.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/features/favorites/ui/favorites_screen.dart';
-import 'package:morostick/features/home/logic/for_you_tab_cubit.dart';
+import 'package:morostick/features/home/logic/category_packs_cubit/category_packs_cubit.dart';
+import 'package:morostick/features/home/logic/category_tabs_cubit/category_tabs_cubit.dart';
+import 'package:morostick/features/home/logic/foryou_tab_cubit/foryou_tab_cubit.dart';
+import 'package:morostick/features/home/logic/trending_tab_cubit/trending_tab_cubit.dart';
 import 'package:morostick/features/home/ui/home_screen.dart';
 import 'package:morostick/features/profile/ui/profile_screen.dart';
 import 'package:morostick/features/search/ui/search_screen.dart';
@@ -36,6 +39,9 @@ class _MainNavigationState extends State<MainNavigation> {
         BlocProvider(
           create: (context) => getIt<ForYouCubit>(),
         ),
+        BlocProvider(create: (context) => getIt<TrendingTabCubit>()),
+        BlocProvider(create: (context) => getIt<CategoriesCubit>()),
+        BlocProvider(create: (context) => getIt<CategoryPacksCubit>()),
       ], child: const HomeScreen()),
       const SearchScreen(),
       const FavoritesScreen(),

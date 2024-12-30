@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'for_you_tab_state.dart';
+part of 'trending_tab_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,53 +15,51 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$ForYouState {
+mixin _$TrendingState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isLoadingMore => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   GeneralResponse? get error => throw _privateConstructorUsedError;
-  ForYouResponse? get data => throw _privateConstructorUsedError;
+  TrendingResponse? get data => throw _privateConstructorUsedError;
   int get currentPage => throw _privateConstructorUsedError;
   bool get hasReachedMax => throw _privateConstructorUsedError;
-  int get carouselCurrentPage => throw _privateConstructorUsedError;
-  List<Color> get carouselColors => throw _privateConstructorUsedError;
+  List<Color> get categoriesColors => throw _privateConstructorUsedError;
 
-  /// Create a copy of ForYouState
+  /// Create a copy of TrendingState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ForYouStateCopyWith<ForYouState> get copyWith =>
+  $TrendingStateCopyWith<TrendingState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ForYouStateCopyWith<$Res> {
-  factory $ForYouStateCopyWith(
-          ForYouState value, $Res Function(ForYouState) then) =
-      _$ForYouStateCopyWithImpl<$Res, ForYouState>;
+abstract class $TrendingStateCopyWith<$Res> {
+  factory $TrendingStateCopyWith(
+          TrendingState value, $Res Function(TrendingState) then) =
+      _$TrendingStateCopyWithImpl<$Res, TrendingState>;
   @useResult
   $Res call(
       {bool isLoading,
       bool isLoadingMore,
       bool hasError,
       GeneralResponse? error,
-      ForYouResponse? data,
+      TrendingResponse? data,
       int currentPage,
       bool hasReachedMax,
-      int carouselCurrentPage,
-      List<Color> carouselColors});
+      List<Color> categoriesColors});
 }
 
 /// @nodoc
-class _$ForYouStateCopyWithImpl<$Res, $Val extends ForYouState>
-    implements $ForYouStateCopyWith<$Res> {
-  _$ForYouStateCopyWithImpl(this._value, this._then);
+class _$TrendingStateCopyWithImpl<$Res, $Val extends TrendingState>
+    implements $TrendingStateCopyWith<$Res> {
+  _$TrendingStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ForYouState
+  /// Create a copy of TrendingState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -73,8 +71,7 @@ class _$ForYouStateCopyWithImpl<$Res, $Val extends ForYouState>
     Object? data = freezed,
     Object? currentPage = null,
     Object? hasReachedMax = null,
-    Object? carouselCurrentPage = null,
-    Object? carouselColors = null,
+    Object? categoriesColors = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -96,7 +93,7 @@ class _$ForYouStateCopyWithImpl<$Res, $Val extends ForYouState>
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as ForYouResponse?,
+              as TrendingResponse?,
       currentPage: null == currentPage
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
@@ -105,24 +102,20 @@ class _$ForYouStateCopyWithImpl<$Res, $Val extends ForYouState>
           ? _value.hasReachedMax
           : hasReachedMax // ignore: cast_nullable_to_non_nullable
               as bool,
-      carouselCurrentPage: null == carouselCurrentPage
-          ? _value.carouselCurrentPage
-          : carouselCurrentPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      carouselColors: null == carouselColors
-          ? _value.carouselColors
-          : carouselColors // ignore: cast_nullable_to_non_nullable
+      categoriesColors: null == categoriesColors
+          ? _value.categoriesColors
+          : categoriesColors // ignore: cast_nullable_to_non_nullable
               as List<Color>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$ForYouStateImplCopyWith<$Res>
-    implements $ForYouStateCopyWith<$Res> {
-  factory _$$ForYouStateImplCopyWith(
-          _$ForYouStateImpl value, $Res Function(_$ForYouStateImpl) then) =
-      __$$ForYouStateImplCopyWithImpl<$Res>;
+abstract class _$$TrendingStateImplCopyWith<$Res>
+    implements $TrendingStateCopyWith<$Res> {
+  factory _$$TrendingStateImplCopyWith(
+          _$TrendingStateImpl value, $Res Function(_$TrendingStateImpl) then) =
+      __$$TrendingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -130,22 +123,21 @@ abstract class _$$ForYouStateImplCopyWith<$Res>
       bool isLoadingMore,
       bool hasError,
       GeneralResponse? error,
-      ForYouResponse? data,
+      TrendingResponse? data,
       int currentPage,
       bool hasReachedMax,
-      int carouselCurrentPage,
-      List<Color> carouselColors});
+      List<Color> categoriesColors});
 }
 
 /// @nodoc
-class __$$ForYouStateImplCopyWithImpl<$Res>
-    extends _$ForYouStateCopyWithImpl<$Res, _$ForYouStateImpl>
-    implements _$$ForYouStateImplCopyWith<$Res> {
-  __$$ForYouStateImplCopyWithImpl(
-      _$ForYouStateImpl _value, $Res Function(_$ForYouStateImpl) _then)
+class __$$TrendingStateImplCopyWithImpl<$Res>
+    extends _$TrendingStateCopyWithImpl<$Res, _$TrendingStateImpl>
+    implements _$$TrendingStateImplCopyWith<$Res> {
+  __$$TrendingStateImplCopyWithImpl(
+      _$TrendingStateImpl _value, $Res Function(_$TrendingStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ForYouState
+  /// Create a copy of TrendingState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -157,10 +149,9 @@ class __$$ForYouStateImplCopyWithImpl<$Res>
     Object? data = freezed,
     Object? currentPage = null,
     Object? hasReachedMax = null,
-    Object? carouselCurrentPage = null,
-    Object? carouselColors = null,
+    Object? categoriesColors = null,
   }) {
-    return _then(_$ForYouStateImpl(
+    return _then(_$TrendingStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -180,7 +171,7 @@ class __$$ForYouStateImplCopyWithImpl<$Res>
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as ForYouResponse?,
+              as TrendingResponse?,
       currentPage: null == currentPage
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
@@ -189,13 +180,9 @@ class __$$ForYouStateImplCopyWithImpl<$Res>
           ? _value.hasReachedMax
           : hasReachedMax // ignore: cast_nullable_to_non_nullable
               as bool,
-      carouselCurrentPage: null == carouselCurrentPage
-          ? _value.carouselCurrentPage
-          : carouselCurrentPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      carouselColors: null == carouselColors
-          ? _value._carouselColors
-          : carouselColors // ignore: cast_nullable_to_non_nullable
+      categoriesColors: null == categoriesColors
+          ? _value._categoriesColors
+          : categoriesColors // ignore: cast_nullable_to_non_nullable
               as List<Color>,
     ));
   }
@@ -203,8 +190,8 @@ class __$$ForYouStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ForYouStateImpl implements _ForYouState {
-  const _$ForYouStateImpl(
+class _$TrendingStateImpl implements _TrendingState {
+  const _$TrendingStateImpl(
       {this.isLoading = false,
       this.isLoadingMore = false,
       this.hasError = false,
@@ -212,9 +199,8 @@ class _$ForYouStateImpl implements _ForYouState {
       this.data,
       this.currentPage = 1,
       this.hasReachedMax = false,
-      this.carouselCurrentPage = 0,
-      final List<Color> carouselColors = const []})
-      : _carouselColors = carouselColors;
+      final List<Color> categoriesColors = const []})
+      : _categoriesColors = categoriesColors;
 
   @override
   @JsonKey()
@@ -228,35 +214,33 @@ class _$ForYouStateImpl implements _ForYouState {
   @override
   final GeneralResponse? error;
   @override
-  final ForYouResponse? data;
+  final TrendingResponse? data;
   @override
   @JsonKey()
   final int currentPage;
   @override
   @JsonKey()
   final bool hasReachedMax;
+  final List<Color> _categoriesColors;
   @override
   @JsonKey()
-  final int carouselCurrentPage;
-  final List<Color> _carouselColors;
-  @override
-  @JsonKey()
-  List<Color> get carouselColors {
-    if (_carouselColors is EqualUnmodifiableListView) return _carouselColors;
+  List<Color> get categoriesColors {
+    if (_categoriesColors is EqualUnmodifiableListView)
+      return _categoriesColors;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_carouselColors);
+    return EqualUnmodifiableListView(_categoriesColors);
   }
 
   @override
   String toString() {
-    return 'ForYouState(isLoading: $isLoading, isLoadingMore: $isLoadingMore, hasError: $hasError, error: $error, data: $data, currentPage: $currentPage, hasReachedMax: $hasReachedMax, carouselCurrentPage: $carouselCurrentPage, carouselColors: $carouselColors)';
+    return 'TrendingState(isLoading: $isLoading, isLoadingMore: $isLoadingMore, hasError: $hasError, error: $error, data: $data, currentPage: $currentPage, hasReachedMax: $hasReachedMax, categoriesColors: $categoriesColors)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ForYouStateImpl &&
+            other is _$TrendingStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isLoadingMore, isLoadingMore) ||
@@ -269,10 +253,8 @@ class _$ForYouStateImpl implements _ForYouState {
                 other.currentPage == currentPage) &&
             (identical(other.hasReachedMax, hasReachedMax) ||
                 other.hasReachedMax == hasReachedMax) &&
-            (identical(other.carouselCurrentPage, carouselCurrentPage) ||
-                other.carouselCurrentPage == carouselCurrentPage) &&
             const DeepCollectionEquality()
-                .equals(other._carouselColors, _carouselColors));
+                .equals(other._categoriesColors, _categoriesColors));
   }
 
   @override
@@ -285,29 +267,27 @@ class _$ForYouStateImpl implements _ForYouState {
       data,
       currentPage,
       hasReachedMax,
-      carouselCurrentPage,
-      const DeepCollectionEquality().hash(_carouselColors));
+      const DeepCollectionEquality().hash(_categoriesColors));
 
-  /// Create a copy of ForYouState
+  /// Create a copy of TrendingState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ForYouStateImplCopyWith<_$ForYouStateImpl> get copyWith =>
-      __$$ForYouStateImplCopyWithImpl<_$ForYouStateImpl>(this, _$identity);
+  _$$TrendingStateImplCopyWith<_$TrendingStateImpl> get copyWith =>
+      __$$TrendingStateImplCopyWithImpl<_$TrendingStateImpl>(this, _$identity);
 }
 
-abstract class _ForYouState implements ForYouState {
-  const factory _ForYouState(
+abstract class _TrendingState implements TrendingState {
+  const factory _TrendingState(
       {final bool isLoading,
       final bool isLoadingMore,
       final bool hasError,
       final GeneralResponse? error,
-      final ForYouResponse? data,
+      final TrendingResponse? data,
       final int currentPage,
       final bool hasReachedMax,
-      final int carouselCurrentPage,
-      final List<Color> carouselColors}) = _$ForYouStateImpl;
+      final List<Color> categoriesColors}) = _$TrendingStateImpl;
 
   @override
   bool get isLoading;
@@ -318,20 +298,18 @@ abstract class _ForYouState implements ForYouState {
   @override
   GeneralResponse? get error;
   @override
-  ForYouResponse? get data;
+  TrendingResponse? get data;
   @override
   int get currentPage;
   @override
   bool get hasReachedMax;
   @override
-  int get carouselCurrentPage;
-  @override
-  List<Color> get carouselColors;
+  List<Color> get categoriesColors;
 
-  /// Create a copy of ForYouState
+  /// Create a copy of TrendingState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ForYouStateImplCopyWith<_$ForYouStateImpl> get copyWith =>
+  _$$TrendingStateImplCopyWith<_$TrendingStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,67 +1,10 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'for_you_tab_response.dart';
+part of 'pack_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
-
-ForYouResponse _$ForYouResponseFromJson(Map<String, dynamic> json) =>
-    ForYouResponse(
-      status: (json['status'] as num).toInt(),
-      success: json['success'] as bool,
-      message: json['message'] as String,
-      error: json['error'] == null
-          ? null
-          : ErrorDetails.fromJson(json['error'] as Map<String, dynamic>),
-      data: json['data'] as Map<String, dynamic>?,
-      metadata: Metadata.fromJson(json['metadata'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$ForYouResponseToJson(ForYouResponse instance) =>
-    <String, dynamic>{
-      'status': instance.status,
-      'success': instance.success,
-      'message': instance.message,
-      'error': instance.error,
-      'data': instance.data,
-      'metadata': instance.metadata,
-    };
-
-ForYouData _$ForYouDataFromJson(Map<String, dynamic> json) => ForYouData(
-      recommended: (json['recommended'] as List<dynamic>?)
-          ?.map((e) => StickerPack.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      trending: (json['trending'] as List<dynamic>?)
-          ?.map((e) => StickerPack.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      suggested: json['suggested'] == null
-          ? null
-          : SuggestedData.fromJson(json['suggested'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$ForYouDataToJson(ForYouData instance) =>
-    <String, dynamic>{
-      'recommended': instance.recommended,
-      'trending': instance.trending,
-      'suggested': instance.suggested,
-    };
-
-SuggestedData _$SuggestedDataFromJson(Map<String, dynamic> json) =>
-    SuggestedData(
-      packs: (json['packs'] as List<dynamic>?)
-          ?.map((e) => StickerPack.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      pagination: json['pagination'] == null
-          ? null
-          : PaginationData.fromJson(json['pagination'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$SuggestedDataToJson(SuggestedData instance) =>
-    <String, dynamic>{
-      'packs': instance.packs,
-      'pagination': instance.pagination,
-    };
 
 StickerPack _$StickerPackFromJson(Map<String, dynamic> json) => StickerPack(
       id: json['id'] as String,
@@ -171,17 +114,6 @@ Map<String, dynamic> _$StickerToJson(Sticker instance) => <String, dynamic>{
       'updatedAt': instance.updatedAt?.toIso8601String(),
     };
 
-Dimensions _$DimensionsFromJson(Map<String, dynamic> json) => Dimensions(
-      width: (json['width'] as num?)?.toInt(),
-      height: (json['height'] as num?)?.toInt(),
-    );
-
-Map<String, dynamic> _$DimensionsToJson(Dimensions instance) =>
-    <String, dynamic>{
-      'width': instance.width,
-      'height': instance.height,
-    };
-
 Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       id: json['id'] as String,
       name: json['name'] as String?,
@@ -189,9 +121,11 @@ Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       description: json['description'] as String?,
       emoji:
           (json['emoji'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      trayIcon: json['trayIcon'] as String?,
       isActive: json['isActive'] as bool?,
       order: (json['order'] as num?)?.toInt(),
       isGenerated: json['isGenerated'] as bool?,
+      tabindex: (json['tabindex'] as num?)?.toInt(),
       stats: json['stats'] == null
           ? null
           : CategoryStats.fromJson(json['stats'] as Map<String, dynamic>),
@@ -201,6 +135,7 @@ Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
+      isStatic: json['isStatic'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
@@ -209,12 +144,26 @@ Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
       'slug': instance.slug,
       'description': instance.description,
       'emoji': instance.emoji,
+      'trayIcon': instance.trayIcon,
       'isActive': instance.isActive,
       'order': instance.order,
       'isGenerated': instance.isGenerated,
+      'tabindex': instance.tabindex,
       'stats': instance.stats,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
+      'isStatic': instance.isStatic,
+    };
+
+Dimensions _$DimensionsFromJson(Map<String, dynamic> json) => Dimensions(
+      width: (json['width'] as num?)?.toInt(),
+      height: (json['height'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$DimensionsToJson(Dimensions instance) =>
+    <String, dynamic>{
+      'width': instance.width,
+      'height': instance.height,
     };
 
 CategoryStats _$CategoryStatsFromJson(Map<String, dynamic> json) =>
@@ -256,36 +205,4 @@ Map<String, dynamic> _$StickerStatsToJson(StickerStats instance) =>
       'downloads': instance.downloads,
       'views': instance.views,
       'favorites': instance.favorites,
-    };
-
-PaginationData _$PaginationDataFromJson(Map<String, dynamic> json) =>
-    PaginationData(
-      currentPage: (json['currentPage'] as num?)?.toInt(),
-      pageSize: (json['pageSize'] as num?)?.toInt(),
-      totalPages: (json['totalPages'] as num?)?.toInt(),
-      totalItems: (json['totalItems'] as num?)?.toInt(),
-      hasNextPage: json['hasNextPage'] as bool?,
-      hasPrevPage: json['hasPrevPage'] as bool?,
-    );
-
-Map<String, dynamic> _$PaginationDataToJson(PaginationData instance) =>
-    <String, dynamic>{
-      'currentPage': instance.currentPage,
-      'pageSize': instance.pageSize,
-      'totalPages': instance.totalPages,
-      'totalItems': instance.totalItems,
-      'hasNextPage': instance.hasNextPage,
-      'hasPrevPage': instance.hasPrevPage,
-    };
-
-Metadata _$MetadataFromJson(Map<String, dynamic> json) => Metadata(
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
-      version: json['version'] as String?,
-    );
-
-Map<String, dynamic> _$MetadataToJson(Metadata instance) => <String, dynamic>{
-      'timestamp': instance.timestamp?.toIso8601String(),
-      'version': instance.version,
     };

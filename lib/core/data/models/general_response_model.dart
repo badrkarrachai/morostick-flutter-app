@@ -8,8 +8,8 @@ class GeneralResponse {
   final bool success;
   final String message;
   final ErrorDetails? error;
-  final Map<String, dynamic>?
-      data; // Changed from dynamic to Map<String, dynamic>?
+  final dynamic data; // Changed from dynamic to Map<String, dynamic>?
+  final Metadata? metadata;
 
   const GeneralResponse({
     required this.status,
@@ -17,6 +17,7 @@ class GeneralResponse {
     required this.message,
     this.error,
     this.data,
+    this.metadata,
   });
 
   factory GeneralResponse.fromJson(Map<String, dynamic> json) =>
@@ -57,4 +58,27 @@ class Metadata {
   factory Metadata.fromJson(Map<String, dynamic> json) =>
       _$MetadataFromJson(json);
   Map<String, dynamic> toJson() => _$MetadataToJson(this);
+}
+
+@JsonSerializable()
+class PaginationData {
+  final int? currentPage;
+  final int? pageSize;
+  final int? totalPages;
+  final int? totalItems;
+  final bool? hasNextPage;
+  final bool? hasPrevPage;
+
+  PaginationData({
+    this.currentPage,
+    this.pageSize,
+    this.totalPages,
+    this.totalItems,
+    this.hasNextPage,
+    this.hasPrevPage,
+  });
+
+  factory PaginationData.fromJson(Map<String, dynamic> json) =>
+      _$PaginationDataFromJson(json);
+  Map<String, dynamic> toJson() => _$PaginationDataToJson(this);
 }

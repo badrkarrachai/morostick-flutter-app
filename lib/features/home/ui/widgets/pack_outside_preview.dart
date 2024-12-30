@@ -57,7 +57,7 @@ class PackOutsidePreview extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      AppCachedImageExtensions.avatar(
+                      AppCachedNetworkImage.avatar(
                         size: 31.w,
                         imageUrl: userImageUrl ??
                             'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/ProfileScreen/NoProfileImage.png',
@@ -195,7 +195,7 @@ class StickerPreview extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
       ),
-      child: AppCachedImageExtensions.thumbnail(
+      child: AppCachedNetworkImage.thumbnail(
         imageUrl: imageUrl,
       ),
     );

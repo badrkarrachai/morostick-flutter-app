@@ -82,7 +82,7 @@ class PackHeader extends StatelessWidget {
                   child: AppCachedNetworkImage(
                     imageUrl: mainStickerUrl,
                     fit: BoxFit.contain,
-                    errorBuilder: (context, url, error) => Icon(
+                    errorWidget: Icon(
                       Icons.emoji_emotions_outlined,
                       color: ColorsManager.mainPurple,
                       size: 32.sp,

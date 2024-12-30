@@ -4,38 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AppCachedNetworkImage extends StatelessWidget {
+  static final _defaultShimmerBaseColor = Colors.grey[300]!;
+  static final _defaultShimmerHighlightColor = Colors.grey[100]!;
+
   final String imageUrl;
   final double? width;
   final double? height;
   final BoxFit? fit;
   final BorderRadius? borderRadius;
-  final Border? border;
-  final Widget Function(BuildContext, String)? placeholderBuilder;
-  final Widget Function(BuildContext, String, dynamic)? errorBuilder;
-  final Color? shimmerBaseColor;
-  final Color? shimmerHighlightColor;
-  final Duration? fadeInDuration;
   final BoxShape shape;
-  final bool useOldImageOnUrlChange;
-  final VoidCallback? onLoadStart;
-  final void Function(ImageProvider<Object> imageProvider)? onLoadComplete;
-  final void Function()? onError;
   final Color? backgroundColor;
-  final BlendMode? colorBlendMode;
-  final FilterQuality? filterQuality;
-  final bool? gaplessPlayback;
-  final int? memCacheWidth;
-  final int? memCacheHeight;
-  final String? cacheKey;
-  final int? maxWidthDiskCache;
-  final int? maxHeightDiskCache;
-  final Widget? loadingOverlay;
-  final Alignment? alignment;
-  final ImageRepeat? repeat;
-  final bool? matchTextDirection;
-  final double? scale;
-  final Color? color;
-  final double? opacity;
+
+  // Progressive loading settings
+  final bool enableProgressiveLoading;
+  final Duration fadeInDuration;
+  final bool useBlurHash;
+  final Widget? errorWidget;
 
   const AppCachedNetworkImage({
     super.key,
@@ -44,108 +28,56 @@ class AppCachedNetworkImage extends StatelessWidget {
     this.height,
     this.fit,
     this.borderRadius,
-    this.border,
-    this.placeholderBuilder,
-    this.errorBuilder,
-    this.shimmerBaseColor,
-    this.shimmerHighlightColor,
-    this.fadeInDuration,
     this.shape = BoxShape.rectangle,
-    this.useOldImageOnUrlChange = true,
-    this.onLoadStart,
-    this.onLoadComplete,
-    this.onError,
     this.backgroundColor,
-    this.colorBlendMode,
-    this.filterQuality,
-    this.gaplessPlayback,
-    this.memCacheWidth,
-    this.memCacheHeight,
-    this.cacheKey,
-    this.maxWidthDiskCache,
-    this.maxHeightDiskCache,
-    this.loadingOverlay,
-    this.alignment,
-    this.repeat,
-    this.matchTextDirection,
-    this.scale,
-    this.color,
-    this.opacity,
+    this.enableProgressiveLoading = true,
+    this.fadeInDuration = const Duration(milliseconds: 300),
+    this.useBlurHash = true,
+    this.errorWidget,
   });
 
   @override
   Widget build(BuildContext context) {
-    Widget imageWidget = CachedNetworkImage(
-      imageUrl: imageUrl,
-      width: width,
-      height: height,
-      fit: fit ?? BoxFit.contain,
-      placeholder: (context, url) =>
-          placeholderBuilder?.call(context, url) ?? _buildDefaultShimmer(),
-      errorWidget: (context, url, error) =>
-          errorBuilder?.call(context, url, error) ?? _buildDefaultError(),
-      fadeInDuration: fadeInDuration ?? const Duration(milliseconds: 300),
-      useOldImageOnUrlChange: useOldImageOnUrlChange,
-      progressIndicatorBuilder: loadingOverlay != null
-          ? (context, url, progress) => Stack(
-                children: [
-                  _buildDefaultShimmer(),
-                  Center(child: loadingOverlay!),
-                ],
-              )
-          : null,
-      imageBuilder: (context, imageProvider) => Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: imageProvider,
-            fit: fit ?? BoxFit.contain,
-            alignment: alignment ?? Alignment.center,
-            repeat: repeat ?? ImageRepeat.noRepeat,
-            scale: scale ?? 1.0,
-            opacity: opacity ?? 1.0,
-            colorFilter: color != null && colorBlendMode != null
-                ? ColorFilter.mode(color!, colorBlendMode!)
-                : null,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        Widget imageWidget = CachedNetworkImage(
+          imageUrl: imageUrl,
+          width: width,
+          height: height,
+          fit: fit ?? BoxFit.contain,
+          fadeInDuration: fadeInDuration,
+          filterQuality: FilterQuality.medium,
+          progressIndicatorBuilder: (context, url, progress) =>
+              _buildProgressiveLoading(progress),
+          errorWidget: (context, url, error) =>
+              errorWidget ?? _buildErrorWidget(),
+        );
+
+        // Apply shape clipping if needed
+        if (shape == BoxShape.circle) {
+          imageWidget = ClipOval(child: imageWidget);
+        } else if (borderRadius != null) {
+          imageWidget = ClipRRect(
+            borderRadius: borderRadius!,
+            child: imageWidget,
+          );
+        }
+
+        return Container(
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: shape == BoxShape.rectangle ? borderRadius : null,
           ),
-        ),
-      ),
-      cacheKey: cacheKey,
-      maxWidthDiskCache: maxWidthDiskCache,
-      maxHeightDiskCache: maxHeightDiskCache,
-      memCacheWidth: memCacheWidth,
-      memCacheHeight: memCacheHeight,
-      filterQuality: filterQuality ?? FilterQuality.low,
-      alignment: alignment ?? Alignment.center,
-      repeat: repeat ?? ImageRepeat.noRepeat,
-      matchTextDirection: matchTextDirection ?? false,
-      color: color,
-      colorBlendMode: colorBlendMode,
-      key: key,
-    );
-
-    if (shape == BoxShape.circle) {
-      imageWidget = ClipOval(child: imageWidget);
-    } else if (borderRadius != null) {
-      imageWidget = ClipRRect(
-        borderRadius: borderRadius!,
-        child: imageWidget,
-      );
-    }
-
-    return Container(
-      decoration: BoxDecoration(
-        border: border,
-        borderRadius: shape == BoxShape.circle ? null : borderRadius,
-        color: backgroundColor,
-      ),
-      child: imageWidget,
+          child: imageWidget,
+        );
+      },
     );
   }
 
-  Widget _buildDefaultShimmer() {
+  Widget _buildLoadingPlaceholder() {
     return Shimmer.fromColors(
-      baseColor: shimmerBaseColor ?? Colors.grey[300]!,
-      highlightColor: shimmerHighlightColor ?? Colors.grey[100]!,
+      baseColor: _defaultShimmerBaseColor,
+      highlightColor: _defaultShimmerHighlightColor,
       child: Container(
         width: width,
         height: height,
@@ -158,7 +90,22 @@ class AppCachedNetworkImage extends StatelessWidget {
     );
   }
 
-  Widget _buildDefaultError() {
+  Widget _buildProgressiveLoading(DownloadProgress progress) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        _buildLoadingPlaceholder(),
+        if (progress.progress != null)
+          CircularProgressIndicator(
+            value: progress.progress,
+            strokeWidth: 2,
+            backgroundColor: Colors.white.withValues(alpha: 0.2),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildErrorWidget() {
     return Container(
       width: width,
       height: height,
@@ -174,57 +121,25 @@ class AppCachedNetworkImage extends StatelessWidget {
       ),
     );
   }
-}
 
-// Extension for commonly used configurations
-extension AppCachedImageExtensions on AppCachedNetworkImage {
-  static AppCachedNetworkImage circle({
+  // Convenience constructors for common use cases
+  static Widget avatar({
     required String imageUrl,
-    required double size,
-    BorderRadius? borderRadius,
-    Border? border,
+    double size = 40,
     Color? backgroundColor,
-    final Widget Function(BuildContext, String, dynamic)? errorBuilder,
   }) {
     return AppCachedNetworkImage(
       imageUrl: imageUrl,
       width: size,
       height: size,
       shape: BoxShape.circle,
-      borderRadius: borderRadius,
-      border: border,
       backgroundColor: backgroundColor,
-      errorBuilder: errorBuilder,
+      enableProgressiveLoading: false,
+      fadeInDuration: const Duration(milliseconds: 200),
     );
   }
 
-  static AppCachedNetworkImage avatar({
-    required String imageUrl,
-    double size = 40,
-    Border? border,
-  }) {
-    return circle(
-      imageUrl: imageUrl,
-      size: size,
-      border: border ?? Border.all(color: Colors.transparent, width: 1),
-      backgroundColor: Colors.transparent,
-      errorBuilder: (context, url, error) => Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          Icons.person,
-          color: Colors.grey[400],
-          size: size * 0.5,
-        ),
-      ),
-    );
-  }
-
-  static AppCachedNetworkImage thumbnail({
+  static Widget thumbnail({
     required String imageUrl,
     double? width,
     double? height,
@@ -236,8 +151,7 @@ extension AppCachedImageExtensions on AppCachedNetworkImage {
       height: height,
       fit: BoxFit.contain,
       borderRadius: borderRadius ?? BorderRadius.circular(8.r),
-      memCacheWidth: 300,
-      filterQuality: FilterQuality.low,
+      enableProgressiveLoading: true,
     );
   }
 }

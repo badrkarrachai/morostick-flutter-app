@@ -14,7 +14,11 @@ import 'package:morostick/features/auth/sign_up/data/models/sign_up_request_body
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_response.dart';
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_with_facebook_model.dart';
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_with_google_model.dart';
-import 'package:morostick/features/home/data/models/for_you_tab_response.dart';
+import 'package:morostick/features/home/data/models/category_tabs_requestbody.dart';
+import 'package:morostick/features/home/data/models/category_tabs_response.dart';
+import 'package:morostick/features/home/data/models/foryou_tab_response.dart';
+import 'package:morostick/features/home/data/models/pack_list_tabs_response.dart';
+import 'package:morostick/features/home/data/models/trending_tab_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_service.g.dart';
@@ -70,8 +74,25 @@ abstract class ApiService {
   );
 
   // Home routes
+  @GET(ApiConstants.getCategories)
+  Future<CategoryResponse> getCategories();
+
   @GET(ApiConstants.getForYouTab)
   Future<ForYouResponse> getMoreSuggested(
+    @Query('page') int page,
+    @Query('limit') int limit,
+  );
+
+  @GET(ApiConstants.getTrendingTab)
+  Future<TrendingResponse> getTrendingTab(
+    @Query('page') int page,
+    @Query('limit') int limit,
+  );
+
+  @POST(ApiConstants.getPacksListTab)
+  Future<PacksListResponse> getTabByCategoryName(
+    @Body() CategoryTabsRequestBody categoryRequestBody,
+    @Query('sortBy') String sortBy,
     @Query('page') int page,
     @Query('limit') int limit,
   );

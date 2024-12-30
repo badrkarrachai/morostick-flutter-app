@@ -4,18 +4,19 @@ import 'package:morostick/core/data/models/general_response_model.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/widgets/app_offline_banner.dart';
-import 'package:morostick/features/home/data/models/for_you_tab_response.dart';
-import 'package:morostick/features/home/data/repos/for_you_tab_repo.dart';
-import 'package:morostick/features/home/logic/for_you_tab_state.dart';
+import 'package:morostick/features/home/data/models/trending_tab_response.dart';
+import 'package:morostick/features/home/data/repos/home_repo.dart';
+import 'package:morostick/features/home/logic/trending_tab_cubit/trending_tab_state.dart';
 
-class ForYouCubit extends Cubit<ForYouState> {
+class TrendingTabCubit extends Cubit<TrendingState> {
   final HomeRepo _homeRepo;
   final AuthNavigationService _authService;
   static const int _pageSize = 10;
 
-  ForYouCubit(this._homeRepo, this._authService) : super(const ForYouState());
+  TrendingTabCubit(this._homeRepo, this._authService)
+      : super(const TrendingState());
 
-  Future<void> getForYouContent() async {
+  Future<void> getTrendingContent() async {
     if (state.isLoading) return;
 
     emit(state.copyWith(
@@ -27,26 +28,25 @@ class ForYouCubit extends Cubit<ForYouState> {
     ));
 
     try {
-      final response = await _homeRepo.getForYouTab(1, limit: _pageSize);
+      final response = await _homeRepo.getTrendingTab(1, limit: _pageSize);
 
       response.when(
-        success: (forYouResponse) {
-          final hasReachedMax =
-              forYouResponse.forYouData?.suggested?.pagination?.hasNextPage ==
-                  false;
+        success: (trendingResponse) {
+          final hasReachedMax = trendingResponse
+                  .trendingData?.trending?.pagination?.hasNextPage ==
+              false;
 
           // Generate colors for recommended packs
           final colors = List.generate(
-            forYouResponse.forYouData?.recommended?.length ?? 0,
+            trendingResponse.trendingData?.topCategories?.length ?? 0,
             (_) => ColorsManager.getRandomColor(),
           );
 
           emit(state.copyWith(
             isLoading: false,
-            data: forYouResponse,
+            data: trendingResponse,
             hasReachedMax: hasReachedMax,
-            carouselColors: colors,
-            carouselCurrentPage: 0,
+            categoriesColors: colors,
           ));
         },
         failure: (error) {
@@ -59,8 +59,7 @@ class ForYouCubit extends Cubit<ForYouState> {
       );
     } on DioException catch (e) {
       _handleDioError(e);
-    } catch (e, stacktrace) {
-      print(stacktrace.toString());
+    } catch (e) {
       _handleGenericError(e.toString());
     }
   }
@@ -72,15 +71,16 @@ class ForYouCubit extends Cubit<ForYouState> {
 
     try {
       final nextPage = state.currentPage + 1;
-      final response = await _homeRepo.getForYouTab(nextPage, limit: _pageSize);
+      final response =
+          await _homeRepo.getTrendingTab(nextPage, limit: _pageSize);
 
       response.when(
         success: (moreData) {
-          if (moreData.forYouData?.suggested?.packs != null &&
+          if (moreData.trendingData?.trending?.packs != null &&
               state.data != null) {
-            final updatedData = _mergeForYouData(state.data!, moreData);
+            final updatedData = _mergeTrendingData(state.data!, moreData);
             final hasReachedMax =
-                moreData.forYouData!.suggested?.pagination?.hasNextPage ==
+                moreData.trendingData!.trending?.pagination?.hasNextPage ==
                     false;
 
             emit(state.copyWith(
@@ -111,34 +111,34 @@ class ForYouCubit extends Cubit<ForYouState> {
     }
   }
 
-  ForYouResponse _mergeForYouData(
-      ForYouResponse currentData, ForYouResponse newData) {
+  TrendingResponse _mergeTrendingData(
+      TrendingResponse currentData, TrendingResponse newData) {
     // Create a deep copy of the current data
     final Map<String, dynamic> updatedData =
         Map<String, dynamic>.from(currentData.toJson());
 
-    // Get the current suggested data
+    // Get the current trending data
     final Map<String, dynamic> currentSuggested = (updatedData['data']
-        as Map<String, dynamic>)['suggested'] as Map<String, dynamic>;
+        as Map<String, dynamic>)['trending'] as Map<String, dynamic>;
 
     // Get current and new packs
     final List<dynamic> currentPacks =
         List<dynamic>.from(currentSuggested['packs'] as List);
     final List<dynamic> newPacks =
-        (newData.data?['suggested']?['packs'] as List?)?.cast<dynamic>() ?? [];
+        (newData.data?['trending']?['packs'] as List?)?.cast<dynamic>() ?? [];
 
     // Merge packs
     currentSuggested['packs'] = [...currentPacks, ...newPacks];
 
     // Update pagination
-    currentSuggested['pagination'] = newData.data?['suggested']?['pagination'];
+    currentSuggested['pagination'] = newData.data?['trending']?['pagination'];
 
     // Update the data
-    (updatedData['data'] as Map<String, dynamic>)['suggested'] =
+    (updatedData['data'] as Map<String, dynamic>)['trending'] =
         currentSuggested;
 
-    // Create new ForYouResponse with merged data
-    return ForYouResponse(
+    // Create new TrendingResponse with merged data
+    return TrendingResponse(
       status: newData.status,
       success: newData.success,
       message: newData.message,
@@ -185,22 +185,18 @@ class ForYouCubit extends Cubit<ForYouState> {
 
   Future<void> refresh() async {
     // Wait for new data before generating new colors
-    await getForYouContent();
+    await getTrendingContent();
 
     // Generate new colors based on current data length
-    final recommendedLength = state.data?.forYouData?.recommended?.length ?? 0;
+    final recommendedLength =
+        state.data?.trendingData?.topCategories?.length ?? 0;
     final newColors = List.generate(
       recommendedLength,
       (_) => ColorsManager.getRandomColor(),
     );
 
     emit(state.copyWith(
-      carouselColors: newColors,
-      carouselCurrentPage: 0,
+      categoriesColors: newColors,
     ));
-  }
-
-  void updateCarouselPage(int page) {
-    emit(state.copyWith(carouselCurrentPage: page));
   }
 }
