@@ -23,10 +23,10 @@ class CustomDialog extends StatefulWidget {
     Color barrierColor = Colors.black54,
     bool barrierDismissible = true,
   }) {
-    if (navigatorKey.currentContext == null) return Future.value(null);
+    if (AppKeys.navigatorKey.currentContext == null) return Future.value(null);
 
     return showGeneralDialog<T>(
-      context: navigatorKey.currentContext!,
+      context: AppKeys.navigatorKey.currentContext!,
       barrierDismissible: barrierDismissible,
       barrierColor: barrierColor,
       barrierLabel: 'Dialog Barrier',

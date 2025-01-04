@@ -6,7 +6,7 @@ part of 'pack_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-StickerPack _$StickerPackFromJson(Map<String, dynamic> json) => StickerPack(
+Pack _$PackFromJson(Map<String, dynamic> json) => Pack(
       id: json['id'] as String,
       name: json['name'] as String?,
       description: json['description'] as String?,
@@ -31,10 +31,10 @@ StickerPack _$StickerPackFromJson(Map<String, dynamic> json) => StickerPack(
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
+      isFavorite: json['isFavorite'] as bool?,
     );
 
-Map<String, dynamic> _$StickerPackToJson(StickerPack instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PackToJson(Pack instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
@@ -49,6 +49,7 @@ Map<String, dynamic> _$StickerPackToJson(StickerPack instance) =>
       'stats': instance.stats,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
+      'isFavorite': instance.isFavorite,
     };
 
 Creator _$CreatorFromJson(Map<String, dynamic> json) => Creator(

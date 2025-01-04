@@ -17,7 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CategoryPacksState {
   bool get isLoading => throw _privateConstructorUsedError;
-  List<StickerPack> get packs => throw _privateConstructorUsedError;
+  String? get categoryKey => throw _privateConstructorUsedError;
+  List<Pack> get packs => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   String? get errorDetails => throw _privateConstructorUsedError;
@@ -40,7 +41,8 @@ abstract class $CategoryPacksStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isLoading,
-      List<StickerPack> packs,
+      String? categoryKey,
+      List<Pack> packs,
       bool hasError,
       String? errorMessage,
       String? errorDetails,
@@ -65,6 +67,7 @@ class _$CategoryPacksStateCopyWithImpl<$Res, $Val extends CategoryPacksState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? categoryKey = freezed,
     Object? packs = null,
     Object? hasError = null,
     Object? errorMessage = freezed,
@@ -78,10 +81,14 @@ class _$CategoryPacksStateCopyWithImpl<$Res, $Val extends CategoryPacksState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      categoryKey: freezed == categoryKey
+          ? _value.categoryKey
+          : categoryKey // ignore: cast_nullable_to_non_nullable
+              as String?,
       packs: null == packs
           ? _value.packs
           : packs // ignore: cast_nullable_to_non_nullable
-              as List<StickerPack>,
+              as List<Pack>,
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
@@ -120,7 +127,8 @@ abstract class _$$CategoryPacksStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool isLoading,
-      List<StickerPack> packs,
+      String? categoryKey,
+      List<Pack> packs,
       bool hasError,
       String? errorMessage,
       String? errorDetails,
@@ -143,6 +151,7 @@ class __$$CategoryPacksStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? categoryKey = freezed,
     Object? packs = null,
     Object? hasError = null,
     Object? errorMessage = freezed,
@@ -156,10 +165,14 @@ class __$$CategoryPacksStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      categoryKey: freezed == categoryKey
+          ? _value.categoryKey
+          : categoryKey // ignore: cast_nullable_to_non_nullable
+              as String?,
       packs: null == packs
           ? _value._packs
           : packs // ignore: cast_nullable_to_non_nullable
-              as List<StickerPack>,
+              as List<Pack>,
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
@@ -193,7 +206,8 @@ class __$$CategoryPacksStateImplCopyWithImpl<$Res>
 class _$CategoryPacksStateImpl implements _CategoryPacksState {
   const _$CategoryPacksStateImpl(
       {this.isLoading = false,
-      final List<StickerPack> packs = const [],
+      this.categoryKey,
+      final List<Pack> packs = const [],
       this.hasError = false,
       this.errorMessage,
       this.errorDetails,
@@ -205,10 +219,12 @@ class _$CategoryPacksStateImpl implements _CategoryPacksState {
   @override
   @JsonKey()
   final bool isLoading;
-  final List<StickerPack> _packs;
+  @override
+  final String? categoryKey;
+  final List<Pack> _packs;
   @override
   @JsonKey()
-  List<StickerPack> get packs {
+  List<Pack> get packs {
     if (_packs is EqualUnmodifiableListView) return _packs;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_packs);
@@ -233,7 +249,7 @@ class _$CategoryPacksStateImpl implements _CategoryPacksState {
 
   @override
   String toString() {
-    return 'CategoryPacksState(isLoading: $isLoading, packs: $packs, hasError: $hasError, errorMessage: $errorMessage, errorDetails: $errorDetails, hasReachedMax: $hasReachedMax, isLoadingMore: $isLoadingMore, currentPage: $currentPage)';
+    return 'CategoryPacksState(isLoading: $isLoading, categoryKey: $categoryKey, packs: $packs, hasError: $hasError, errorMessage: $errorMessage, errorDetails: $errorDetails, hasReachedMax: $hasReachedMax, isLoadingMore: $isLoadingMore, currentPage: $currentPage)';
   }
 
   @override
@@ -243,6 +259,8 @@ class _$CategoryPacksStateImpl implements _CategoryPacksState {
             other is _$CategoryPacksStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.categoryKey, categoryKey) ||
+                other.categoryKey == categoryKey) &&
             const DeepCollectionEquality().equals(other._packs, _packs) &&
             (identical(other.hasError, hasError) ||
                 other.hasError == hasError) &&
@@ -262,6 +280,7 @@ class _$CategoryPacksStateImpl implements _CategoryPacksState {
   int get hashCode => Object.hash(
       runtimeType,
       isLoading,
+      categoryKey,
       const DeepCollectionEquality().hash(_packs),
       hasError,
       errorMessage,
@@ -283,7 +302,8 @@ class _$CategoryPacksStateImpl implements _CategoryPacksState {
 abstract class _CategoryPacksState implements CategoryPacksState {
   const factory _CategoryPacksState(
       {final bool isLoading,
-      final List<StickerPack> packs,
+      final String? categoryKey,
+      final List<Pack> packs,
       final bool hasError,
       final String? errorMessage,
       final String? errorDetails,
@@ -294,7 +314,9 @@ abstract class _CategoryPacksState implements CategoryPacksState {
   @override
   bool get isLoading;
   @override
-  List<StickerPack> get packs;
+  String? get categoryKey;
+  @override
+  List<Pack> get packs;
   @override
   bool get hasError;
   @override

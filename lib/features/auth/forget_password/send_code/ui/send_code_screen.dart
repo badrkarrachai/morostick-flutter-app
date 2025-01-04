@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/widgets/app_button.dart';
-import 'package:morostick/core/widgets/app_back_button.dart';
+import 'package:morostick/core/widgets/app_custom_icon_button.dart';
 import 'package:morostick/features/auth/forget_password/send_code/logic/send_code_cubit.dart';
 import 'package:morostick/features/auth/forget_password/send_code/ui/widgets/email_input.dart';
 import 'package:morostick/features/auth/forget_password/send_code/ui/widgets/send_code_bloc_listener.dart';
@@ -27,7 +27,7 @@ class SendCodeScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AppBackButton(),
+                    const AppCustomIconButton(),
                     verticalSpace(30),
                     Text(
                       'Forgot Password 🫢',

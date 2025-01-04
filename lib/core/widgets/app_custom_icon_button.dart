@@ -5,30 +5,22 @@ import 'package:morostick/core/helpers/extensions.dart';
 
 import '../theming/colors.dart';
 
-class AppBackButton extends StatelessWidget {
+class AppCustomIconButton extends StatelessWidget {
   final double? borderRadius;
-  final Color? backgroundColor;
-  final double? horizontalPadding;
-  final double? verticalPadding;
-  final double? buttonWidth;
-  final double? buttonHeight;
   final Color? borderColor;
   final double? borderWidth;
-  final Widget? leftIcon;
-  final Widget? rightIcon;
+  final IconData? icon;
+  final double? iconSize;
+  final VoidCallback? onPressed;
 
-  const AppBackButton({
+  const AppCustomIconButton({
     super.key,
     this.borderRadius,
-    this.backgroundColor,
-    this.horizontalPadding,
-    this.verticalPadding,
-    this.buttonHeight,
-    this.buttonWidth,
     this.borderColor,
     this.borderWidth,
-    this.leftIcon,
-    this.rightIcon,
+    this.icon,
+    this.iconSize,
+    this.onPressed,
   });
 
   @override
@@ -53,16 +45,18 @@ class AppBackButton extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: () {
-          context.pop();
-        },
-        child: const IconTheme(
-          data: IconThemeData(
+        onPressed: onPressed ??
+            () {
+              context.pop();
+            },
+        child: IconTheme(
+          data: const IconThemeData(
             color: Colors.black, // Set color
             size: 25, // Set size
           ),
           child: Icon(
-            HugeIcons.strokeRoundedArrowLeft01,
+            icon ?? HugeIcons.strokeRoundedArrowLeft01,
+            size: iconSize,
           ),
         ),
       ),

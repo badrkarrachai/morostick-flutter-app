@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:morostick/core/theming/colors.dart';
+import 'package:morostick/core/theming/images.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AppCachedNetworkImage extends StatelessWidget {
@@ -136,6 +139,7 @@ class AppCachedNetworkImage extends StatelessWidget {
       backgroundColor: backgroundColor,
       enableProgressiveLoading: false,
       fadeInDuration: const Duration(milliseconds: 200),
+      errorWidget: Image.asset(Images.profileAvatar),
     );
   }
 
@@ -152,6 +156,13 @@ class AppCachedNetworkImage extends StatelessWidget {
       fit: BoxFit.contain,
       borderRadius: borderRadius ?? BorderRadius.circular(8.r),
       enableProgressiveLoading: true,
+      errorWidget: Container(
+        decoration: BoxDecoration(
+          color: ColorsManager.mainPurple.withValues(alpha: 0.2),
+        ),
+        padding: EdgeInsets.all(10.w),
+        child: SvgPicture.asset(Images.appSvgIcon),
+      ),
     );
   }
 }

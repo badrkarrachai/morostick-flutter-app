@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:morostick/core/data/models/general_response_model.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
-import 'package:morostick/core/widgets/app_offline_banner.dart';
+import 'package:morostick/core/widgets/app_offline_messagebox.dart';
 import 'package:morostick/features/auth/login/data/models/login_request_body.dart';
 import 'package:morostick/features/auth/login/data/models/login_with_facebook_model.dart';
 import 'package:morostick/features/auth/login/data/models/login_with_google_model.dart';

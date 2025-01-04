@@ -10,39 +10,52 @@ import 'core/helpers/constants.dart';
 import 'core/helpers/shared_pref_helper.dart';
 
 Future<void> main() async {
-  // Ensure bindings are initialized
-  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    // Ensure bindings are initialized
+    WidgetsFlutterBinding.ensureInitialized();
 
-  // Optimize system UI overlay style
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ),
-  );
+    // First, load the environment variables
+    await dotenv.load(fileName: ".env");
 
-  // Load everything in parallel
-  await Future.wait([
-    dotenv.load(fileName: ".env"),
-    setupGetIt(),
-    ScreenUtil.ensureScreenSize(),
-  ]);
+    // Initialize dependencies that need env variables
+    await setupGetIt();
 
-  // Initialize auth service
-  final authService = getIt<AuthNavigationService>();
-  await authService.checkInitialStatus();
+    // Initialize screen util
+    await ScreenUtil.ensureScreenSize();
 
-  runApp(MoroStickApp(
-    authService: authService,
-  ));
+    // Set system UI style
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+
+    // Initialize auth service
+    final authService = getIt<AuthNavigationService>();
+    await authService.checkInitialStatus();
+
+    // Initialize guest dialog service
+    GuestDialogService.init(AppKeys.navigatorKey);
+
+    // Run the app
+    runApp(MoroStickApp(
+      authService: authService,
+    ));
+  } catch (e, stackTrace) {
+    debugPrint('Initialization error: $e');
+    debugPrint('Stack trace: $stackTrace');
+    rethrow;
+  }
 }
 
-checkIfLoggedInUser() async {
-  String? userToken =
-      await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
-  if (!userToken.isNullOrEmpty()) {
-    isLoggedInUser = true;
-  } else {
-    isLoggedInUser = false;
+Future<bool> checkIfLoggedInUser() async {
+  try {
+    String userToken =
+        await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
+    return !userToken.isNullOrEmpty();
+  } catch (e) {
+    debugPrint('Error checking login status: $e');
+    return false;
   }
 }

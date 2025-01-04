@@ -8,7 +8,7 @@ class CategoriesState with _$CategoriesState {
   const factory CategoriesState({
     @Default(false) bool isLoading,
     @Default([]) List<Category> categories,
-    @Default([]) List<StickerPack> stickerPacks,
+    @Default([]) List<Pack> stickerPacks,
     @Default(false) bool hasError,
     String? errorMessage,
   }) = _CategoriesState;

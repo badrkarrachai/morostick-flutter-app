@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:morostick/core/di/dependency_injection.dart';
 import 'package:morostick/core/helpers/number_and_text_formatter.dart';
 import 'package:morostick/core/widgets/app_cached_network_image.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/images.dart';
 import 'package:morostick/core/theming/text_styles.dart';
+import 'package:morostick/features/pack/logic/view_pack_details_cubit.dart';
 import 'package:morostick/features/pack/ui/pack_screen.dart';
 
 class PackOutsidePreview extends StatelessWidget {
+  final String packId;
   final String? userImageUrl;
   final String title;
   final String author;
@@ -21,6 +25,7 @@ class PackOutsidePreview extends StatelessWidget {
   final Widget? actionButton;
 
   const PackOutsidePreview({
+    required this.packId,
     super.key,
     this.userImageUrl,
     required this.title,
@@ -39,12 +44,20 @@ class PackOutsidePreview extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const PackScreen(),
+            builder: (context) => BlocProvider(
+              create: (context) {
+                final cubit = getIt<ViewPackDetailsCubit>();
+                cubit.packId = packId;
+                return cubit;
+              },
+              child: const PackScreen(),
+            ),
           ),
         );
       },
       child: Container(
         padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 32.h),
+        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -107,32 +120,36 @@ class PackOutsidePreview extends StatelessWidget {
                 ),
                 // Add Button
                 actionButton ??
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.w,
-                        vertical: 8.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: ColorsManager.whatsappGreen
-                            .withValues(alpha: 0.2), // WhatsApp green color
-                        borderRadius: BorderRadius.circular(24.r),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset(
-                            Images.whatsappLogo,
-                            width: 15.w,
-                            height: 15.w,
-                          ),
-                          SizedBox(width: 4.w),
-                          Text(
-                            'Add',
-                            style: TextStyles.font13DarkPurpleSemiBold.copyWith(
-                              color: ColorsManager.darkPurple,
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                          vertical: 8.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: ColorsManager.whatsappGreen
+                              .withValues(alpha: 0.2), // WhatsApp green color
+                          borderRadius: BorderRadius.circular(24.r),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(
+                              Images.whatsappLogo,
+                              width: 15.w,
+                              height: 15.w,
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 4.w),
+                            Text(
+                              'Add',
+                              style:
+                                  TextStyles.font13DarkPurpleSemiBold.copyWith(
+                                color: ColorsManager.darkPurple,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
               ],

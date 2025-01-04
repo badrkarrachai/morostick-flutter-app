@@ -69,24 +69,10 @@ class PackHeader extends StatelessWidget {
                   height: 80.w,
                   padding: EdgeInsets.all(8.r),
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     borderRadius: BorderRadius.circular(16.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
                   ),
-                  child: AppCachedNetworkImage(
+                  child: AppCachedNetworkImage.thumbnail(
                     imageUrl: mainStickerUrl,
-                    fit: BoxFit.contain,
-                    errorWidget: Icon(
-                      Icons.emoji_emotions_outlined,
-                      color: ColorsManager.mainPurple,
-                      size: 32.sp,
-                    ),
                   ),
                 ),
                 horizontalSpace(16),

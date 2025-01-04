@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:morostick/core/helpers/pack_events.dart';
 import 'package:morostick/features/home/data/repos/home_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:morostick/features/home/data/models/category_tabs_requestbody.dart';
@@ -5,8 +8,26 @@ import 'package:morostick/features/home/logic/category_packs_cubit/category_pack
 
 class CategoryPacksCubit extends Cubit<CategoryPacksState> {
   final HomeRepo _homeRepo;
+  late StreamSubscription _packHiddenSubscription;
+
   HomeRepo get homeRepo => _homeRepo;
-  CategoryPacksCubit(this._homeRepo) : super(const CategoryPacksState());
+
+  CategoryPacksCubit(this._homeRepo) : super(const CategoryPacksState()) {
+    _packHiddenSubscription = PackEvents.onPackHidden.listen((packId) {
+      removePackFromList();
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _packHiddenSubscription.cancel();
+    return super.close();
+  }
+
+  void removePackFromList() {
+    if (state.categoryKey == null) return;
+    refresh(state.categoryKey!);
+  }
 
   Future<void> getPacksByCategory(String categoryKey) async {
     emit(state.copyWith(isLoading: true, hasError: false));
@@ -25,6 +46,7 @@ class CategoryPacksCubit extends Cubit<CategoryPacksState> {
 
           emit(state.copyWith(
             isLoading: false,
+            categoryKey: categoryKey,
             packs: packs,
             hasError: false,
             errorMessage: null,

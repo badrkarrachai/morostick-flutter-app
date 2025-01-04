@@ -22,6 +22,8 @@ import 'package:morostick/features/home/logic/category_packs_cubit/category_pack
 import 'package:morostick/features/home/logic/category_tabs_cubit/category_tabs_cubit.dart';
 import 'package:morostick/features/home/logic/foryou_tab_cubit/foryou_tab_cubit.dart';
 import 'package:morostick/features/home/logic/trending_tab_cubit/trending_tab_cubit.dart';
+import 'package:morostick/features/pack/data/repo/pack_repo.dart';
+import 'package:morostick/features/pack/logic/view_pack_details_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -93,4 +95,9 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<CategoryPacksCubit>(() => CategoryPacksCubit(
         getIt<HomeRepo>(),
       ));
+
+  // Packs
+  getIt.registerLazySingleton<PackRepo>(() => PackRepo(getIt()));
+  getIt.registerFactory<ViewPackDetailsCubit>(() =>
+      ViewPackDetailsCubit(getIt<PackRepo>(), getIt<AuthNavigationService>()));
 }

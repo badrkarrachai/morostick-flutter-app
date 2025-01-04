@@ -27,8 +27,8 @@ class ForYouResponse extends GeneralResponse {
 
 @JsonSerializable()
 class ForYouData {
-  final List<StickerPack>? recommended;
-  final List<StickerPack>? trending;
+  final List<Pack>? recommended;
+  final List<Pack>? trending;
   final SuggestedData? suggested;
 
   ForYouData({
@@ -44,7 +44,7 @@ class ForYouData {
 
 @JsonSerializable()
 class SuggestedData {
-  final List<StickerPack>? packs;
+  final List<Pack>? packs;
   final PaginationData? pagination;
 
   SuggestedData({

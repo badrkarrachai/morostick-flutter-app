@@ -1,10 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:morostick/core/data/models/general_response_model.dart';
+import 'package:morostick/core/helpers/pack_events.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/theming/colors.dart';
-import 'package:morostick/core/widgets/app_offline_banner.dart';
+import 'package:morostick/core/widgets/app_offline_messagebox.dart';
 import 'package:morostick/features/home/data/models/foryou_tab_response.dart';
 import 'package:morostick/features/home/data/repos/home_repo.dart';
 import 'package:morostick/features/home/logic/foryou_tab_cubit/foryou_tab_state.dart';
@@ -14,8 +17,24 @@ class ForYouCubit extends Cubit<ForYouState> {
   final AuthNavigationService _authService;
   static const int _pageSize = 10;
   static const int _maxRetries = 3;
+  late StreamSubscription _packHiddenSubscription;
 
-  ForYouCubit(this._homeRepo, this._authService) : super(const ForYouState());
+  ForYouCubit(this._homeRepo, this._authService) : super(const ForYouState()) {
+    _packHiddenSubscription = PackEvents.onPackHidden.listen((packId) {
+      removePackFromList(packId);
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _packHiddenSubscription.cancel();
+    return super.close();
+  }
+
+  void removePackFromList(String packId) {
+    if (state.data == null) return;
+    refresh();
+  }
 
   Future<void> getForYouContent([int retryCount = 0]) async {
     if (state.isLoading) return;

@@ -6,11 +6,11 @@ part 'pack_list_tabs_response.g.dart';
 
 @JsonSerializable()
 class PacksListResponse extends GeneralResponse {
-  List<StickerPack>? get packs {
+  List<Pack>? get packs {
     if (data == null) return null;
     if (data is! List) return null;
     return (data as List)
-        .map((e) => StickerPack.fromJson(e as Map<String, dynamic>))
+        .map((e) => Pack.fromJson(e as Map<String, dynamic>))
         .toList();
   }
 

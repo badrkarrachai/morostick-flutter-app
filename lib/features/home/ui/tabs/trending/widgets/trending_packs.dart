@@ -4,7 +4,7 @@ import 'package:morostick/core/data/models/pack_model.dart';
 import 'package:morostick/features/home/ui/widgets/pack_outside_preview.dart';
 
 class TrendingPacks extends StatelessWidget {
-  final List<StickerPack> trendingPacks;
+  final List<Pack> trendingPacks;
 
   const TrendingPacks({
     super.key,
@@ -27,6 +27,7 @@ class TrendingPacks extends StatelessWidget {
             : '';
 
         return PackOutsidePreview(
+          packId: pack.id,
           userImageUrl: pack.creator.avatarUrl,
           title: pack.name ?? '',
           author: pack.creator.name ?? '',

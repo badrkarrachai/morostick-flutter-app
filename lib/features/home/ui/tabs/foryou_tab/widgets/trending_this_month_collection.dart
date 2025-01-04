@@ -8,9 +8,9 @@ import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 
 class TrendingThisMonthCollection extends StatelessWidget {
-  final List<StickerPack> trendingPacks;
+  final List<Pack> trendingPacks;
   final VoidCallback? onSeeAllPressed;
-  final void Function(StickerPack pack)? onPackTapped;
+  final void Function(Pack pack)? onPackTapped;
 
   const TrendingThisMonthCollection({
     super.key,
@@ -76,7 +76,7 @@ class TrendingThisMonthCollection extends StatelessWidget {
 }
 
 class TrendingPackCard extends StatelessWidget {
-  final StickerPack pack;
+  final Pack pack;
   final VoidCallback? onTap;
 
   const TrendingPackCard({
@@ -156,15 +156,6 @@ class TrendingPackCard extends StatelessWidget {
                   Icons.animation,
                   size: 12.sp,
                   color: ColorsManager.grayPurple,
-                ),
-              ],
-              if (pack.stats!.favorites! > 0) ...[
-                horizontalSpace(4.w),
-                brokenPackImage(),
-                horizontalSpace(2.w),
-                Text(
-                  '${pack.stats!.favorites}',
-                  style: TextStyles.font11GrayPurpleRegular,
                 ),
               ],
             ],

@@ -9,7 +9,7 @@ import 'package:morostick/features/home/logic/foryou_tab_cubit/foryou_tab_state.
 import 'package:morostick/features/home/ui/tabs/foryou_tab/widgets/sticker_pack_card.dart';
 
 class RecommendedPacksCarousel extends StatefulWidget {
-  final List<StickerPack> stickerPacks;
+  final List<Pack> stickerPacks;
 
   const RecommendedPacksCarousel({
     super.key,
@@ -130,6 +130,7 @@ class _RecommendedPacksCarouselState extends State<RecommendedPacksCarousel>
           return _CarouselItem(
             key: ValueKey('carousel_${widget.stickerPacks[index].id}'),
             stickerPack: widget.stickerPacks[index],
+            packId: widget.stickerPacks[index].id,
             color: state.colors.isEmpty
                 ? Colors.grey
                 : state.colors[index % state.colors.length],
@@ -178,13 +179,15 @@ class _RecommendedPacksCarouselState extends State<RecommendedPacksCarousel>
 }
 
 class _CarouselItem extends StatelessWidget {
-  final StickerPack stickerPack;
+  final Pack stickerPack;
   final Color color;
+  final String packId;
 
   const _CarouselItem({
     super.key,
     required this.stickerPack,
     required this.color,
+    required this.packId,
   });
 
   @override
@@ -193,6 +196,7 @@ class _CarouselItem extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 4.w),
         child: StickerPackCard(
+          packId: packId,
           stickerPack: stickerPack,
           color: color,
         ),

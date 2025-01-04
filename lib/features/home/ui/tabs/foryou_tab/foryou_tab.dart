@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:morostick/core/di/dependency_injection.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/widgets/app_snackbar.dart';
 import 'package:morostick/features/home/logic/foryou_tab_cubit/foryou_tab_cubit.dart';
@@ -10,6 +11,8 @@ import 'package:morostick/features/home/ui/tabs/foryou_tab/widgets/no_data.dart'
 import 'package:morostick/features/home/ui/tabs/foryou_tab/widgets/recommended_packs_carousel.dart';
 import 'package:morostick/features/home/ui/tabs/foryou_tab/widgets/suggested_for_you.dart';
 import 'package:morostick/features/home/ui/tabs/foryou_tab/widgets/trending_this_month_collection.dart';
+import 'package:morostick/features/pack/logic/view_pack_details_cubit.dart';
+import 'package:morostick/features/pack/ui/pack_screen.dart';
 import 'package:toastification/toastification.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -141,6 +144,21 @@ class _ForYouTabState extends State<ForYouTab>
                 trendingPacks: forYouData?.trending ?? [],
                 onSeeAllPressed: () =>
                     HomeScreen.switchToTrendingTab(context, 1),
+                onPackTapped: (pack) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                        create: (context) {
+                          final cubit = getIt<ViewPackDetailsCubit>();
+                          cubit.packId = pack.id;
+                          return cubit;
+                        },
+                        child: const PackScreen(),
+                      ),
+                    ),
+                  );
+                },
               ),
               verticalSpace(25),
             ],

@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'pack_model.g.dart';
 
 @JsonSerializable()
-class StickerPack {
+class Pack {
   final String id;
   final String? name;
   final String? description;
@@ -19,10 +19,11 @@ class StickerPack {
   final PackStats? stats;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final bool? isFavorite;
 
   String get packId => id;
 
-  const StickerPack({
+  const Pack({
     required this.id,
     this.name,
     this.description,
@@ -37,11 +38,11 @@ class StickerPack {
     this.stats,
     this.createdAt,
     this.updatedAt,
+    this.isFavorite,
   });
 
-  factory StickerPack.fromJson(Map<String, dynamic> json) =>
-      _$StickerPackFromJson(json);
-  Map<String, dynamic> toJson() => _$StickerPackToJson(this);
+  factory Pack.fromJson(Map<String, dynamic> json) => _$PackFromJson(json);
+  Map<String, dynamic> toJson() => _$PackToJson(this);
 }
 
 @JsonSerializable()

@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/helpers/extensions.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/routing/routes.dart';
+import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/widgets/app_button.dart';
+import 'package:morostick/core/widgets/app_custom_icon_button.dart';
 import 'package:morostick/features/auth/login/logic/login_cubit.dart';
 import 'package:morostick/features/auth/login/ui/widgets/dont_have_account_text.dart';
 import 'package:morostick/features/auth/login/ui/widgets/google_facebook_buttons.dart';
@@ -27,6 +29,16 @@ class LoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Align(
+                    alignment: Alignment.topRight,
+                    child: AppCustomIconButton(
+                      icon: Icons.close_rounded,
+                      iconSize: 21.sp,
+                      onPressed: () {
+                        context.read<AuthNavigationService>().enableGuestMode();
+                        context.pushNamed(Routes.homeScreen);
+                      },
+                    )),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

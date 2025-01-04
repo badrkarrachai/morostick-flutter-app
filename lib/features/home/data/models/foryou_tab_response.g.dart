@@ -32,10 +32,10 @@ Map<String, dynamic> _$ForYouResponseToJson(ForYouResponse instance) =>
 
 ForYouData _$ForYouDataFromJson(Map<String, dynamic> json) => ForYouData(
       recommended: (json['recommended'] as List<dynamic>?)
-          ?.map((e) => StickerPack.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Pack.fromJson(e as Map<String, dynamic>))
           .toList(),
       trending: (json['trending'] as List<dynamic>?)
-          ?.map((e) => StickerPack.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Pack.fromJson(e as Map<String, dynamic>))
           .toList(),
       suggested: json['suggested'] == null
           ? null
@@ -52,7 +52,7 @@ Map<String, dynamic> _$ForYouDataToJson(ForYouData instance) =>
 SuggestedData _$SuggestedDataFromJson(Map<String, dynamic> json) =>
     SuggestedData(
       packs: (json['packs'] as List<dynamic>?)
-          ?.map((e) => StickerPack.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Pack.fromJson(e as Map<String, dynamic>))
           .toList(),
       pagination: json['pagination'] == null
           ? null

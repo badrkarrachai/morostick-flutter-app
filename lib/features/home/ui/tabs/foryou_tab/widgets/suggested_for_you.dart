@@ -4,7 +4,7 @@ import 'package:morostick/core/data/models/pack_model.dart';
 import 'package:morostick/features/home/ui/widgets/pack_outside_preview.dart';
 
 class SuggestedForYou extends StatelessWidget {
-  final List<StickerPack> suggestedPacks;
+  final List<Pack> suggestedPacks;
 
   const SuggestedForYou({
     super.key,
@@ -27,6 +27,7 @@ class SuggestedForYou extends StatelessWidget {
             : '';
 
         return PackOutsidePreview(
+          packId: pack.id,
           userImageUrl: pack.creator.avatarUrl,
           title: pack.name ?? '',
           author: pack.creator.name ?? '',

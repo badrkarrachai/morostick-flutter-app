@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/widgets/app_button.dart';
-import 'package:morostick/core/widgets/app_back_button.dart';
+import 'package:morostick/core/widgets/app_custom_icon_button.dart';
 import 'package:morostick/features/auth/forget_password/new_password/logic/new_password_cubit.dart';
 import 'package:morostick/features/auth/forget_password/new_password/ui/widgets/have_account_login_text.dart';
 import 'package:morostick/features/auth/forget_password/new_password/ui/widgets/new_password_listener.dart';
@@ -27,7 +27,7 @@ class NewPasswordScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AppBackButton(),
+                    const AppCustomIconButton(),
                     verticalSpace(30),
                     Text(
                       'Reset Password 🔐',

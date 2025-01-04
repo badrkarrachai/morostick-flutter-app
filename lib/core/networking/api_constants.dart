@@ -19,6 +19,12 @@ class ApiConstants {
   static const String getForYouTab = "home/for-you-tab";
   static const String getTrendingTab = "home/trending-tab";
   static const String getPacksListTab = "home/category-packs";
+
+  // Pack routes
+  static const String getPackById = "pack/get-by-id";
+  static const String toggleFavorite = "pack/favorite-toggle";
+  static const String hidePack = "pack/hide";
+  static const String reportPack = "pack/report-create";
 }
 
 class ErrorConstantData {

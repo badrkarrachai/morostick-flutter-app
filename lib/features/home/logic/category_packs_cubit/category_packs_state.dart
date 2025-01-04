@@ -7,7 +7,8 @@ part 'category_packs_state.freezed.dart';
 class CategoryPacksState with _$CategoryPacksState {
   const factory CategoryPacksState({
     @Default(false) bool isLoading,
-    @Default([]) List<StickerPack> packs,
+    String? categoryKey,
+    @Default([]) List<Pack> packs,
     @Default(false) bool hasError,
     String? errorMessage,
     String? errorDetails,

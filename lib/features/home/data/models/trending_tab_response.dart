@@ -42,7 +42,7 @@ class TrendingData {
 
 @JsonSerializable()
 class TrendingContent {
-  final List<StickerPack>? packs;
+  final List<Pack>? packs;
   final PaginationData? pagination;
 
   TrendingContent({

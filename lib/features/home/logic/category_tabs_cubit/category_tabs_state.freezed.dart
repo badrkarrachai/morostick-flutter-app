@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CategoriesState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<Category> get categories => throw _privateConstructorUsedError;
-  List<StickerPack> get stickerPacks => throw _privateConstructorUsedError;
+  List<Pack> get stickerPacks => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
@@ -38,7 +38,7 @@ abstract class $CategoriesStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       List<Category> categories,
-      List<StickerPack> stickerPacks,
+      List<Pack> stickerPacks,
       bool hasError,
       String? errorMessage});
 }
@@ -76,7 +76,7 @@ class _$CategoriesStateCopyWithImpl<$Res, $Val extends CategoriesState>
       stickerPacks: null == stickerPacks
           ? _value.stickerPacks
           : stickerPacks // ignore: cast_nullable_to_non_nullable
-              as List<StickerPack>,
+              as List<Pack>,
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
@@ -100,7 +100,7 @@ abstract class _$$CategoriesStateImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       List<Category> categories,
-      List<StickerPack> stickerPacks,
+      List<Pack> stickerPacks,
       bool hasError,
       String? errorMessage});
 }
@@ -136,7 +136,7 @@ class __$$CategoriesStateImplCopyWithImpl<$Res>
       stickerPacks: null == stickerPacks
           ? _value._stickerPacks
           : stickerPacks // ignore: cast_nullable_to_non_nullable
-              as List<StickerPack>,
+              as List<Pack>,
       hasError: null == hasError
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
@@ -155,7 +155,7 @@ class _$CategoriesStateImpl implements _CategoriesState {
   const _$CategoriesStateImpl(
       {this.isLoading = false,
       final List<Category> categories = const [],
-      final List<StickerPack> stickerPacks = const [],
+      final List<Pack> stickerPacks = const [],
       this.hasError = false,
       this.errorMessage})
       : _categories = categories,
@@ -173,10 +173,10 @@ class _$CategoriesStateImpl implements _CategoriesState {
     return EqualUnmodifiableListView(_categories);
   }
 
-  final List<StickerPack> _stickerPacks;
+  final List<Pack> _stickerPacks;
   @override
   @JsonKey()
-  List<StickerPack> get stickerPacks {
+  List<Pack> get stickerPacks {
     if (_stickerPacks is EqualUnmodifiableListView) return _stickerPacks;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_stickerPacks);
@@ -233,7 +233,7 @@ abstract class _CategoriesState implements CategoriesState {
   const factory _CategoriesState(
       {final bool isLoading,
       final List<Category> categories,
-      final List<StickerPack> stickerPacks,
+      final List<Pack> stickerPacks,
       final bool hasError,
       final String? errorMessage}) = _$CategoriesStateImpl;
 
@@ -242,7 +242,7 @@ abstract class _CategoriesState implements CategoriesState {
   @override
   List<Category> get categories;
   @override
-  List<StickerPack> get stickerPacks;
+  List<Pack> get stickerPacks;
   @override
   bool get hasError;
   @override

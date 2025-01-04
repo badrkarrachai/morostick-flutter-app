@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:morostick/core/di/dependency_injection.dart';
+import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/images.dart';
 import 'package:morostick/core/theming/text_styles.dart';
@@ -24,7 +25,9 @@ class MainNavigation extends StatefulWidget {
 }
 
 class _MainNavigationState extends State<MainNavigation> {
+  final AuthNavigationService _authService = getIt<AuthNavigationService>();
   late PersistentTabController _controller;
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -36,9 +39,7 @@ class _MainNavigationState extends State<MainNavigation> {
   List<Widget> _buildScreens() {
     return [
       MultiBlocProvider(providers: [
-        BlocProvider(
-          create: (context) => getIt<ForYouCubit>(),
-        ),
+        BlocProvider(create: (context) => getIt<ForYouCubit>()),
         BlocProvider(create: (context) => getIt<TrendingTabCubit>()),
         BlocProvider(create: (context) => getIt<CategoriesCubit>()),
         BlocProvider(create: (context) => getIt<CategoryPacksCubit>()),
@@ -47,6 +48,21 @@ class _MainNavigationState extends State<MainNavigation> {
       const FavoritesScreen(),
       const ProfileScreen(),
     ];
+  }
+
+  void _handleTabSelection(int index) {
+    // Check if trying to access protected routes (Favorites or Profile)
+    if ((index == 2 || index == 3) && _authService.isGuestMode) {
+      GuestDialogService.showGuestRestriction(
+        message: 'Sorry, please login to access this page',
+      );
+      // Stay on current tab
+      _controller.jumpToTab(_currentIndex);
+      return;
+    }
+    // Update current index and allow navigation
+    _currentIndex = index;
+    _controller.jumpToTab(index);
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -152,6 +168,7 @@ class _MainNavigationState extends State<MainNavigation> {
       hideNavigationBarWhenKeyboardAppears: true,
       navBarHeight: 63.h,
       bottomScreenMargin: 63.h,
+      onItemSelected: _handleTabSelection,
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(0),
         colorBehindNavBar: Colors.white,

@@ -48,7 +48,7 @@ Map<String, dynamic> _$TrendingDataToJson(TrendingData instance) =>
 TrendingContent _$TrendingContentFromJson(Map<String, dynamic> json) =>
     TrendingContent(
       packs: (json['packs'] as List<dynamic>?)
-          ?.map((e) => StickerPack.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Pack.fromJson(e as Map<String, dynamic>))
           .toList(),
       pagination: json['pagination'] == null
           ? null

@@ -53,21 +53,10 @@ class StickerGrid extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(8.w),
             child: AspectRatio(
-              aspectRatio: 1,
-              child: AppCachedNetworkImage(
-                imageUrl: url,
-                fit: BoxFit.contain,
-                borderRadius: BorderRadius.circular(16.r),
-                errorWidget: Container(
-                  color: ColorsManager.lighterPurple,
-                  child: Icon(
-                    Icons.emoji_emotions_outlined,
-                    color: ColorsManager.mainPurple,
-                    size: 32.sp,
-                  ),
-                ),
-              ),
-            ),
+                aspectRatio: 1,
+                child: AppCachedNetworkImage.thumbnail(
+                  imageUrl: url,
+                )),
           ),
           Positioned(
             top: 5.h,
@@ -115,7 +104,7 @@ class StickerGrid extends StatelessWidget {
           onTap: () => onFavoriteToggle(index),
           borderRadius: BorderRadius.circular(50),
           child: Padding(
-            padding: EdgeInsets.all(8.r),
+            padding: EdgeInsets.all(7.r),
             child: Icon(
               favoritedStickers[index]
                   ? Icons.favorite_rounded

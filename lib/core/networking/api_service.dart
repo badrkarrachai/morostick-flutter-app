@@ -19,6 +19,11 @@ import 'package:morostick/features/home/data/models/category_tabs_response.dart'
 import 'package:morostick/features/home/data/models/foryou_tab_response.dart';
 import 'package:morostick/features/home/data/models/pack_list_tabs_response.dart';
 import 'package:morostick/features/home/data/models/trending_tab_response.dart';
+import 'package:morostick/features/pack/data/models/hide_pack_response.dart';
+import 'package:morostick/features/pack/data/models/pack_by_id_response.dart';
+import 'package:morostick/features/pack/data/models/report_pack_request_body.dart';
+import 'package:morostick/features/pack/data/models/report_pack_response.dart';
+import 'package:morostick/features/pack/data/models/toggle_pack_favorite_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_service.g.dart';
@@ -95,5 +100,27 @@ abstract class ApiService {
     @Query('sortBy') String sortBy,
     @Query('page') int page,
     @Query('limit') int limit,
+  );
+
+  // Packs routes
+  @GET(ApiConstants.getPackById)
+  Future<PackByIdResponse> getPackById(
+    @Query('id') String id,
+  );
+
+  @POST(ApiConstants.toggleFavorite)
+  Future<TogglePackFavoriteResponse> toggleFavorite(
+    @Query('packId') String packId,
+  );
+
+  @POST(ApiConstants.hidePack)
+  Future<HidePackResponse> hidePack(
+    @Query('packId') String packId,
+  );
+
+  @POST(ApiConstants.reportPack)
+  Future<ReportPackResponse> reportPack(
+    @Query('packId') String packId,
+    @Body() ReportPackRequestBody reportPackRequestBody,
   );
 }
