@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:morostick/core/data/models/pack_model.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/widgets/app_cached_network_image.dart';
 
 class StickerGrid extends StatelessWidget {
-  final List<String> stickers;
+  final List<Sticker> stickers;
   final bool showAnimatedIndicator;
-  final Function(int index) onFavoriteToggle;
-  final List<bool> favoritedStickers;
+  final Function(Sticker sticker) onFavoriteToggle;
+  final List<Color> colors;
 
   const StickerGrid({
     super.key,
     required this.stickers,
     this.showAnimatedIndicator = false,
     required this.onFavoriteToggle,
-    required this.favoritedStickers,
+    this.colors = const [],
   });
 
   @override
@@ -35,10 +36,12 @@ class StickerGrid extends StatelessWidget {
     );
   }
 
-  Widget _buildStickerItem(String url, int index) {
+  Widget _buildStickerItem(Sticker sticker, int index) {
     return Container(
       decoration: BoxDecoration(
-        color: ColorsManager.getRandomColorWithOpacity(0.05),
+        color: colors.isEmpty
+            ? ColorsManager.getRandomColorWithOpacity(0.05)
+            : colors[index % colors.length].withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
@@ -55,7 +58,7 @@ class StickerGrid extends StatelessWidget {
             child: AspectRatio(
                 aspectRatio: 1,
                 child: AppCachedNetworkImage.thumbnail(
-                  imageUrl: url,
+                  imageUrl: sticker.webpUrl ?? '',
                 )),
           ),
           Positioned(
@@ -101,12 +104,12 @@ class StickerGrid extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => onFavoriteToggle(index),
+          onTap: () => onFavoriteToggle(stickers[index]),
           borderRadius: BorderRadius.circular(50),
           child: Padding(
             padding: EdgeInsets.all(7.r),
             child: Icon(
-              favoritedStickers[index]
+              (stickers[index].isFavorite ?? false)
                   ? Icons.favorite_rounded
                   : Icons.favorite_outline_rounded,
               color: ColorsManager.mainPurple,

@@ -25,14 +25,13 @@ class NewPasswordResponse extends GeneralResponse {
   NewPasswordData? get newPasswordData => data != null
       ? NewPasswordData.fromJson(data as Map<String, dynamic>)
       : null;
-  final Metadata metadata;
 
   const NewPasswordResponse({
     required super.status,
     required super.success,
     required super.message,
     super.data,
-    required this.metadata,
+    super.metadata,
   });
 
   factory NewPasswordResponse.fromJson(Map<String, dynamic> json) {

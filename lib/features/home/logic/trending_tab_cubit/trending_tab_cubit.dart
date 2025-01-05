@@ -68,7 +68,20 @@ class TrendingTabCubit extends Cubit<TrendingState> {
             categoriesColors: colors,
           ));
         },
-        failure: (error) {
+        failure: (error) async {
+          if (!await _authService.checkConnectivity()) {
+            emit(state.copyWith(
+              isLoading: false,
+              isLoadingMore: false,
+              hasError: true,
+              error: const GeneralResponse(
+                success: false,
+                status: -6,
+                message: 'No Internet Connection',
+              ),
+            ));
+            return;
+          }
           emit(state.copyWith(
             isLoading: false,
             hasError: true,
@@ -115,7 +128,20 @@ class TrendingTabCubit extends Cubit<TrendingState> {
             ));
           }
         },
-        failure: (error) {
+        failure: (error) async {
+          if (!await _authService.checkConnectivity()) {
+            emit(state.copyWith(
+              isLoading: false,
+              isLoadingMore: false,
+              hasError: true,
+              error: const GeneralResponse(
+                success: false,
+                status: -6,
+                message: 'No Internet Connection',
+              ),
+            ));
+            return;
+          }
           emit(state.copyWith(
             isLoadingMore: false,
             hasError: true,

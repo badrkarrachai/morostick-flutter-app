@@ -172,8 +172,6 @@ class AppRouter {
     final isFirstTime = _authService.isFirstTime;
     final isGuestMode = _authService.isGuestMode;
 
-    print(isGuestMode);
-
     // Special handling for root route
     if (config.path == '/') {
       if (isFirstTime) {

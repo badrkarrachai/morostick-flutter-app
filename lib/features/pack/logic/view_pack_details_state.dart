@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:morostick/core/data/models/general_response_model.dart';
 import 'package:morostick/core/data/models/pack_model.dart';
@@ -15,6 +16,9 @@ class ViewPackDetailsState with _$ViewPackDetailsState {
     @Default(false) bool hasError,
     @Default(false) bool isMessageBoxError,
     @Default(false) bool isFavorite,
+    @Default([]) List<Sticker> stickers,
+    @Default(false) bool isLoadingFavoriteSticker,
+    @Default([]) List<Color> stickerBGColors,
     GeneralResponse? error,
     Pack? pack,
   }) = _ViewPackDetailsState;

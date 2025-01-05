@@ -1,13 +1,11 @@
 import 'package:morostick/core/data/models/general_response_model.dart';
 
 class SendCodeResponse extends GeneralResponse {
-  final Metadata metadata;
-
   const SendCodeResponse({
     required super.status,
     required super.success,
     required super.message,
-    required this.metadata,
+    super.metadata,
   });
 
   factory SendCodeResponse.fromJson(Map<String, dynamic> json) {

@@ -33,10 +33,6 @@ class _RecommendedPacksCarouselState extends State<RecommendedPacksCarousel>
 
   // Cached dimensions
   late final double _carouselHeight = 150.h;
-  late final double _indicatorWidth = 8.w;
-  late final double _indicatorHeight = 8.h;
-  late final double _activeIndicatorWidth = 60.w;
-
   late final EdgeInsets _titlePadding =
       EdgeInsets.only(left: 20.w, bottom: 12.h);
 
@@ -141,36 +137,31 @@ class _RecommendedPacksCarouselState extends State<RecommendedPacksCarousel>
   }
 
   Widget _buildIndicators(CarouselState state) {
+    // Get the current active color
+    final activeColor = state.colors.isEmpty
+        ? Colors.grey
+        : state.colors[state.currentPage % state.colors.length];
+
     return Padding(
       padding: EdgeInsets.only(top: 12.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           widget.stickerPacks.length,
-          (index) => _buildIndicator(
-            isActive: index == state.currentPage,
-            activeColor: state.activeColor,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildIndicator({
-    required bool isActive,
-    required Color activeColor,
-  }) {
-    return RepaintBoundary(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.w),
-        child: AnimatedContainer(
-          duration: _indicatorAnimationDuration,
-          curve: Curves.easeOutCubic,
-          width: isActive ? _activeIndicatorWidth : _indicatorWidth,
-          height: _indicatorHeight,
-          decoration: BoxDecoration(
-            color: isActive ? activeColor : activeColor.withValues(alpha: 0.3),
-            borderRadius: BorderRadius.circular(4.r),
+          (index) => Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4.w),
+            child: AnimatedContainer(
+              duration: _indicatorAnimationDuration,
+              curve: Curves.easeOutCubic,
+              width: index == state.currentPage ? 60.w : 8.w,
+              height: 8.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.r),
+                color: activeColor.withValues(
+                  alpha: index == state.currentPage ? 1.0 : 0.3,
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -199,6 +190,91 @@ class _CarouselItem extends StatelessWidget {
           packId: packId,
           stickerPack: stickerPack,
           color: color,
+        ),
+      ),
+    );
+  }
+}
+
+class CarouselIndicator extends StatelessWidget {
+  final int count;
+  final int currentIndex;
+  final Color color;
+  final double spacing;
+  final Duration animationDuration;
+
+  // Cached dimensions using screenutil for responsive sizing
+  final double _activeWidth;
+  final double _inactiveWidth;
+  final double _height;
+  final double _radius;
+
+  CarouselIndicator({
+    super.key,
+    required this.count,
+    required this.currentIndex,
+    required this.color,
+    this.spacing = 4.0,
+    this.animationDuration = const Duration(milliseconds: 240),
+  })  : _activeWidth = 60.w,
+        _inactiveWidth = 8.w,
+        _height = 8.h,
+        _radius = 4.r;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(
+        count,
+        (index) => Padding(
+          padding: EdgeInsets.symmetric(horizontal: spacing.w),
+          child: _IndicatorDot(
+            isActive: index == currentIndex,
+            color: color,
+            activeWidth: _activeWidth,
+            inactiveWidth: _inactiveWidth,
+            height: _height,
+            radius: _radius,
+            animationDuration: animationDuration,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _IndicatorDot extends StatelessWidget {
+  final bool isActive;
+  final Color color;
+  final double activeWidth;
+  final double inactiveWidth;
+  final double height;
+  final double radius;
+  final Duration animationDuration;
+
+  const _IndicatorDot({
+    required this.isActive,
+    required this.color,
+    required this.activeWidth,
+    required this.inactiveWidth,
+    required this.height,
+    required this.radius,
+    required this.animationDuration,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return RepaintBoundary(
+      child: AnimatedContainer(
+        duration: animationDuration,
+        curve: Curves.easeOutCubic,
+        width: isActive ? activeWidth : inactiveWidth,
+        height: height,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius),
+          color: isActive ? color : color.withValues(alpha: 0.3),
         ),
       ),
     );

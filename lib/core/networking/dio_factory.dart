@@ -77,7 +77,7 @@ class DioFactory {
             requestBody: true,
             requestHeader: true,
             responseHeader: true,
-            responseBody: false,
+            responseBody: true,
             error: true,
             compact: true,
           ),

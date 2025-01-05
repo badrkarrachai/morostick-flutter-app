@@ -106,29 +106,32 @@ class _TrendingShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(
-      child: AppShimmerLoading(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 20.w, bottom: 12.h),
-              child: Container(
-                height: ForYouTabShimmer._titleHeight,
-                width: ForYouTabShimmer._titleWidth,
-                decoration: ForYouTabShimmer._roundedDecoration,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: RepaintBoundary(
+        child: AppShimmerLoading(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 0.w, bottom: 12.h),
+                child: Container(
+                  height: ForYouTabShimmer._titleHeight,
+                  width: ForYouTabShimmer._titleWidth,
+                  decoration: ForYouTabShimmer._roundedDecoration,
+                ),
               ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: Row(
-                children: List.generate(5, (index) => _TrendingCard()),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: 0.w),
+                child: Row(
+                  children: List.generate(3, (index) => _TrendingCard()),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

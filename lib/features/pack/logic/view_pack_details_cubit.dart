@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:morostick/core/data/models/general_response_model.dart';
+import 'package:morostick/core/data/models/pack_model.dart';
 import 'package:morostick/core/helpers/extensions.dart';
 import 'package:morostick/core/helpers/pack_events.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
+import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/widgets/app_message_box.dart';
 import 'package:morostick/core/widgets/app_offline_messagebox.dart';
+import 'package:morostick/core/widgets/app_snackbar.dart';
 import 'package:morostick/features/pack/data/models/report_pack_request_body.dart';
 import 'package:morostick/features/pack/data/repo/pack_repo.dart';
 import 'package:morostick/features/pack/logic/view_pack_details_state.dart';
 import 'package:morostick/morostick_app.dart';
+import 'package:toastification/toastification.dart';
 
 class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
   final PackRepo _packRepo;
@@ -32,6 +36,7 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
     return super.close();
   }
 
+  // GET PACK DETAILS LOGIC
   Future<void> getPackDetails() async {
     if (state.isLoadingPack) return;
 
@@ -45,15 +50,30 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
       (response) {
         response.when(
           success: (packResponse) {
+            final stickersLenght = packResponse.pack?.stickers?.length ?? 0;
             emit(state.copyWith(
               isLoadingPack: false,
               pack: packResponse.pack,
               isFavorite: packResponse.pack?.isFavorite ?? false,
               downloadCount: packResponse.pack?.stats?.downloads ?? 0,
               favoriteCount: packResponse.pack?.stats?.favorites ?? 0,
+              stickers: packResponse.pack?.stickers ?? [],
+              stickerBGColors: _generateColors(stickersLenght),
             ));
           },
-          failure: (error) {
+          failure: (error) async {
+            if (!await _authService.checkConnectivity()) {
+              emit(state.copyWith(
+                isLoadingPack: false,
+                hasError: true,
+                error: const GeneralResponse(
+                  success: false,
+                  status: -6,
+                  message: 'No Internet Connection',
+                ),
+              ));
+              return;
+            }
             emit(state.copyWith(
               isLoadingPack: false,
               hasError: true,
@@ -76,21 +96,17 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
     _pendingOperations.remove(operation);
   }
 
-  Future<void> toggleFavorite(String packId, bool isFavorite) async {
-    // check if the user is not in guest mode
-    if (_authService.isGuestMode) {
-      GuestDialogService.showGuestRestriction(
-          message: 'Please login to add this pack to your favourites');
-      return;
-    }
-    print("Is Authenticated: ${_authService.isAuthenticated}");
+  // TOGGLE FAVORITE PACK LOGIC
+  Future<void> togglePackFavorite(String packId, bool isFavorite) async {
+    if (state.isLoadingFavorite) return;
+
     emit(state.copyWith(
         isLoadingFavorite: true,
         isFavorite: isFavorite,
         favoriteCount:
             isFavorite ? state.favoriteCount + 1 : state.favoriteCount - 1));
 
-    final operation = _packRepo.toggleFavorite(packId).then(
+    final operation = _packRepo.togglePackFavorite(packId).then(
       (response) {
         response.when(
           success: (togglePackFavoriteResponse) {
@@ -101,9 +117,23 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
                   togglePackFavoriteResponse.favoriteData!.favoritesCount,
             ));
           },
-          failure: (error) {
+          failure: (error) async {
+            if (!await _authService.checkConnectivity()) {
+              emit(state.copyWith(
+                isLoadingFavorite: false,
+                isMessageBoxError: false,
+                hasError: true,
+                error: const GeneralResponse(
+                  success: false,
+                  status: -6,
+                  message: 'No Internet Connection',
+                ),
+              ));
+              return;
+            }
             emit(state.copyWith(
               isLoadingFavorite: false,
+              isMessageBoxError: true,
               isFavorite: !isFavorite,
               hasError: true,
               error: error.apiErrorModel,
@@ -112,7 +142,17 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
         );
       },
       onError: (e) {
-        _handleGenericError(e.toString());
+        emit(state.copyWith(
+          isLoadingFavorite: false,
+          isMessageBoxError: true,
+          isFavorite: !isFavorite,
+          hasError: true,
+          error: GeneralResponse(
+            success: false,
+            status: 500,
+            message: "Something went wrong. Please try again later.",
+          ),
+        ));
       },
     );
 
@@ -121,7 +161,9 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
     _pendingOperations.remove(operation);
   }
 
+  // HIDE PACK LOGIC
   Future<void> hidePack(String packId) async {
+    if (state.isLoadingHide) return;
     emit(state.copyWith(isLoadingHide: true));
 
     final operation = _packRepo.hidePack(packId).then(
@@ -133,17 +175,57 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
             ));
             PackEvents.notifyPackHidden(packId);
           },
-          failure: (error) {
-            emit(state.copyWith(
-              isLoadingHide: false,
-              isMessageBoxError: true,
-              error: error.apiErrorModel,
-            ));
+          failure: (error) async {
+            if (!await _authService.checkConnectivity()) {
+              emit(state.copyWith(
+                isLoadingHide: false,
+                isMessageBoxError: false,
+                hasError: true,
+                error: const GeneralResponse(
+                  success: false,
+                  status: -6,
+                  message: 'No Internet Connection',
+                ),
+              ));
+              return;
+            }
+            try {
+              emit(state.copyWith(
+                isLoadingHide: false,
+                isMessageBoxError: true,
+                error: error.apiErrorModel,
+              ));
+            } catch (e) {
+              showAppSnackbar(
+                title: error.apiErrorModel.message,
+                duration: 3,
+                type: ToastificationType.error,
+                description: error.apiErrorModel.error?.details ??
+                    "Something went wrong. Please try again later.",
+              );
+            }
           },
         );
       },
       onError: (e) {
-        _handleGenericError(e.toString());
+        try {
+          emit(state.copyWith(
+            isLoadingHide: false,
+            isMessageBoxError: true,
+            error: GeneralResponse(
+              success: false,
+              status: 500,
+              message: "Something went wrong. Please try again later.",
+            ),
+          ));
+        } catch (e) {
+          showAppSnackbar(
+            title: "Error Occurred",
+            duration: 3,
+            type: ToastificationType.error,
+            description: "Something went wrong. Please try again later.",
+          );
+        }
       },
     );
 
@@ -171,7 +253,9 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
     );
   }
 
+  // REPORT PACK LOGIC
   Future<void> reportPack(String packId, String reason) async {
+    if (state.isLoadingHide) return;
     emit(state.copyWith(isLoadingHide: true));
 
     final operation = _packRepo
@@ -185,17 +269,57 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
             ));
             PackEvents.notifyPackHidden(packId);
           },
-          failure: (error) {
-            emit(state.copyWith(
-              isLoadingHide: false,
-              isMessageBoxError: true,
-              error: error.apiErrorModel,
-            ));
+          failure: (error) async {
+            if (!await _authService.checkConnectivity()) {
+              emit(state.copyWith(
+                isLoadingHide: false,
+                isMessageBoxError: false,
+                hasError: true,
+                error: const GeneralResponse(
+                  success: false,
+                  status: -6,
+                  message: 'No Internet Connection',
+                ),
+              ));
+              return;
+            }
+            try {
+              emit(state.copyWith(
+                isLoadingHide: false,
+                isMessageBoxError: true,
+                error: error.apiErrorModel,
+              ));
+            } catch (e) {
+              showAppSnackbar(
+                title: error.apiErrorModel.message,
+                duration: 3,
+                type: ToastificationType.error,
+                description: error.apiErrorModel.error?.details ??
+                    "Something went wrong. Please try again later.",
+              );
+            }
           },
         );
       },
       onError: (e) {
-        _handleGenericError(e.toString());
+        try {
+          emit(state.copyWith(
+            isLoadingHide: false,
+            isMessageBoxError: true,
+            error: GeneralResponse(
+              success: false,
+              status: 500,
+              message: "Something went wrong. Please try again later.",
+            ),
+          ));
+        } catch (e) {
+          showAppSnackbar(
+            title: "Error Occurred",
+            duration: 3,
+            type: ToastificationType.error,
+            description: "Something went wrong. Please try again later.",
+          );
+        }
       },
     );
 
@@ -221,6 +345,89 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
         showReportDialog(context);
       },
     );
+  }
+
+  // TOGGLE FAVORITE STICKER LOGIC
+  Future<void> toggleStickerFavorite({
+    required String stickerId,
+  }) async {
+    // check if the user is not in guest mode
+    if (_authService.isGuestMode) {
+      GuestDialogService.showGuestRestriction(
+          message: 'Please login to add this pack to your favourites');
+      return;
+    }
+    if (state.isLoadingFavoriteSticker) return;
+    // Hold the current stickers list
+    final List<Sticker> currentStickers = state.stickers;
+    emit(state.copyWith(
+      isLoadingFavoriteSticker: true,
+      stickers: state.stickers.map((sticker) {
+        if (sticker.id == stickerId) {
+          sticker.isFavorite = !sticker.isFavorite!;
+        }
+        return sticker;
+      }).toList(),
+    ));
+
+    final operation = _packRepo.toggleStickerFavorite(stickerId).then(
+      (response) {
+        response.when(
+          success: (togglePackFavoriteResponse) {
+            emit(state.copyWith(
+              isLoadingFavoriteSticker: false,
+              stickers: state.stickers.map((sticker) {
+                if (sticker.id == stickerId) {
+                  sticker.isFavorite =
+                      togglePackFavoriteResponse.favoriteData!.isFavorite;
+                }
+                return sticker;
+              }).toList(),
+            ));
+          },
+          failure: (error) async {
+            if (!await _authService.checkConnectivity()) {
+              emit(state.copyWith(
+                isLoadingFavoriteSticker: false,
+                isMessageBoxError: false,
+                hasError: true,
+                stickers: currentStickers,
+                error: const GeneralResponse(
+                  success: false,
+                  status: -6,
+                  message: 'No Internet Connection',
+                ),
+              ));
+              return;
+            }
+            emit(state.copyWith(
+              isLoadingFavoriteSticker: false,
+              isMessageBoxError: true,
+              hasError: true,
+              error: error.apiErrorModel,
+              stickers: currentStickers,
+            ));
+          },
+        );
+      },
+      onError: (e) {
+        emit(state.copyWith(
+          isLoadingFavoriteSticker: false,
+          isMessageBoxError: true,
+          hasError: true,
+          stickers: currentStickers,
+          error: GeneralResponse(
+            success: false,
+            status: 500,
+            message: "Something went wrong. Please try again later.",
+          ),
+        ));
+      },
+    );
+
+    _pendingOperations.add(operation);
+    await operation;
+    _pendingOperations.remove(operation);
   }
 
   void _handleDioError(DioException e) {
@@ -261,5 +468,10 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
 
   Future<void> refresh() async {
     await getPackDetails();
+  }
+
+  List<Color> _generateColors(int length) {
+    if (length == 0) return const [];
+    return List.generate(length, (_) => ColorsManager.getRandomColor());
   }
 }

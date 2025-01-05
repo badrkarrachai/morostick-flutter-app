@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:morostick/core/di/dependency_injection.dart';
 import 'package:morostick/core/helpers/pack_events.dart';
+import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/features/home/data/repos/home_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:morostick/features/home/data/models/category_tabs_requestbody.dart';
@@ -9,6 +11,7 @@ import 'package:morostick/features/home/logic/category_packs_cubit/category_pack
 class CategoryPacksCubit extends Cubit<CategoryPacksState> {
   final HomeRepo _homeRepo;
   late StreamSubscription _packHiddenSubscription;
+  AuthNavigationService authService = getIt<AuthNavigationService>();
 
   HomeRepo get homeRepo => _homeRepo;
 
@@ -54,7 +57,16 @@ class CategoryPacksCubit extends Cubit<CategoryPacksState> {
             currentPage: pagination?.currentPage ?? 1,
           ));
         },
-        failure: (error) {
+        failure: (error) async {
+          if (!await authService.checkConnectivity()) {
+            emit(state.copyWith(
+              isLoading: false,
+              isLoadingMore: false,
+              hasError: true,
+              errorMessage: 'No Internet Connection',
+            ));
+            return;
+          }
           emit(state.copyWith(
             isLoading: false,
             hasError: true,
@@ -107,7 +119,16 @@ class CategoryPacksCubit extends Cubit<CategoryPacksState> {
             hasReachedMax: pagination?.hasNextPage == false,
           ));
         },
-        failure: (error) {
+        failure: (error) async {
+          if (!await authService.checkConnectivity()) {
+            emit(state.copyWith(
+              isLoading: false,
+              isLoadingMore: false,
+              hasError: true,
+              errorMessage: 'No Internet Connection',
+            ));
+            return;
+          }
           emit(state.copyWith(
             isLoadingMore: false,
             hasError: true,

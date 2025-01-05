@@ -24,6 +24,7 @@ import 'package:morostick/features/pack/data/models/pack_by_id_response.dart';
 import 'package:morostick/features/pack/data/models/report_pack_request_body.dart';
 import 'package:morostick/features/pack/data/models/report_pack_response.dart';
 import 'package:morostick/features/pack/data/models/toggle_pack_favorite_response.dart';
+import 'package:morostick/features/pack/data/models/toggle_sticker_favorite_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_service.g.dart';
@@ -108,8 +109,8 @@ abstract class ApiService {
     @Query('id') String id,
   );
 
-  @POST(ApiConstants.toggleFavorite)
-  Future<TogglePackFavoriteResponse> toggleFavorite(
+  @POST(ApiConstants.togglePackFavorite)
+  Future<TogglePackFavoriteResponse> togglePackFavorite(
     @Query('packId') String packId,
   );
 
@@ -122,5 +123,11 @@ abstract class ApiService {
   Future<ReportPackResponse> reportPack(
     @Query('packId') String packId,
     @Body() ReportPackRequestBody reportPackRequestBody,
+  );
+
+  // Sticker routes
+  @POST(ApiConstants.toggleStickerFavorite)
+  Future<ToggleStickerFavoriteResponse> toggleStickerFavorite(
+    @Query('stickerId') String stickerId,
   );
 }

@@ -522,7 +522,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<TogglePackFavoriteResponse> toggleFavorite(String packId) async {
+  Future<TogglePackFavoriteResponse> togglePackFavorite(String packId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'packId': packId};
     final _headers = <String, dynamic>{};
@@ -617,6 +617,40 @@ class _ApiService implements ApiService {
     late ReportPackResponse _value;
     try {
       _value = ReportPackResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ToggleStickerFavoriteResponse> toggleStickerFavorite(
+      String stickerId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'stickerId': stickerId};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ToggleStickerFavoriteResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'sticker/favorite-toggle',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ToggleStickerFavoriteResponse _value;
+    try {
+      _value = ToggleStickerFavoriteResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

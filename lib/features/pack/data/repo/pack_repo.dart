@@ -6,6 +6,7 @@ import 'package:morostick/features/pack/data/models/pack_by_id_response.dart';
 import 'package:morostick/features/pack/data/models/report_pack_request_body.dart';
 import 'package:morostick/features/pack/data/models/report_pack_response.dart';
 import 'package:morostick/features/pack/data/models/toggle_pack_favorite_response.dart';
+import 'package:morostick/features/pack/data/models/toggle_sticker_favorite_response.dart';
 
 class PackRepo {
   final ApiService _apiService;
@@ -21,11 +22,11 @@ class PackRepo {
     }
   }
 
-  Future<ApiResult<TogglePackFavoriteResponse>> toggleFavorite(
+  Future<ApiResult<TogglePackFavoriteResponse>> togglePackFavorite(
     String packId,
   ) async {
     try {
-      final response = await _apiService.toggleFavorite(packId);
+      final response = await _apiService.togglePackFavorite(packId);
       return ApiResult.success(response);
     } catch (errro) {
       return ApiResult.failure(ErrorHandler.handle(errro));
@@ -46,6 +47,17 @@ class PackRepo {
     try {
       final response =
           await _apiService.reportPack(packId, reportPackRequestBody);
+      return ApiResult.success(response);
+    } catch (errro) {
+      return ApiResult.failure(ErrorHandler.handle(errro));
+    }
+  }
+
+  Future<ApiResult<ToggleStickerFavoriteResponse>> toggleStickerFavorite(
+    String stickerId,
+  ) async {
+    try {
+      final response = await _apiService.toggleStickerFavorite(stickerId);
       return ApiResult.success(response);
     } catch (errro) {
       return ApiResult.failure(ErrorHandler.handle(errro));

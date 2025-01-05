@@ -24,6 +24,9 @@ mixin _$ViewPackDetailsState {
   bool get hasError => throw _privateConstructorUsedError;
   bool get isMessageBoxError => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
+  List<Sticker> get stickers => throw _privateConstructorUsedError;
+  bool get isLoadingFavoriteSticker => throw _privateConstructorUsedError;
+  List<Color> get stickerBGColors => throw _privateConstructorUsedError;
   GeneralResponse? get error => throw _privateConstructorUsedError;
   Pack? get pack => throw _privateConstructorUsedError;
 
@@ -49,6 +52,9 @@ abstract class $ViewPackDetailsStateCopyWith<$Res> {
       bool hasError,
       bool isMessageBoxError,
       bool isFavorite,
+      List<Sticker> stickers,
+      bool isLoadingFavoriteSticker,
+      List<Color> stickerBGColors,
       GeneralResponse? error,
       Pack? pack});
 }
@@ -77,6 +83,9 @@ class _$ViewPackDetailsStateCopyWithImpl<$Res,
     Object? hasError = null,
     Object? isMessageBoxError = null,
     Object? isFavorite = null,
+    Object? stickers = null,
+    Object? isLoadingFavoriteSticker = null,
+    Object? stickerBGColors = null,
     Object? error = freezed,
     Object? pack = freezed,
   }) {
@@ -113,6 +122,18 @@ class _$ViewPackDetailsStateCopyWithImpl<$Res,
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
+      stickers: null == stickers
+          ? _value.stickers
+          : stickers // ignore: cast_nullable_to_non_nullable
+              as List<Sticker>,
+      isLoadingFavoriteSticker: null == isLoadingFavoriteSticker
+          ? _value.isLoadingFavoriteSticker
+          : isLoadingFavoriteSticker // ignore: cast_nullable_to_non_nullable
+              as bool,
+      stickerBGColors: null == stickerBGColors
+          ? _value.stickerBGColors
+          : stickerBGColors // ignore: cast_nullable_to_non_nullable
+              as List<Color>,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -142,6 +163,9 @@ abstract class _$$ViewPackDetailsStateImplCopyWith<$Res>
       bool hasError,
       bool isMessageBoxError,
       bool isFavorite,
+      List<Sticker> stickers,
+      bool isLoadingFavoriteSticker,
+      List<Color> stickerBGColors,
       GeneralResponse? error,
       Pack? pack});
 }
@@ -167,6 +191,9 @@ class __$$ViewPackDetailsStateImplCopyWithImpl<$Res>
     Object? hasError = null,
     Object? isMessageBoxError = null,
     Object? isFavorite = null,
+    Object? stickers = null,
+    Object? isLoadingFavoriteSticker = null,
+    Object? stickerBGColors = null,
     Object? error = freezed,
     Object? pack = freezed,
   }) {
@@ -203,6 +230,18 @@ class __$$ViewPackDetailsStateImplCopyWithImpl<$Res>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
+      stickers: null == stickers
+          ? _value._stickers
+          : stickers // ignore: cast_nullable_to_non_nullable
+              as List<Sticker>,
+      isLoadingFavoriteSticker: null == isLoadingFavoriteSticker
+          ? _value.isLoadingFavoriteSticker
+          : isLoadingFavoriteSticker // ignore: cast_nullable_to_non_nullable
+              as bool,
+      stickerBGColors: null == stickerBGColors
+          ? _value._stickerBGColors
+          : stickerBGColors // ignore: cast_nullable_to_non_nullable
+              as List<Color>,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -227,8 +266,13 @@ class _$ViewPackDetailsStateImpl implements _ViewPackDetailsState {
       this.hasError = false,
       this.isMessageBoxError = false,
       this.isFavorite = false,
+      final List<Sticker> stickers = const [],
+      this.isLoadingFavoriteSticker = false,
+      final List<Color> stickerBGColors = const [],
       this.error,
-      this.pack});
+      this.pack})
+      : _stickers = stickers,
+        _stickerBGColors = stickerBGColors;
 
   @override
   @JsonKey()
@@ -254,6 +298,27 @@ class _$ViewPackDetailsStateImpl implements _ViewPackDetailsState {
   @override
   @JsonKey()
   final bool isFavorite;
+  final List<Sticker> _stickers;
+  @override
+  @JsonKey()
+  List<Sticker> get stickers {
+    if (_stickers is EqualUnmodifiableListView) return _stickers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_stickers);
+  }
+
+  @override
+  @JsonKey()
+  final bool isLoadingFavoriteSticker;
+  final List<Color> _stickerBGColors;
+  @override
+  @JsonKey()
+  List<Color> get stickerBGColors {
+    if (_stickerBGColors is EqualUnmodifiableListView) return _stickerBGColors;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_stickerBGColors);
+  }
+
   @override
   final GeneralResponse? error;
   @override
@@ -261,7 +326,7 @@ class _$ViewPackDetailsStateImpl implements _ViewPackDetailsState {
 
   @override
   String toString() {
-    return 'ViewPackDetailsState(isLoadingPack: $isLoadingPack, isLoadingFavorite: $isLoadingFavorite, isLoadingHide: $isLoadingHide, downloadCount: $downloadCount, favoriteCount: $favoriteCount, hasError: $hasError, isMessageBoxError: $isMessageBoxError, isFavorite: $isFavorite, error: $error, pack: $pack)';
+    return 'ViewPackDetailsState(isLoadingPack: $isLoadingPack, isLoadingFavorite: $isLoadingFavorite, isLoadingHide: $isLoadingHide, downloadCount: $downloadCount, favoriteCount: $favoriteCount, hasError: $hasError, isMessageBoxError: $isMessageBoxError, isFavorite: $isFavorite, stickers: $stickers, isLoadingFavoriteSticker: $isLoadingFavoriteSticker, stickerBGColors: $stickerBGColors, error: $error, pack: $pack)';
   }
 
   @override
@@ -285,6 +350,12 @@ class _$ViewPackDetailsStateImpl implements _ViewPackDetailsState {
                 other.isMessageBoxError == isMessageBoxError) &&
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite) &&
+            const DeepCollectionEquality().equals(other._stickers, _stickers) &&
+            (identical(
+                    other.isLoadingFavoriteSticker, isLoadingFavoriteSticker) ||
+                other.isLoadingFavoriteSticker == isLoadingFavoriteSticker) &&
+            const DeepCollectionEquality()
+                .equals(other._stickerBGColors, _stickerBGColors) &&
             (identical(other.error, error) || other.error == error) &&
             (identical(other.pack, pack) || other.pack == pack));
   }
@@ -300,6 +371,9 @@ class _$ViewPackDetailsStateImpl implements _ViewPackDetailsState {
       hasError,
       isMessageBoxError,
       isFavorite,
+      const DeepCollectionEquality().hash(_stickers),
+      isLoadingFavoriteSticker,
+      const DeepCollectionEquality().hash(_stickerBGColors),
       error,
       pack);
 
@@ -324,6 +398,9 @@ abstract class _ViewPackDetailsState implements ViewPackDetailsState {
       final bool hasError,
       final bool isMessageBoxError,
       final bool isFavorite,
+      final List<Sticker> stickers,
+      final bool isLoadingFavoriteSticker,
+      final List<Color> stickerBGColors,
       final GeneralResponse? error,
       final Pack? pack}) = _$ViewPackDetailsStateImpl;
 
@@ -343,6 +420,12 @@ abstract class _ViewPackDetailsState implements ViewPackDetailsState {
   bool get isMessageBoxError;
   @override
   bool get isFavorite;
+  @override
+  List<Sticker> get stickers;
+  @override
+  bool get isLoadingFavoriteSticker;
+  @override
+  List<Color> get stickerBGColors;
   @override
   GeneralResponse? get error;
   @override

@@ -80,12 +80,13 @@ class Sticker {
   final List<Category>? categories;
   final int? position;
   final StickerStats? stats;
+  bool? isFavorite;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
   String get stickerId => id;
 
-  const Sticker({
+  Sticker({
     required this.id,
     this.packId,
     this.name,
@@ -100,6 +101,7 @@ class Sticker {
     this.categories,
     this.position,
     this.stats,
+    this.isFavorite,
     this.createdAt,
     this.updatedAt,
   });

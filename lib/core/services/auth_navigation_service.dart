@@ -76,7 +76,7 @@ class AuthNavigationService extends ChangeNotifier {
     });
   }
 
-  Future<bool> _checkConnectivity() async {
+  Future<bool> checkConnectivity() async {
     final connectivityResults = await Connectivity().checkConnectivity();
     _isOffline = connectivityResults.contains(ConnectivityResult.none) ||
         connectivityResults.isEmpty;
@@ -135,7 +135,7 @@ class AuthNavigationService extends ChangeNotifier {
   }
 
   Future<void> login(String accessToken, {String? refreshToken}) async {
-    final hasConnection = await _checkConnectivity();
+    final hasConnection = await checkConnectivity();
     if (!hasConnection) {
       _isOffline = true;
       notifyListeners();
@@ -154,7 +154,7 @@ class AuthNavigationService extends ChangeNotifier {
   Future<bool> logout() async {
     try {
       await enableGuestMode();
-      if (!await _checkConnectivity()) {
+      if (!await checkConnectivity()) {
         // Allow logout even when offline
         await Future.wait<void>([
           SharedPrefHelper.removeSecuredString(SharedPrefKeys.userToken),
@@ -196,7 +196,7 @@ class AuthNavigationService extends ChangeNotifier {
     // Use a lock to prevent multiple simultaneous refresh attempts
     return await _refreshLock.synchronized(() async {
       try {
-        final hasConnection = await _checkConnectivity();
+        final hasConnection = await checkConnectivity();
         if (!hasConnection) {
           _isOffline = true;
           notifyListeners();
@@ -267,7 +267,7 @@ class AuthNavigationService extends ChangeNotifier {
           return _isAuthenticated;
         }
 
-        if (await _checkConnectivity()) {
+        if (await checkConnectivity()) {
           await logout();
         } else {
           _isOffline = true;
@@ -277,7 +277,7 @@ class AuthNavigationService extends ChangeNotifier {
         return false;
       } catch (e) {
         debugPrint('Token refresh failed: $e');
-        if (await _checkConnectivity()) {
+        if (await checkConnectivity()) {
           await logout();
         } else {
           _isOffline = true;
@@ -291,11 +291,11 @@ class AuthNavigationService extends ChangeNotifier {
 
   Future<void> checkInitialStatus() async {
     final hasSeenOnboarding =
-        await SharedPrefHelper.getBool('has_seen_onboarding') ?? false;
+        await SharedPrefHelper.getBool('has_seen_onboarding');
     _isFirstTime = !hasSeenOnboarding;
 
     // Check guest mode first
-    _isGuestMode = await SharedPrefHelper.getBool('is_guest_mode') ?? false;
+    _isGuestMode = await SharedPrefHelper.getBool('is_guest_mode');
     if (_isGuestMode) {
       setAuthStatus(false);
       return;
@@ -307,7 +307,7 @@ class AuthNavigationService extends ChangeNotifier {
         await SharedPrefHelper.getSecuredString(SharedPrefKeys.refreshToken);
 
     if (accessToken.isNotEmpty) {
-      if (await _checkConnectivity()) {
+      if (await checkConnectivity()) {
         // Online flow
         if (_shouldRefreshToken(accessToken)) {
           final refreshSuccessful = await refreshTokenMethod();

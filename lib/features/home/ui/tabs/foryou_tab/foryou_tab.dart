@@ -213,6 +213,7 @@ class LazyLoadingListView extends StatelessWidget {
       controller: scrollController,
       padding: padding,
       physics: const AlwaysScrollableScrollPhysics(),
+      cacheExtent: 100,
       itemCount: headersLength + items.length + (hasReachedMax ? 0 : 1),
       itemBuilder: (context, index) {
         // Handle header widgets if they exist

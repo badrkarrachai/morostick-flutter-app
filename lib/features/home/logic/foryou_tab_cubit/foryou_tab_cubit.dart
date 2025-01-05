@@ -39,14 +39,18 @@ class ForYouCubit extends Cubit<ForYouState> {
   Future<void> getForYouContent([int retryCount = 0]) async {
     if (state.isLoading) return;
 
+    // Always reset carousel state when starting to load
     emit(state.copyWith(
       isLoading: true,
       hasError: false,
       error: null,
       currentPage: 1,
       hasReachedMax: false,
-      carouselState:
-          state.carouselState.copyWith(status: CarouselStatus.loading),
+      carouselState: const CarouselState(
+        currentPage: 0,
+        colors: [],
+        status: CarouselStatus.loading,
+      ),
     ));
 
     try {
@@ -60,17 +64,41 @@ class ForYouCubit extends Cubit<ForYouState> {
               forYouResponse.forYouData?.suggested?.pagination?.hasNextPage ==
                   false;
 
+          // Generate fresh colors for the carousel
+          final List<Color> newColors = _generateColors(recommendedLength);
+
           emit(state.copyWith(
             isLoading: false,
             data: forYouResponse,
             hasReachedMax: hasReachedMax,
             carouselState: CarouselState(
-              colors: _generateColors(recommendedLength),
+              currentPage: 0, // Always start from first item
+              colors: newColors,
               status: CarouselStatus.loaded,
             ),
           ));
         },
-        failure: (error) => _handleError(error.apiErrorModel),
+        failure: (error) async {
+          if (!await _authService.checkConnectivity()) {
+            emit(state.copyWith(
+              isLoading: false,
+              isLoadingMore: false,
+              hasError: true,
+              error: const GeneralResponse(
+                success: false,
+                status: -6,
+                message: 'No Internet Connection',
+              ),
+              carouselState: const CarouselState(
+                currentPage: 0,
+                colors: [],
+                status: CarouselStatus.error,
+              ),
+            ));
+            return;
+          }
+          return _handleError(error.apiErrorModel);
+        },
       );
     } on DioException catch (e) {
       if (retryCount < _maxRetries) {
@@ -84,7 +112,7 @@ class ForYouCubit extends Cubit<ForYouState> {
   }
 
   List<Color> _generateColors(int length) {
-    if (length == 0) return const [];
+    if (length == 0) return [];
     return List.generate(length, (_) => ColorsManager.getRandomColor());
   }
 
@@ -99,7 +127,24 @@ class ForYouCubit extends Cubit<ForYouState> {
 
       response.when(
         success: (moreData) => _handleLoadMoreSuccess(moreData, nextPage),
-        failure: (error) => _handleError(error.apiErrorModel),
+        failure: (error) async {
+          if (!await _authService.checkConnectivity()) {
+            emit(state.copyWith(
+              isLoading: false,
+              isLoadingMore: false,
+              hasError: true,
+              error: const GeneralResponse(
+                success: false,
+                status: -6,
+                message: 'No Internet Connection',
+              ),
+              carouselState:
+                  state.carouselState.copyWith(status: CarouselStatus.error),
+            ));
+            return;
+          }
+          _handleError(error.apiErrorModel);
+        },
       );
     } on DioException catch (e) {
       _handleDioError(e);
@@ -184,10 +229,10 @@ class ForYouCubit extends Cubit<ForYouState> {
   }
 
   void updateCarouselPage(int page) {
-    if (page == state.carouselState.currentPage) return;
-
     emit(state.copyWith(
-      carouselState: state.carouselState.copyWith(currentPage: page),
+      carouselState: state.carouselState.copyWith(
+        currentPage: page,
+      ),
     ));
   }
 

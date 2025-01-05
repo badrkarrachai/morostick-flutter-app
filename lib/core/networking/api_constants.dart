@@ -22,9 +22,12 @@ class ApiConstants {
 
   // Pack routes
   static const String getPackById = "pack/get-by-id";
-  static const String toggleFavorite = "pack/favorite-toggle";
+  static const String togglePackFavorite = "pack/favorite-toggle";
   static const String hidePack = "pack/hide";
   static const String reportPack = "pack/report-create";
+
+  // Sticker routes
+  static const String toggleStickerFavorite = "sticker/favorite-toggle";
 }
 
 class ErrorConstantData {
@@ -165,6 +168,16 @@ class ApiErrors {
     ErrorDetails(
       code: 'ERR_DEFAULT',
       details: 'Sorry, an unexpected error occurred. Please try again later.',
+      errorFields: null,
+    ),
+  );
+
+  static const ErrorConstantData serverDown = ErrorConstantData(
+    'Server Unavailable',
+    ErrorDetails(
+      code: 'ERR_DEFAULT',
+      details:
+          'Sorry, our server is currently unavailable. Please try again later.',
       errorFields: null,
     ),
   );

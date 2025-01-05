@@ -29,13 +29,10 @@ class PackScreen extends StatefulWidget {
 }
 
 class _PackScreenState extends State<PackScreen> {
-  late List<bool> _favoritedStickers;
-
   @override
   void initState() {
     super.initState();
     _loadPackDetails();
-    _favoritedStickers = [];
   }
 
   void _loadPackDetails() {
@@ -44,7 +41,7 @@ class _PackScreenState extends State<PackScreen> {
 
   void _toggleFavorite(String packId, bool isFavorite) {
     if (!mounted) return;
-    context.read<ViewPackDetailsCubit>().toggleFavorite(packId, isFavorite);
+    context.read<ViewPackDetailsCubit>().togglePackFavorite(packId, isFavorite);
   }
 
   void _handleHide(String packId, BuildContext otherContext) {
@@ -92,8 +89,7 @@ class _PackScreenState extends State<PackScreen> {
           );
         }
         if (state.isMessageBoxError) {
-          AppMessageBoxDialogManager.showErrorDialog(
-            context: context,
+          AppMessageBoxDialogServiceNonContext.showError(
             title: state.error!.message,
             message: state.error!.error?.details ??
                 "Something went wrong please try again later.",
@@ -110,18 +106,30 @@ class _PackScreenState extends State<PackScreen> {
                 context.read<ViewPackDetailsCubit>().refresh();
               }
             },
-            child: Center(
-              child: SingleChildScrollView(
-                child: NoDataWidget(
-                  title: state.error!.message,
-                  icon: state.error!.message.contains("Internet")
-                      ? Icons.wifi_off_rounded
-                      : null,
-                  message: state.error!.error?.details ??
-                      "Please check your internet connection",
-                  onRefresh: () {
-                    context.read<ViewPackDetailsCubit>().refresh();
-                  },
+            child: Scaffold(
+              appBar: PackAppBar(
+                isFavorite: state.pack?.isFavorite ?? false,
+                onFavoriteToggle: _toggleFavorite,
+                onHide: _handleHide,
+                onReport: _handleReport,
+                isLoading: state.isLoadingPack,
+                packId: '',
+                mainContext: context,
+                handelReportMessagBox: _handleReportMessagBox,
+              ),
+              body: Center(
+                child: SingleChildScrollView(
+                  child: NoDataWidget(
+                    title: state.error!.message,
+                    icon: state.error!.message.contains("Internet")
+                        ? Icons.wifi_off_rounded
+                        : null,
+                    message: state.error!.error?.details ??
+                        "Please check your internet connection",
+                    onRefresh: () {
+                      context.read<ViewPackDetailsCubit>().refresh();
+                    },
+                  ),
                 ),
               ),
             ),
@@ -135,12 +143,6 @@ class _PackScreenState extends State<PackScreen> {
               child: Text('Pack not found'),
             ),
           );
-        }
-
-        // Initialize favorited stickers list if needed
-        if (_favoritedStickers.isEmpty && pack.stickers != null) {
-          _favoritedStickers =
-              List.generate(pack.stickers!.length, (_) => false);
         }
 
         return Scaffold(
@@ -184,15 +186,13 @@ class _PackScreenState extends State<PackScreen> {
                     verticalSpace(8),
                     if (pack.stickers != null) ...[
                       StickerGrid(
-                        stickers:
-                            pack.stickers!.map((s) => s.webpUrl!).toList(),
-                        favoritedStickers: _favoritedStickers,
-                        onFavoriteToggle: (index) {
-                          setState(() {
-                            _favoritedStickers[index] =
-                                !_favoritedStickers[index];
-                          });
+                        stickers: state.stickers,
+                        colors: state.stickerBGColors,
+                        onFavoriteToggle: (sticker) {
                           // Handle favoriting logic
+                          context
+                              .read<ViewPackDetailsCubit>()
+                              .toggleStickerFavorite(stickerId: sticker.id);
                         },
                         showAnimatedIndicator: pack.isAnimatedPack!,
                       ),

@@ -88,6 +88,7 @@ Sticker _$StickerFromJson(Map<String, dynamic> json) => Sticker(
       stats: json['stats'] == null
           ? null
           : StickerStats.fromJson(json['stats'] as Map<String, dynamic>),
+      isFavorite: json['isFavorite'] as bool?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -111,6 +112,7 @@ Map<String, dynamic> _$StickerToJson(Sticker instance) => <String, dynamic>{
       'categories': instance.categories,
       'position': instance.position,
       'stats': instance.stats,
+      'isFavorite': instance.isFavorite,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
     };
