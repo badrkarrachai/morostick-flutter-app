@@ -209,47 +209,48 @@ class LazyLoadingListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final headersLength = headerWidgets?.length ?? 0;
 
-    return ListView.builder(
-      controller: scrollController,
-      padding: padding,
-      physics: const AlwaysScrollableScrollPhysics(),
-      cacheExtent: 100,
-      itemCount: headersLength + items.length + (hasReachedMax ? 0 : 1),
-      itemBuilder: (context, index) {
-        // Handle header widgets if they exist
-        if (headerWidgets != null && index < headersLength) {
-          return headerWidgets![index];
-        }
+    return SizedBox(
+      child: ListView.builder(
+        controller: scrollController,
+        padding: padding,
+        physics: const AlwaysScrollableScrollPhysics(),
+        itemCount: headersLength + items.length + (hasReachedMax ? 0 : 1),
+        itemBuilder: (context, index) {
+          // Handle header widgets if they exist
+          if (headerWidgets != null && index < headersLength) {
+            return headerWidgets![index];
+          }
 
-        // Adjust index for actual items
-        final itemIndex = index - headersLength;
+          // Adjust index for actual items
+          final itemIndex = index - headersLength;
 
-        // Handle loading more indicator
-        if (itemIndex == items.length) {
-          if (!hasReachedMax) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              onLoadMore();
-            });
+          // Handle loading more indicator
+          if (itemIndex == items.length) {
+            if (!hasReachedMax) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                onLoadMore();
+              });
 
-            return Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.h),
-                child: SizedBox(
-                  width: 25.h,
-                  height: 25.w,
-                  child: const CircularProgressIndicator(
-                    strokeWidth: 3,
+              return Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                  child: SizedBox(
+                    width: 25,
+                    height: 25,
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 2.5,
+                    ),
                   ),
                 ),
-              ),
-            );
+              );
+            }
+            return null;
           }
-          return null;
-        }
 
-        // Build regular item
-        return itemBuilder(context, itemIndex);
-      },
+          // Build regular item
+          return itemBuilder(context, itemIndex);
+        },
+      ),
     );
   }
 }

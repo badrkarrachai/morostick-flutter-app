@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,14 +23,6 @@ Future<void> main() async {
     // Initialize screen util
     await ScreenUtil.ensureScreenSize();
 
-    // Set system UI style
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-
     // Initialize auth service
     final authService = getIt<AuthNavigationService>();
     await authService.checkInitialStatus();
@@ -40,20 +30,15 @@ Future<void> main() async {
     // Initialize guest dialog service
     GuestDialogService.init(AppKeys.navigatorKey);
 
-    if (Platform.isAndroid) {
-      SystemChrome.setEnabledSystemUIMode(
-        SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
-      );
-    }
-
-    // Run the app
-    SystemChrome.setPreferredOrientations([
+    // Set orientation and run the app
+    await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       // DeviceOrientation.portraitDown, // Include this if you want upside down portrait
-    ]).then((value) => runApp(MoroStickApp(
-          authService: authService,
-        )));
+    ]);
+
+    runApp(MoroStickApp(
+      authService: authService,
+    ));
   } catch (e, stackTrace) {
     debugPrint('Initialization error: $e');
     debugPrint('Stack trace: $stackTrace');

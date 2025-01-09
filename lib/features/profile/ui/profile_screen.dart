@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 coverImageUrl:
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUb1wzzdfF9VHLV7vHUr5x4wJdCWdwfFro2w&s',
                 profileImageUrl:
-                    'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/Badr2.jpg',
+                    'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/avatars/675b7d804a0de0a951cc67b2/aca5aef9-dfb7-449f-8ef6-2c5e27206b84.webp',
                 onCoverImageTap: () {
                   // Handle cover image update
                 },

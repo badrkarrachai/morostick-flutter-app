@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/widgets/app_snackbar.dart';
 import 'package:morostick/features/home/logic/category_packs_cubit/category_packs_cubit.dart';
 import 'package:morostick/features/home/logic/category_packs_cubit/category_packs_state.dart';
@@ -125,6 +126,9 @@ class _OtherCategoriesTabState extends State<OtherCategoriesTab> {
             onLoadMore: () =>
                 context.read<CategoryPacksCubit>().loadMore(widget.categoryKey),
             items: state.packs,
+            headerWidgets: [
+              verticalSpace(16),
+            ],
             itemBuilder: (context, index) {
               return TrendingPacks(
                 trendingPacks: [state.packs[index]],

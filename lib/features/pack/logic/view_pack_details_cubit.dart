@@ -98,6 +98,11 @@ class ViewPackDetailsCubit extends Cubit<ViewPackDetailsState> {
 
   // TOGGLE FAVORITE PACK LOGIC
   Future<void> togglePackFavorite(String packId, bool isFavorite) async {
+    if (_authService.isGuestMode) {
+      GuestDialogService.showGuestRestriction(
+          message: 'Please login to add this pack to your favourites');
+      return;
+    }
     if (state.isLoadingFavorite) return;
 
     emit(state.copyWith(

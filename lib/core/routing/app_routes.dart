@@ -16,6 +16,7 @@ import 'package:morostick/features/auth/login/logic/login_cubit.dart';
 import 'package:morostick/features/auth/login/ui/login_screen.dart';
 import 'package:morostick/features/auth/sign_up/logic/sign_up_cubit.dart';
 import 'package:morostick/features/auth/sign_up/ui/sign_up_screen.dart';
+import 'package:morostick/features/main_navigation/logic/main_navigation_cubit.dart';
 import 'package:morostick/features/main_navigation/ui/main_navigation.dart';
 import 'package:morostick/features/onboarding/onboarding_screen.dart';
 import 'package:morostick/features/top_menu/ui/top_menu_screen.dart';
@@ -73,7 +74,10 @@ class AppRouter {
     Routes.homeScreen: RouteConfig(
       path: Routes.homeScreen,
       type: RouteType.public,
-      builder: (args) => const MainNavigation(),
+      builder: (args) => BlocProvider(
+        create: (context) => MainNavigationCubit(),
+        child: const MainNavigation(),
+      ),
     ),
     Routes.topMenuScreen: RouteConfig(
       path: Routes.topMenuScreen,
@@ -177,7 +181,10 @@ class AppRouter {
       if (isFirstTime) {
         return const OnboardingScreen();
       } else if (isAuthenticated || isGuestMode) {
-        return const MainNavigation();
+        return BlocProvider(
+          create: (context) => MainNavigationCubit(),
+          child: const MainNavigation(),
+        );
       } else {
         return BlocProvider(
           create: (context) => getIt<LoginCubit>(),
@@ -192,7 +199,10 @@ class AppRouter {
 
       case RouteType.auth:
         if (isAuthenticated || isGuestMode) {
-          return const MainNavigation();
+          return BlocProvider(
+            create: (context) => MainNavigationCubit(),
+            child: const MainNavigation(),
+          );
         }
         return config.builder(arguments);
 
@@ -244,7 +254,10 @@ class AppRouter {
         });
 
         // Return the navigation destination (like home screen) as fallback
-        return const MainNavigation();
+        return BlocProvider(
+          create: (context) => MainNavigationCubit(),
+          child: const MainNavigation(),
+        );
       },
     );
   }

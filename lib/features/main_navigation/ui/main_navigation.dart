@@ -1,40 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:morostick/core/di/dependency_injection.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/theming/colors.dart';
-import 'package:morostick/core/theming/images.dart';
-import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/features/favorites/ui/favorites_screen.dart';
 import 'package:morostick/features/home/logic/category_packs_cubit/category_packs_cubit.dart';
 import 'package:morostick/features/home/logic/category_tabs_cubit/category_tabs_cubit.dart';
 import 'package:morostick/features/home/logic/foryou_tab_cubit/foryou_tab_cubit.dart';
 import 'package:morostick/features/home/logic/trending_tab_cubit/trending_tab_cubit.dart';
 import 'package:morostick/features/home/ui/home_screen.dart';
+import 'package:morostick/features/main_navigation/logic/main_navigation_cubit.dart';
+import 'package:morostick/features/main_navigation/logic/main_navigation_state.dart';
 import 'package:morostick/features/profile/ui/profile_screen.dart';
 import 'package:morostick/features/search/ui/search_screen.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-class MainNavigation extends StatefulWidget {
+class MainNavigation extends StatelessWidget {
   const MainNavigation({super.key});
-  static late PersistentTabController controller;
-  @override
-  State<MainNavigation> createState() => _MainNavigationState();
-}
-
-class _MainNavigationState extends State<MainNavigation> {
-  final AuthNavigationService _authService = getIt<AuthNavigationService>();
-  late PersistentTabController _controller;
-  int _currentIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = PersistentTabController(initialIndex: 0);
-    MainNavigation.controller = _controller;
-  }
 
   List<Widget> _buildScreens() {
     return [
@@ -50,143 +32,129 @@ class _MainNavigationState extends State<MainNavigation> {
     ];
   }
 
-  void _handleTabSelection(int index) {
-    // Check if trying to access protected routes (Favorites or Profile)
-    if ((index == 2 || index == 3) && _authService.isGuestMode) {
-      GuestDialogService.showGuestRestriction(
-        message: 'Sorry, please login to access this page',
-      );
-      // Stay on current tab
-      _controller.jumpToTab(_currentIndex);
-      return;
-    }
-    // Update current index and allow navigation
-    _currentIndex = index;
-    _controller.jumpToTab(index);
-  }
-
-  List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          Images.homeFilled,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.mainPurple, BlendMode.srcIn),
-        ),
-        inactiveIcon: SvgPicture.asset(
-          Images.homeStroke,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.grayPurple, BlendMode.srcIn),
-        ),
-        title: ('Home'),
-        textStyle: TextStyles.font12PurpleRegular,
-        activeColorPrimary: ColorsManager.mainPurple.withValues(alpha: 0.3),
-        activeColorSecondary: ColorsManager.mainPurple,
-        inactiveColorPrimary: ColorsManager.grayPurple,
-      ),
-      PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          Images.searchFilled,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.mainPurple, BlendMode.srcIn),
-        ),
-        inactiveIcon: SvgPicture.asset(
-          Images.searchStroke,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.grayPurple, BlendMode.srcIn),
-        ),
-        title: ('Search'),
-        textStyle: TextStyles.font12PurpleRegular,
-        activeColorPrimary: ColorsManager.mainPurple.withValues(alpha: 0.3),
-        activeColorSecondary: ColorsManager.mainPurple,
-        inactiveColorPrimary: ColorsManager.grayPurple,
-      ),
-      PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          Images.favouriteFilled,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.mainPurple, BlendMode.srcIn),
-        ),
-        inactiveIcon: SvgPicture.asset(
-          Images.favouriteStroke,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.grayPurple, BlendMode.srcIn),
-        ),
-        title: ('Favorites'),
-        textStyle: TextStyles.font12PurpleRegular,
-        activeColorPrimary: ColorsManager.mainPurple.withValues(alpha: 0.3),
-        activeColorSecondary: ColorsManager.mainPurple,
-        inactiveColorPrimary: ColorsManager.grayPurple,
-      ),
-      PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          Images.userFilled,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.mainPurple, BlendMode.srcIn),
-        ),
-        inactiveIcon: SvgPicture.asset(
-          Images.userStroke,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.grayPurple, BlendMode.srcIn),
-        ),
-        title: ('Profile'),
-        textStyle: TextStyles.font12PurpleRegular,
-        activeColorPrimary: ColorsManager.mainPurple.withValues(alpha: 0.3),
-        activeColorSecondary: ColorsManager.mainPurple,
-        inactiveColorPrimary: ColorsManager.grayPurple,
-      ),
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      screens: _buildScreens(),
-      items: _navBarsItems(),
-      backgroundColor: Colors.white,
-      handleAndroidBackButtonPress: true,
-      resizeToAvoidBottomInset: true,
-      stateManagement: true,
-      hideNavigationBarWhenKeyboardAppears: true,
-      navBarHeight: 63.h,
-      bottomScreenMargin: 63.h,
-      onItemSelected: _handleTabSelection,
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(0),
-        colorBehindNavBar: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 8,
-            offset: const Offset(0, -2),
+    return BlocBuilder<MainNavigationCubit, MainNavigationState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: Stack(
+            children: [
+              // Screens
+              Positioned.fill(
+                bottom: 56, // Height of navigation bar
+                child: IndexedStack(
+                  index: state.selectedIndex,
+                  children: _buildScreens(),
+                ),
+              ),
+
+              // Custom Navigation Bar
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.08),
+                        blurRadius: 8,
+                        offset: const Offset(0, -3),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildNavItem(
+                          context,
+                          0,
+                          HugeIcons.strokeRoundedHome01,
+                          state.selectedIndex,
+                        ),
+                        _buildNavItem(
+                          context,
+                          1,
+                          HugeIcons.strokeRoundedSearch01,
+                          state.selectedIndex,
+                        ),
+                        _buildNavItem(
+                          context,
+                          2,
+                          HugeIcons.strokeRoundedFavourite,
+                          state.selectedIndex,
+                        ),
+                        _buildNavItem(
+                          context,
+                          3,
+                          HugeIcons.strokeRoundedUser,
+                          state.selectedIndex,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      navBarStyle: NavBarStyle.style7,
+        );
+      },
     );
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  Widget _buildNavItem(
+      BuildContext context, int index, IconData icon, int selectedIndex) {
+    final isSelected = index == selectedIndex;
+    return InkWell(
+      onTap: () {
+        if ((index == 2 || index == 3) &&
+            getIt<AuthNavigationService>().isGuestMode) {
+          GuestDialogService.showGuestRestriction(
+            message: 'Sorry, please login to access this page',
+          );
+          return;
+        }
+        context.read<MainNavigationCubit>().selectIndex(index);
+      },
+      child: SizedBox(
+        width: 68,
+        height: 35,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // Animated background indicator
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              left: isSelected ? 0 : 34, // Start from center when not selected
+              right: isSelected ? 0 : 34, // Start from center when not selected
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 150),
+                opacity: isSelected ? 1.0 : 0.0,
+                child: Container(
+                  height: 35,
+                  decoration: BoxDecoration(
+                    color: ColorsManager.mainPurple.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(60),
+                  ),
+                ),
+              ),
+            ),
+            // Static icon
+            Icon(
+              icon,
+              color: isSelected
+                  ? ColorsManager.mainPurple
+                  : ColorsManager.grayPurple,
+              size: 24,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
