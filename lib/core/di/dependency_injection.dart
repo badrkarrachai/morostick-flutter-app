@@ -24,6 +24,8 @@ import 'package:morostick/features/home/logic/foryou_tab_cubit/foryou_tab_cubit.
 import 'package:morostick/features/home/logic/trending_tab_cubit/trending_tab_cubit.dart';
 import 'package:morostick/features/pack/data/repo/pack_repo.dart';
 import 'package:morostick/features/pack/logic/view_pack_details_cubit.dart';
+import 'package:morostick/features/search/data/repos/search_repo.dart';
+import 'package:morostick/features/search/logic/search_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -81,18 +83,18 @@ Future<void> setupGetIt() async {
 
   // home
   getIt.registerLazySingleton<HomeRepo>(() => HomeRepo(getIt()));
-  getIt.registerFactory<CategoriesCubit>(() => CategoriesCubit(
+  getIt.registerLazySingleton<CategoriesCubit>(() => CategoriesCubit(
         getIt<HomeRepo>(),
       ));
-  getIt.registerFactory<ForYouCubit>(() => ForYouCubit(
-        getIt<HomeRepo>(),
-        getIt<AuthNavigationService>(),
-      ));
-  getIt.registerFactory<TrendingTabCubit>(() => TrendingTabCubit(
+  getIt.registerLazySingleton<ForYouCubit>(() => ForYouCubit(
         getIt<HomeRepo>(),
         getIt<AuthNavigationService>(),
       ));
-  getIt.registerFactory<CategoryPacksCubit>(() => CategoryPacksCubit(
+  getIt.registerLazySingleton<TrendingTabCubit>(() => TrendingTabCubit(
+        getIt<HomeRepo>(),
+        getIt<AuthNavigationService>(),
+      ));
+  getIt.registerLazySingleton<CategoryPacksCubit>(() => CategoryPacksCubit(
         getIt<HomeRepo>(),
       ));
 
@@ -100,4 +102,10 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<PackRepo>(() => PackRepo(getIt()));
   getIt.registerFactory<ViewPackDetailsCubit>(() =>
       ViewPackDetailsCubit(getIt<PackRepo>(), getIt<AuthNavigationService>()));
+
+  // Search
+  getIt.registerLazySingleton<SearchRepo>(() => SearchRepo(getIt()));
+  // Change this to lazySingleton
+  getIt.registerLazySingleton<SearchCubit>(
+      () => SearchCubit(getIt<SearchRepo>()));
 }

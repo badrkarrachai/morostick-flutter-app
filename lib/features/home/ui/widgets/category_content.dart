@@ -38,7 +38,7 @@ class CategoryPacksStateManager {
 }
 
 class CategoryContent extends StatefulWidget {
-  final String categoryName;
+  final String? categoryName;
   final Function(ScrollDirection, double) onScroll;
   final List<String?> categoryNames;
 
@@ -78,7 +78,7 @@ class _CategoryContentState extends State<CategoryContent>
   void dispose() {
     _scrollController.dispose();
     if (widget.categoryName != 'For You' && widget.categoryName != 'Trending') {
-      CategoryPacksStateManager.dispose(widget.categoryName);
+      CategoryPacksStateManager.dispose(widget.categoryName ?? '');
     }
     super.dispose();
   }
@@ -96,7 +96,7 @@ class _CategoryContentState extends State<CategoryContent>
       case 'Trending':
         return TrendingTab(scrollController: _scrollController);
       default:
-        return _buildCategoryTab(widget.categoryName);
+        return _buildCategoryTab(widget.categoryName ?? '');
     }
   }
 

@@ -20,6 +20,7 @@ class AppTextFormField extends StatelessWidget {
   final bool? isEnabled;
   final VoidCallback? onTap;
   final double? height;
+  final Function(String)? onFieldSubmitted;
 
   const AppTextFormField({
     super.key,
@@ -39,6 +40,7 @@ class AppTextFormField extends StatelessWidget {
     this.isEnabled = true,
     this.onTap,
     this.height,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -50,6 +52,7 @@ class AppTextFormField extends StatelessWidget {
         child: TextFormField(
           controller: controller,
           enabled: isEnabled,
+          onFieldSubmitted: onFieldSubmitted,
           decoration: InputDecoration(
             isDense: true,
             contentPadding: contentPadding ??

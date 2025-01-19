@@ -71,18 +71,18 @@ class DioFactory {
       );
 
       // Add logger in debug mode
-      // if (kDebugMode) {
-      //   _dio!.interceptors.add(
-      //     PrettyDioLogger(
-      //       requestBody: true,
-      //       requestHeader: true,
-      //       responseHeader: true,
-      //       responseBody: true,
-      //       error: true,
-      //       compact: true,
-      //     ),
-      //   );
-      // }
+      if (kDebugMode) {
+        _dio!.interceptors.add(
+          PrettyDioLogger(
+            requestBody: true,
+            requestHeader: true,
+            responseHeader: true,
+            responseBody: true,
+            error: true,
+            compact: true,
+          ),
+        );
+      }
     }
   }
 

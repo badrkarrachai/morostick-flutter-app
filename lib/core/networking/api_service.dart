@@ -25,6 +25,8 @@ import 'package:morostick/features/pack/data/models/report_pack_request_body.dar
 import 'package:morostick/features/pack/data/models/report_pack_response.dart';
 import 'package:morostick/features/pack/data/models/toggle_pack_favorite_response.dart';
 import 'package:morostick/features/pack/data/models/toggle_sticker_favorite_response.dart';
+import 'package:morostick/features/search/data/models/search_response.dart';
+import 'package:morostick/features/search/data/models/trending_searches_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_service.g.dart';
@@ -129,5 +131,16 @@ abstract class ApiService {
   @POST(ApiConstants.toggleStickerFavorite)
   Future<ToggleStickerFavoriteResponse> toggleStickerFavorite(
     @Query('stickerId') String stickerId,
+  );
+
+  // Search routes
+  @GET(ApiConstants.getTrendingSearches)
+  Future<TrendingSearchesResponse> getTrendingSearches();
+
+  @GET(ApiConstants.getSearchResults)
+  Future<SearchResponse> getSearchResults(
+    @Query('query') String query,
+    @Query('page') int page,
+    @Query('limit') int limit,
   );
 }

@@ -21,7 +21,9 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   ];
 
   CategoriesCubit(this._homeRepo)
-      : super(const CategoriesState(categories: staticCategories));
+      : super(const CategoriesState(categories: staticCategories)) {
+    loadCategories();
+  }
 
   Future<void> loadCategories({bool shouldResetPacks = true}) async {
     emit(state.copyWith(

@@ -13,23 +13,122 @@ import 'package:morostick/features/home/ui/home_screen.dart';
 import 'package:morostick/features/main_navigation/logic/main_navigation_cubit.dart';
 import 'package:morostick/features/main_navigation/logic/main_navigation_state.dart';
 import 'package:morostick/features/profile/ui/profile_screen.dart';
+import 'package:morostick/features/search/logic/search_cubit.dart';
 import 'package:morostick/features/search/ui/search_screen.dart';
 
-class MainNavigation extends StatelessWidget {
+class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
 
-  List<Widget> _buildScreens() {
-    return [
-      MultiBlocProvider(providers: [
-        BlocProvider(create: (context) => getIt<ForYouCubit>()),
-        BlocProvider(create: (context) => getIt<TrendingTabCubit>()),
-        BlocProvider(create: (context) => getIt<CategoriesCubit>()),
-        BlocProvider(create: (context) => getIt<CategoryPacksCubit>()),
-      ], child: const HomeScreen()),
-      const SearchScreen(),
-      const FavoritesScreen(),
-      const ProfileScreen(),
-    ];
+  @override
+  State<MainNavigation> createState() => _MainNavigationState();
+}
+
+class _MainNavigationState extends State<MainNavigation> {
+  Widget _buildHomeScreen() {
+    // Key helps Flutter maintain state
+    return MultiBlocProvider(
+      key: const PageStorageKey('home_screen'),
+      providers: [
+        BlocProvider.value(
+          value: getIt<ForYouCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt<TrendingTabCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt<CategoriesCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt<CategoryPacksCubit>(),
+        ),
+      ],
+      child: const HomeScreen(),
+    );
+  }
+
+  Widget _buildSearchScreen() {
+    return BlocProvider.value(
+      key: const PageStorageKey('search_screen'),
+      value: getIt<SearchCubit>(),
+      child: const SearchScreen(),
+    );
+  }
+
+  Widget _buildFavoritesScreen() {
+    return const FavoritesScreen(
+      key: PageStorageKey('favorites_screen'),
+    );
+  }
+
+  Widget _buildProfileScreen() {
+    return const ProfileScreen(
+      key: PageStorageKey('profile_screen'),
+    );
+  }
+
+  Widget _buildCurrentScreen(int index) {
+    switch (index) {
+      case 0:
+        return _buildHomeScreen();
+      case 1:
+        return _buildSearchScreen();
+      case 2:
+        return _buildFavoritesScreen();
+      case 3:
+        return _buildProfileScreen();
+      default:
+        return const SizedBox.shrink();
+    }
+  }
+
+  Widget _buildNavItem(
+      BuildContext context, int index, IconData icon, int selectedIndex) {
+    final isSelected = index == selectedIndex;
+    return InkWell(
+      onTap: () {
+        if ((index == 2 || index == 3) &&
+            getIt<AuthNavigationService>().isGuestMode) {
+          GuestDialogService.showGuestRestriction(
+            message: 'Sorry, please login to access this page',
+          );
+          return;
+        }
+        context.read<MainNavigationCubit>().selectIndex(index);
+      },
+      child: SizedBox(
+        width: 68,
+        height: 35,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              left: isSelected ? 0 : 34,
+              right: isSelected ? 0 : 34,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 150),
+                opacity: isSelected ? 1.0 : 0.0,
+                child: Container(
+                  height: 35,
+                  decoration: BoxDecoration(
+                    color: ColorsManager.mainPurple.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(60),
+                  ),
+                ),
+              ),
+            ),
+            Icon(
+              icon,
+              color: isSelected
+                  ? ColorsManager.mainPurple
+                  : ColorsManager.grayPurple,
+              size: 24,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -41,14 +140,14 @@ class MainNavigation extends StatelessWidget {
             children: [
               // Screens
               Positioned.fill(
-                bottom: 56, // Height of navigation bar
-                child: IndexedStack(
-                  index: state.selectedIndex,
-                  children: _buildScreens(),
+                bottom: 56,
+                child: PageStorage(
+                  bucket: PageStorageBucket(),
+                  child: _buildCurrentScreen(state.selectedIndex),
                 ),
               ),
 
-              // Custom Navigation Bar
+              // Navigation Bar
               Positioned(
                 left: 0,
                 right: 0,
@@ -103,58 +202,6 @@ class MainNavigation extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildNavItem(
-      BuildContext context, int index, IconData icon, int selectedIndex) {
-    final isSelected = index == selectedIndex;
-    return InkWell(
-      onTap: () {
-        if ((index == 2 || index == 3) &&
-            getIt<AuthNavigationService>().isGuestMode) {
-          GuestDialogService.showGuestRestriction(
-            message: 'Sorry, please login to access this page',
-          );
-          return;
-        }
-        context.read<MainNavigationCubit>().selectIndex(index);
-      },
-      child: SizedBox(
-        width: 68,
-        height: 35,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // Animated background indicator
-            AnimatedPositioned(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeInOut,
-              left: isSelected ? 0 : 34, // Start from center when not selected
-              right: isSelected ? 0 : 34, // Start from center when not selected
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 150),
-                opacity: isSelected ? 1.0 : 0.0,
-                child: Container(
-                  height: 35,
-                  decoration: BoxDecoration(
-                    color: ColorsManager.mainPurple.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(60),
-                  ),
-                ),
-              ),
-            ),
-            // Static icon
-            Icon(
-              icon,
-              color: isSelected
-                  ? ColorsManager.mainPurple
-                  : ColorsManager.grayPurple,
-              size: 24,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

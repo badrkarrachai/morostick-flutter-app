@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
     final _HomeScreenState? state =
         context.findAncestorStateOfType<_HomeScreenState>();
     if (state != null) {
-      state._tabController.animateTo(pageIndex);
+      state._tabController?.animateTo(pageIndex);
     }
   }
 
@@ -27,26 +27,33 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  late TabController _tabController;
+  TabController? _tabController;
   late final PageStorageBucket _bucket;
   final TextEditingController _searchController = TextEditingController();
   final ValueNotifier<bool> _isAppBarVisible = ValueNotifier<bool>(true);
   static const int _shimmerCount = 3;
 
+  void _initializeTabController(int length, {int initialIndex = 0}) {
+    _tabController?.dispose();
+    _tabController = TabController(
+      length: length,
+      vsync: this,
+      initialIndex: initialIndex.clamp(0, length - 1),
+    );
+    _tabController?.addListener(_handleTabChange);
+  }
+
   @override
   void initState() {
     super.initState();
     _bucket = PageStorageBucket();
-    _tabController = TabController(
-      length: CategoriesCubit.staticCategories.length + _shimmerCount,
-      vsync: this,
-    );
-    _tabController.addListener(_handleTabChange);
-    context.read<CategoriesCubit>().loadCategories();
+    // Initialize with static categories first
+    _initializeTabController(
+        CategoriesCubit.staticCategories.length + _shimmerCount);
   }
 
   void _handleTabChange() {
-    if (_tabController.indexIsChanging) {
+    if (_tabController?.indexIsChanging ?? false) {
       _isAppBarVisible.value = true;
     }
   }
@@ -69,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController?.dispose();
     _searchController.dispose();
     _isAppBarVisible.dispose();
     super.dispose();
@@ -80,17 +87,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Colors.white,
       body: BlocConsumer<CategoriesCubit, CategoriesState>(
+        listenWhen: (previous, current) =>
+            previous.categories.length != current.categories.length,
         listener: (context, state) {
-          if (!state.isLoading && state.categories.isNotEmpty) {
-            final currentIndex =
-                _tabController.index.clamp(0, state.categories.length - 1);
-            _tabController.dispose();
-            _tabController = TabController(
-              length: state.categories.length,
-              vsync: this,
+          if (!state.isLoading) {
+            final currentIndex = _tabController?.index ?? 0;
+            _initializeTabController(
+              state.categories.length,
               initialIndex: currentIndex,
             );
-            _tabController.addListener(_handleTabChange);
           }
         },
         builder: (context, state) {
@@ -101,6 +106,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       _shimmerCount, (index) => 'Loading ${index + 1}')
                 ]
               : state.categories.map((cat) => cat.name).toList();
+
+          if (_tabController?.length != displayCategories.length) {
+            _initializeTabController(
+              displayCategories.length,
+              initialIndex: _tabController?.index ?? 0,
+            );
+          }
 
           return SafeArea(
             child: Column(
@@ -129,29 +141,33 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       verticalSpace(5),
                       HomeSearchBar(controller: _searchController),
                       verticalSpace(5),
-                      HomeCategoriesTab(
-                        tabController: _tabController,
-                        categories: displayCategories,
-                        isLoading: state.isLoading,
-                      ),
+                      if (_tabController != null)
+                        HomeCategoriesTab(
+                          tabController: _tabController!,
+                          categories: displayCategories,
+                          isLoading: state.isLoading,
+                        ),
                     ],
                   ),
                 ),
                 Expanded(
                   child: PageStorage(
                     bucket: _bucket,
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: [
-                        for (var i = 0; i < displayCategories.length; i++)
-                          CategoryContent(
-                            key: PageStorageKey('tab_${displayCategories[i]}'),
-                            categoryName: displayCategories[i]!,
-                            categoryNames: displayCategories,
-                            onScroll: handleScroll,
+                    child: _tabController == null
+                        ? const Center(child: CircularProgressIndicator())
+                        : TabBarView(
+                            controller: _tabController,
+                            children: [
+                              for (var i = 0; i < displayCategories.length; i++)
+                                CategoryContent(
+                                  key: PageStorageKey(
+                                      'tab_${displayCategories[i]}'),
+                                  categoryName: displayCategories[i],
+                                  categoryNames: displayCategories,
+                                  onScroll: handleScroll,
+                                ),
+                            ],
                           ),
-                      ],
-                    ),
                   ),
                 ),
               ],

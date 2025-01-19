@@ -28,6 +28,10 @@ class ApiConstants {
 
   // Sticker routes
   static const String toggleStickerFavorite = "sticker/favorite-toggle";
+
+  // Search routes
+  static const String getTrendingSearches = "search/trending-searches";
+  static const String getSearchResults = "search";
 }
 
 class ErrorConstantData {

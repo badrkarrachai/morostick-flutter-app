@@ -5,10 +5,10 @@ import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:morostick/features/search/ui/widgets/tabs/search_default_screen.dart';
+import 'package:morostick/features/search/data/models/trending_searches_response.dart';
 
 class TrendingSearchesWidget extends StatelessWidget {
-  final List<TrendingItem> items;
+  final List<TrendingSearchItem> items;
 
   const TrendingSearchesWidget({
     super.key,
@@ -41,7 +41,7 @@ class TrendingSearchesWidget extends StatelessWidget {
 }
 
 class TrendingItemWidget extends StatelessWidget {
-  final TrendingItem item;
+  final TrendingSearchItem item;
 
   const TrendingItemWidget({
     super.key,
@@ -59,7 +59,7 @@ class TrendingItemWidget extends StatelessWidget {
       child: Row(
         children: [
           AppCachedNetworkImage(
-            imageUrl: item.imageUrl,
+            imageUrl: item.previewSticker.webpUrl,
             width: 40.w,
             height: 40.w,
             borderRadius: BorderRadius.circular(8.r),
@@ -72,13 +72,13 @@ class TrendingItemWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    item.title,
+                    item.name,
                     style: TextStyles.font14DarkPurpleMedium,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                if (item.isRising)
+                if (item.isHot)
                   Icon(
                     HugeIcons.strokeRoundedArrowUpRight01,
                     color: ColorsManager.mainPurple,
