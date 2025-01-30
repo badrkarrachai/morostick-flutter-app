@@ -1,115 +1,146 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:morostick/core/services/auth_navigation_service.dart';
+import 'package:flutter/foundation.dart';
+import 'package:synchronized/synchronized.dart';
+import '../services/auth_navigation_service.dart';
 
 class TokenInterceptor extends Interceptor {
   final AuthNavigationService _authService;
-  final int maxRetries;
-  final Duration retryDelay;
-  final Map<String, RetryQueue> _retryQueues = {};
+  final Dio _dio;
+  final _lock = Lock();
+  final List<_RequestQueueItem> _queue = [];
+  bool _isRefreshing = false;
 
-  TokenInterceptor(
-    this._authService, {
-    this.maxRetries = 3,
-    this.retryDelay = const Duration(seconds: 1),
-  });
+  TokenInterceptor(this._authService, this._dio);
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    final requestKey = _getRequestKey(response.requestOptions);
-    _retryQueues[requestKey]?.complete(response);
-    _retryQueues.remove(requestKey);
-    handler.next(response);
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    // Don't add token for refresh token requests
+    if (options.path.contains('refresh-token')) {
+      return handler.next(options);
+    }
+
+    final token = await _authService.getAccessToken();
+    if (token.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $token';
+    }
+
+    return handler.next(options);
   }
 
   @override
-  Future<void> onError(
-      DioException err, ErrorInterceptorHandler handler) async {
-    final requestKey = _getRequestKey(err.requestOptions);
-    final retryQueue = _retryQueues[requestKey];
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
+    if (_shouldRefreshToken(err)) {
+      final completer = Completer<Response>();
 
-    if (err.error is SocketException ||
-        err.type == DioExceptionType.connectionError) {
-      if (retryQueue == null || retryQueue.attempts < maxRetries) {
-        await _handleRetry(err, handler, requestKey);
-        return;
-      }
-      _authService.setIsOffline(true);
-    }
+      // Queue the failed request
+      _queue.add(_RequestQueueItem(
+        options: err.requestOptions,
+        completer: completer,
+      ));
 
-    if (err.response?.statusCode == 401) {
-      final isRefreshed = await _authService.refreshTokenMethod();
-      if (isRefreshed) {
-        await _retryFailedRequests();
-        final token = await _authService.getAccessToken();
-        err.requestOptions.headers['Authorization'] = 'Bearer $token';
+      // Start token refresh if not already in progress
+      if (!_isRefreshing) {
+        _isRefreshing = true;
         try {
-          final response = await Dio().fetch(err.requestOptions);
-          handler.resolve(response);
-          return;
-        } catch (e) {
-          if (retryQueue == null || retryQueue.attempts < maxRetries) {
-            await _handleRetry(err, handler, requestKey);
-            return;
+          final newToken = await _lock.synchronized(() async {
+            final success = await _authService.refreshTokenMethod();
+            if (success) {
+              return await _authService.getAccessToken();
+            }
+            return null;
+          });
+
+          if (newToken != null) {
+            // Process queued requests with new token
+            await _processQueue(newToken);
+          } else {
+            // Token refresh failed, reject all queued requests
+            _rejectQueue(err);
           }
-        }
-      }
-      await _authService.logout();
-    }
-
-    _retryQueues.remove(requestKey);
-    handler.next(err);
-  }
-
-  Future<void> _handleRetry(
-    DioException err,
-    ErrorInterceptorHandler handler,
-    String requestKey,
-  ) async {
-    final retryQueue = _retryQueues[requestKey] ??= RetryQueue();
-    retryQueue.attempts++;
-
-    await Future.delayed(retryDelay * retryQueue.attempts);
-    try {
-      final response = await Dio().fetch(err.requestOptions);
-      handler.resolve(response);
-    } catch (e) {
-      handler.next(err);
-    }
-  }
-
-  Future<void> _retryFailedRequests() async {
-    final requests = Map<String, RetryQueue>.from(_retryQueues);
-    for (final entry in requests.entries) {
-      if (!entry.value.isCompleted) {
-        try {
-          final response = await Dio().fetch(entry.value.requestOptions);
-          entry.value.complete(response);
         } catch (e) {
-          rethrow;
+          debugPrint('Error during token refresh: $e');
+          _rejectQueue(err);
+        } finally {
+          _isRefreshing = false;
+          _queue.clear();
         }
+      }
+
+      try {
+        // Wait for this request's completion
+        final response = await completer.future;
+        return handler.resolve(response);
+      } catch (e) {
+        return handler.next(DioException(
+          requestOptions: err.requestOptions,
+          error: e.toString(),
+        ));
+      }
+    }
+
+    // For other errors, continue with error handling
+    return handler.next(err);
+  }
+
+  bool _shouldRefreshToken(DioException err) {
+    final isAuthError = err.response?.statusCode == 401;
+    final isSessionTimeout =
+        err.response?.data?['error']?['code'] == 'SESSION_TIMEOUT';
+    final isNotRefreshRequest =
+        !err.requestOptions.path.contains('refresh-token');
+
+    return (isAuthError || isSessionTimeout) && isNotRefreshRequest;
+  }
+
+  Future<void> _processQueue(String newToken) async {
+    final requests = List<_RequestQueueItem>.from(_queue);
+
+    for (var request in requests) {
+      try {
+        final response = await _retryRequest(request.options, newToken);
+        request.completer.complete(response);
+      } catch (e) {
+        request.completer.completeError(e);
       }
     }
   }
 
-  String _getRequestKey(RequestOptions options) {
-    return '${options.method}:${options.path}:${options.data.hashCode}';
+  void _rejectQueue(DioException err) {
+    for (var request in _queue) {
+      request.completer.completeError(err);
+    }
+  }
+
+  Future<Response> _retryRequest(
+      RequestOptions options, String newToken) async {
+    final retryOptions = Options(
+      method: options.method,
+      headers: {
+        ...options.headers,
+        'Authorization': 'Bearer $newToken',
+      },
+      contentType: options.contentType,
+      followRedirects: options.followRedirects,
+      validateStatus: options.validateStatus,
+    );
+
+    return await _dio.request(
+      options.path,
+      data: options.data,
+      queryParameters: options.queryParameters,
+      options: retryOptions,
+    );
   }
 }
 
-class RetryQueue {
-  int attempts = 0;
-  bool isCompleted = false;
-  late RequestOptions requestOptions;
-  final _completer = Completer<Response>();
+class _RequestQueueItem {
+  final RequestOptions options;
+  final Completer<Response> completer;
 
-  void complete(Response response) {
-    if (!_completer.isCompleted) {
-      isCompleted = true;
-      _completer.complete(response);
-    }
-  }
-
-  Future<Response> get future => _completer.future;
+  _RequestQueueItem({
+    required this.options,
+    required this.completer,
+  });
 }

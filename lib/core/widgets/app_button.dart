@@ -19,6 +19,7 @@ class AppButton extends StatelessWidget {
   final Widget? leftIcon;
   final Widget? rightIcon;
   final bool enabled;
+  final bool isFixedSize;
 
   const AppButton({
     super.key,
@@ -36,6 +37,7 @@ class AppButton extends StatelessWidget {
     this.leftIcon,
     this.rightIcon,
     this.enabled = true,
+    this.isFixedSize = true,
   });
 
   @override
@@ -66,9 +68,11 @@ class AppButton extends StatelessWidget {
             vertical: verticalPadding?.h ?? 10.h,
           ),
         ),
-        fixedSize: WidgetStateProperty.all(
-          Size(buttonWidth?.w ?? double.maxFinite, buttonHeight ?? 50.h),
-        ),
+        fixedSize: isFixedSize
+            ? WidgetStateProperty.all(
+                Size(buttonWidth?.w ?? double.maxFinite, buttonHeight ?? 50.h),
+              )
+            : null,
       ),
       onPressed: onPressed,
       child: Row(

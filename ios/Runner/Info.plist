@@ -4,6 +4,10 @@
 	<dict>
 		<key>UIRequiresPersistentWiFi</key>
 		<true/>
+		<key>UISupportedInterfaceOrientations</key>
+		<array>
+    	<string>UIInterfaceOrientationPortrait</string>
+		</array>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>

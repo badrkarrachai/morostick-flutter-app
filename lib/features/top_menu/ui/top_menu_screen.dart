@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:morostick/core/di/dependency_injection.dart';
 import 'package:morostick/core/helpers/extensions.dart';
 import 'package:morostick/core/routing/routes.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
@@ -20,6 +21,8 @@ class TopMenuScreen extends StatefulWidget {
 }
 
 class _TopMenuScreenState extends State<TopMenuScreen> {
+  final AuthNavigationService _authService = getIt<AuthNavigationService>();
+
   bool facebookLogin = false;
 
   bool googleLogin = false;
@@ -63,10 +66,11 @@ class _TopMenuScreenState extends State<TopMenuScreen> {
                           title: 'Connect with',
                           items: _buildConnectItems(),
                         ),
-                        TopMenuSection(
-                          title: 'Other',
-                          items: _buildAboutItems(),
-                        ),
+                        if (_authService.isAuthenticated)
+                          TopMenuSection(
+                            title: 'Other',
+                            items: _buildAboutItems(),
+                          ),
                       ],
                     ),
                   ),

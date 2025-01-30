@@ -14,7 +14,19 @@ import 'package:morostick/features/auth/sign_up/data/models/sign_up_request_body
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_response.dart';
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_with_facebook_model.dart';
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_with_google_model.dart';
-import 'package:morostick/features/home/data/models/for_you_tab_response.dart';
+import 'package:morostick/features/home/data/models/category_tabs_requestbody.dart';
+import 'package:morostick/features/home/data/models/category_tabs_response.dart';
+import 'package:morostick/features/home/data/models/foryou_tab_response.dart';
+import 'package:morostick/features/home/data/models/pack_list_tabs_response.dart';
+import 'package:morostick/features/home/data/models/trending_tab_response.dart';
+import 'package:morostick/features/pack/data/models/hide_pack_response.dart';
+import 'package:morostick/features/pack/data/models/pack_by_id_response.dart';
+import 'package:morostick/features/pack/data/models/report_pack_request_body.dart';
+import 'package:morostick/features/pack/data/models/report_pack_response.dart';
+import 'package:morostick/features/pack/data/models/toggle_pack_favorite_response.dart';
+import 'package:morostick/features/pack/data/models/toggle_sticker_favorite_response.dart';
+import 'package:morostick/features/search/data/models/search_response.dart';
+import 'package:morostick/features/search/data/models/trending_searches_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_service.g.dart';
@@ -70,9 +82,70 @@ abstract class ApiService {
   );
 
   // Home routes
+  @GET(ApiConstants.getCategories)
+  Future<CategoryResponse> getCategories();
+
   @GET(ApiConstants.getForYouTab)
   Future<ForYouResponse> getMoreSuggested(
     @Query('page') int page,
     @Query('limit') int limit,
+  );
+
+  @GET(ApiConstants.getTrendingTab)
+  Future<TrendingResponse> getTrendingTab(
+    @Query('page') int page,
+    @Query('limit') int limit,
+  );
+
+  @POST(ApiConstants.getPacksListTab)
+  Future<PacksListResponse> getTabByCategoryName(
+    @Body() CategoryTabsRequestBody categoryRequestBody,
+    @Query('sortBy') String sortBy,
+    @Query('page') int page,
+    @Query('limit') int limit,
+  );
+
+  // Packs routes
+  @GET(ApiConstants.getPackById)
+  Future<PackByIdResponse> getPackById(
+    @Query('id') String id,
+  );
+
+  @POST(ApiConstants.togglePackFavorite)
+  Future<TogglePackFavoriteResponse> togglePackFavorite(
+    @Query('packId') String packId,
+  );
+
+  @POST(ApiConstants.hidePack)
+  Future<HidePackResponse> hidePack(
+    @Query('packId') String packId,
+  );
+
+  @POST(ApiConstants.reportPack)
+  Future<ReportPackResponse> reportPack(
+    @Query('packId') String packId,
+    @Body() ReportPackRequestBody reportPackRequestBody,
+  );
+
+  // Sticker routes
+  @POST(ApiConstants.toggleStickerFavorite)
+  Future<ToggleStickerFavoriteResponse> toggleStickerFavorite(
+    @Query('stickerId') String stickerId,
+  );
+
+  // Search routes
+  @GET(ApiConstants.getTrendingSearches)
+  Future<TrendingSearchesResponse> getTrendingSearches();
+
+  @GET(ApiConstants.getSearchResults)
+  Future<SearchResponse> getSearchResults(
+    @Query('query') String query,
+    @Query('page') int page,
+    @Query('limit') int limit,
+    @Query('creatorName') String? creatorName,
+    @Query('packType') String? packType,
+    @Query('minStickers') int? minStickers,
+    @Query('maxStickers') int? maxStickers,
+    @Query('sortBy') String? sortBy,
   );
 }

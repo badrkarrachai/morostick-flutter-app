@@ -20,7 +20,8 @@ enum DataSource {
   sendTimeout,
   cacheError,
   noInternetConnection,
-  defaultStatus
+  defaultStatus,
+  serverDown
 }
 
 class ResponseCode {
@@ -41,6 +42,7 @@ class ResponseCode {
   static const int cacheError = -5;
   static const int noInternetConnection = -6;
   static const int defaultError = -7;
+  static const int serverDown = -8;
 }
 
 class ResponseMessage {
@@ -58,6 +60,7 @@ class ResponseMessage {
   static const ErrorConstantData cacheError = ApiErrors.cacheError;
   static const ErrorConstantData noInternetConnection =
       ApiErrors.noInternetError;
+  static const ErrorConstantData serverDown = ApiErrors.serverDown;
   static const ErrorConstantData defaultStatus = ApiErrors.defaultError;
 }
 
@@ -136,6 +139,12 @@ extension DataSourceExtension on DataSource {
             status: ResponseCode.noInternetConnection,
             message: ResponseMessage.noInternetConnection.title,
             error: ResponseMessage.noInternetConnection.message);
+      case DataSource.serverDown:
+        return GeneralResponse(
+            success: false,
+            status: ResponseCode.serverDown,
+            message: ResponseMessage.serverDown.title,
+            error: ResponseMessage.serverDown.message);
       case DataSource.defaultStatus:
         return GeneralResponse(
             success: false,
@@ -227,7 +236,7 @@ class ErrorHandler implements Exception {
       case DioExceptionType.cancel:
         return DataSource.cancel.getFailure();
       case DioExceptionType.connectionError:
-        return DataSource.noInternetConnection.getFailure();
+        return DataSource.serverDown.getFailure();
       case DioExceptionType.badCertificate:
         return const GeneralResponse(
           success: false,

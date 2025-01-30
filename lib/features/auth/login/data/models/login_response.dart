@@ -24,14 +24,13 @@ class LoginData {
 class LoginResponse extends GeneralResponse {
   LoginData? get loginData =>
       data != null ? LoginData.fromJson(data as Map<String, dynamic>) : null;
-  final Metadata metadata;
 
   const LoginResponse({
     required super.status,
     required super.success,
     required super.message,
     super.data,
-    required this.metadata,
+    super.metadata,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {

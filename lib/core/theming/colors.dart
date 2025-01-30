@@ -57,7 +57,8 @@ class ColorsManager {
 
   // Optional: Get random color with custom opacity
   static Color getRandomColorWithOpacity(double opacity) {
-    return cardColors[_random.nextInt(cardColors.length)].withOpacity(opacity);
+    return cardColors[_random.nextInt(cardColors.length)]
+        .withValues(alpha: opacity);
   }
 }
 
@@ -70,7 +71,7 @@ class StickerPackColorManager {
   }
 
   static Color getColorWithOpacityForPack(String packId, double opacity) {
-    return getColorForPack(packId).withOpacity(opacity);
+    return getColorForPack(packId).withValues(alpha: opacity);
   }
 
   // Optional: Clear cache if needed (e.g., when logging out)

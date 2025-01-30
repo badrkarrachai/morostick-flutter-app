@@ -17,8 +17,15 @@ import 'package:morostick/features/auth/login/logic/login_cubit.dart';
 import 'package:morostick/features/auth/sign_up/data/repos/sign_up_repo.dart';
 import 'package:morostick/features/auth/sign_up/logic/sign_up_cubit.dart';
 import 'package:morostick/features/auth/web_view/logic/web_view_cubit.dart';
-import 'package:morostick/features/home/data/repos/for_you_tab_repo.dart';
-import 'package:morostick/features/home/logic/for_you_tab_cubit.dart';
+import 'package:morostick/features/home/data/repos/home_repo.dart';
+import 'package:morostick/features/home/logic/category_packs_cubit/category_packs_cubit.dart';
+import 'package:morostick/features/home/logic/category_tabs_cubit/category_tabs_cubit.dart';
+import 'package:morostick/features/home/logic/foryou_tab_cubit/foryou_tab_cubit.dart';
+import 'package:morostick/features/home/logic/trending_tab_cubit/trending_tab_cubit.dart';
+import 'package:morostick/features/pack/data/repo/pack_repo.dart';
+import 'package:morostick/features/pack/logic/view_pack_details_cubit.dart';
+import 'package:morostick/features/search/data/repos/search_repo.dart';
+import 'package:morostick/features/search/logic/search_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -76,8 +83,29 @@ Future<void> setupGetIt() async {
 
   // home
   getIt.registerLazySingleton<HomeRepo>(() => HomeRepo(getIt()));
-  getIt.registerFactory<ForYouCubit>(() => ForYouCubit(
+  getIt.registerLazySingleton<CategoriesCubit>(() => CategoriesCubit(
+        getIt<HomeRepo>(),
+      ));
+  getIt.registerLazySingleton<ForYouCubit>(() => ForYouCubit(
         getIt<HomeRepo>(),
         getIt<AuthNavigationService>(),
       ));
+  getIt.registerLazySingleton<TrendingTabCubit>(() => TrendingTabCubit(
+        getIt<HomeRepo>(),
+        getIt<AuthNavigationService>(),
+      ));
+  getIt.registerLazySingleton<CategoryPacksCubit>(() => CategoryPacksCubit(
+        getIt<HomeRepo>(),
+      ));
+
+  // Packs
+  getIt.registerLazySingleton<PackRepo>(() => PackRepo(getIt()));
+  getIt.registerFactory<ViewPackDetailsCubit>(() =>
+      ViewPackDetailsCubit(getIt<PackRepo>(), getIt<AuthNavigationService>()));
+
+  // Search
+  getIt.registerLazySingleton<SearchRepo>(() => SearchRepo(getIt()));
+  // Change this to lazySingleton
+  getIt.registerLazySingleton<SearchCubit>(
+      () => SearchCubit(getIt<SearchRepo>()));
 }

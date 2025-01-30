@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:morostick/core/data/models/general_response_model.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
-import 'package:morostick/core/widgets/app_offline_banner.dart';
+import 'package:morostick/core/widgets/app_offline_messagebox.dart';
 import 'package:morostick/features/auth/login/data/models/login_request_body.dart';
 import 'package:morostick/features/auth/login/data/models/login_with_facebook_model.dart';
 import 'package:morostick/features/auth/login/data/models/login_with_google_model.dart';
@@ -121,11 +121,11 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       emit(const LoginState.loading());
 
-      final String? idToken = await _googleAuthService.getIdToken();
+      final String? accessToken = await _googleAuthService.getAccessToken();
 
-      if (idToken != null) {
+      if (accessToken != null) {
         final response = await _loginRepo.loginWithGoogle(
-          GoogleSignInRequestBody(idToken: idToken),
+          GoogleSignInRequestBody(accessToken: accessToken),
         );
 
         response.when(
@@ -144,7 +144,7 @@ class LoginCubit extends Cubit<LoginState> {
         emit(const LoginState.error(
           error: GeneralResponse(
             success: false,
-            message: 'Failed to get Google ID token',
+            message: 'Failed to get Google access token',
             status: 400,
           ),
         ));

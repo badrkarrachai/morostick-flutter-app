@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:morostick/core/helpers/extensions.dart';
 import 'package:morostick/core/theming/colors.dart';
-import 'package:morostick/core/widgets/app_back_button.dart';
+import 'package:morostick/core/widgets/app_custom_icon_button.dart';
 import 'package:morostick/features/pack/ui/widgets/pack_favorite_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/features/pack/ui/widgets/pack_options_bottom_sheet.dart';
 import 'package:morostick/features/pack/ui/widgets/pack_report_dialog.dart';
 
 class PackAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final VoidCallback onFavoriteToggle;
-  final ValueNotifier<bool> isFavorite;
-  final VoidCallback onHide;
-  final VoidCallback onReport;
+  final void Function(String, bool) onFavoriteToggle;
+  final bool isFavorite;
+  final void Function(String, BuildContext) onHide;
+  final Function(dynamic Function(BuildContext)) handelReportMessagBox;
+  final void Function(String, String) onReport;
+  final bool isLoading;
+  final String packId;
+  final BuildContext mainContext;
 
   const PackAppBar({
     super.key,
     required this.onFavoriteToggle,
     required this.isFavorite,
     required this.onHide,
+    required this.handelReportMessagBox,
+    this.isLoading = false,
+    required this.packId,
     required this.onReport,
+    required this.mainContext,
   });
 
   @override
@@ -27,47 +36,47 @@ class PackAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       automaticallyImplyLeading: false, // Disable default back button
-      title: Row(
+      title: const Row(
         children: [
-          AppBackButton(
-            buttonWidth: 40.w,
-            buttonHeight: 40.h,
-          ),
+          AppCustomIconButton(),
         ],
       ),
       titleSpacing: 16.w,
       actions: [
-        PackFavoriteButton(
-          isFavorite: isFavorite,
-          onToggle: onFavoriteToggle,
-        ),
-        Padding(
-          padding: EdgeInsets.only(right: 16.w),
-          child: IconButton(
-            onPressed: () => _showOptionsBottomSheet(context),
-            icon: Icon(
-              HugeIcons.strokeRoundedMoreVertical,
-              color: ColorsManager.darkPurple,
-              size: 24.sp,
+        if (!isLoading)
+          PackFavoriteButton(
+            isFavorite: isFavorite,
+            onToggle: onFavoriteToggle,
+            packId: packId,
+          ),
+        if (!isLoading)
+          Padding(
+            padding: EdgeInsets.only(right: 16.w),
+            child: IconButton(
+              onPressed: () => _showOptionsBottomSheet(context, mainContext),
+              icon: Icon(
+                HugeIcons.strokeRoundedMoreVertical,
+                color: ColorsManager.darkPurple,
+                size: 24.sp,
+              ),
             ),
           ),
-        ),
       ],
     );
   }
 
-  void _showOptionsBottomSheet(BuildContext context) {
+  void _showOptionsBottomSheet(BuildContext context, BuildContext mainContext) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (context) => PackOptionsBottomSheet(
         onHide: () {
-          Navigator.pop(context);
-          onHide();
+          context.pop();
+          onHide(packId, mainContext);
         },
         onReport: () {
-          Navigator.pop(context);
-          _showReportDialog(context);
+          context.pop();
+          handelReportMessagBox((context) => _showReportDialog(context));
         },
       ),
     );
@@ -79,7 +88,7 @@ class PackAppBar extends StatelessWidget implements PreferredSizeWidget {
       builder: (context) => PackReportDialog(
         onReport: (reason) {
           // Handle report with reason
-          onReport();
+          onReport(packId, reason);
         },
       ),
     );

@@ -73,7 +73,7 @@ class _FavoritePacksState extends State<FavoritePacks> {
           border: Border.all(
             color: isSelected
                 ? ColorsManager.mainPurple
-                : ColorsManager.mainPurple.withOpacity(0.3),
+                : ColorsManager.mainPurple.withValues(alpha: 0.3),
             width: 1.5,
           ),
         ),
