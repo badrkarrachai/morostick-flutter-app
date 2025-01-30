@@ -7,12 +7,10 @@ import 'package:morostick/features/search/logic/search_cubit.dart';
 import 'package:provider/provider.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  final TextEditingController controller;
   final VoidCallback? onSearch; // Optional callback for additional search logic
 
   const SearchBarWidget({
     super.key,
-    required this.controller,
     this.onSearch,
   });
 
@@ -23,9 +21,9 @@ class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppTextFormField(
-      height: 44.h,
+      height: 50.h,
       contentPadding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 0.h),
-      controller: controller,
+      controller: context.read<SearchCubit>().searchController,
       hintText: 'Search',
       validator: _validateSearch,
       hintStyle: TextStyles.font14HintTextRegular,
@@ -38,11 +36,16 @@ class SearchBarWidget extends StatelessWidget {
         if (value.trim().isNotEmpty) {
           // Add to recent searches using Provider
           context.read<SearchCubit>().addSearch(value.trim());
+          context.read<SearchCubit>().submitSearch(value.trim());
+          context.read<SearchCubit>().setSearchResultsScreenShowing(true);
+
           onSearch?.call(); // Call optional callback if provided
+        } else {
+          context.read<SearchCubit>().setSearchResultsScreenShowing(false);
         }
       },
       suffixIcon: ValueListenableBuilder<TextEditingValue>(
-        valueListenable: controller,
+        valueListenable: context.read<SearchCubit>().searchController,
         builder: (context, value, child) {
           return AnimatedOpacity(
             opacity: value.text.isNotEmpty ? 1.0 : 0.0,
@@ -52,7 +55,11 @@ class SearchBarWidget extends StatelessWidget {
               child: GestureDetector(
                 onTap: value.text.isNotEmpty
                     ? () {
-                        controller.clear();
+                        context.read<SearchCubit>().searchController.clear();
+                        context
+                            .read<SearchCubit>()
+                            .setSearchResultsScreenShowing(false);
+
                         // You can optionally trigger a new search here if needed
                         // onSearch?.call();
                       }

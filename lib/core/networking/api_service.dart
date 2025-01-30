@@ -142,5 +142,10 @@ abstract class ApiService {
     @Query('query') String query,
     @Query('page') int page,
     @Query('limit') int limit,
+    @Query('creatorName') String? creatorName,
+    @Query('packType') String? packType,
+    @Query('minStickers') int? minStickers,
+    @Query('maxStickers') int? maxStickers,
+    @Query('sortBy') String? sortBy,
   );
 }

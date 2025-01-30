@@ -190,8 +190,9 @@ class LazyLoadingListView extends StatelessWidget {
   final Widget Function(BuildContext, int) itemBuilder;
   final bool hasReachedMax;
   final List<Widget>? headerWidgets; // Made optional
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
   final EdgeInsetsGeometry? padding;
+  final ScrollPhysics? scrollPhysics;
 
   const LazyLoadingListView({
     super.key,
@@ -201,8 +202,9 @@ class LazyLoadingListView extends StatelessWidget {
     required this.itemBuilder,
     this.headerWidgets, // Optional parameter
     this.hasReachedMax = false,
-    required this.scrollController,
+    this.scrollController,
     this.padding,
+    this.scrollPhysics,
   });
 
   @override
@@ -213,7 +215,7 @@ class LazyLoadingListView extends StatelessWidget {
       child: ListView.builder(
         controller: scrollController,
         padding: padding,
-        physics: const AlwaysScrollableScrollPhysics(),
+        physics: scrollPhysics ?? const AlwaysScrollableScrollPhysics(),
         itemCount: headersLength + items.length + (hasReachedMax ? 0 : 1),
         itemBuilder: (context, index) {
           // Handle header widgets if they exist

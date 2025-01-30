@@ -696,13 +696,24 @@ class _ApiService implements ApiService {
     String query,
     int page,
     int limit,
+    String? creatorName,
+    String? packType,
+    int? minStickers,
+    int? maxStickers,
+    String? sortBy,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'query': query,
       r'page': page,
       r'limit': limit,
+      r'creatorName': creatorName,
+      r'packType': packType,
+      r'minStickers': minStickers,
+      r'maxStickers': maxStickers,
+      r'sortBy': sortBy,
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<SearchResponse>(Options(

@@ -22,12 +22,22 @@ class SearchRepo {
     String query, {
     int page = 1,
     int limit = 10,
+    String? creatorName,
+    String? packType,
+    int? minStickers,
+    int? maxStickers,
+    String? sortBy,
   }) async {
     try {
       final response = await _apiService.getSearchResults(
         query,
         page,
         limit,
+        creatorName,
+        packType,
+        minStickers,
+        maxStickers,
+        sortBy,
       );
       return ApiResult.success(response);
     } catch (error) {

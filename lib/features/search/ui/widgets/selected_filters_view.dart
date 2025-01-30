@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:morostick/core/helpers/extensions.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/helpers/spacing.dart';
@@ -31,6 +32,7 @@ class SelectedFiltersView extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.r),
               gradient: LinearGradient(
                 colors: [
                   ColorsManager.mainPurple.withValues(alpha: 0.08),
@@ -44,6 +46,7 @@ class SelectedFiltersView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.filter_list_rounded,
@@ -52,8 +55,8 @@ class SelectedFiltersView extends StatelessWidget {
                     ),
                     horizontalSpace(8),
                     Text(
-                      '${activeFilters.length} Active Filters',
-                      style: TextStyles.font14DarkPurpleSemiBold,
+                      '${activeFilters.isEmpty ? 'No' : activeFilters.length} Active Filters',
+                      style: TextStyles.font13DarkPurpleSemiBold,
                     ),
                   ],
                 ),
@@ -245,12 +248,40 @@ class SelectedFiltersView extends StatelessWidget {
   }
 
   Map<String, dynamic> _getActiveFilters() {
+    // Define default values
+    const defaultValues = {
+      'sort': null,
+      'minStickers': 5.0,
+      'searchBy': 'all',
+      'stickerType': 'both'
+    };
+
     return Map.fromEntries(
       filters.entries.where((entry) {
+        // Skip null values
         if (entry.value == null) return false;
-        if (entry.value is String && entry.value == 'all') return false;
-        if (entry.value is double && entry.value == 1) return false;
-        return true;
+
+        // Compare with default values
+        final defaultValue = defaultValues[entry.key];
+        if (defaultValue == entry.value) return false;
+
+        // Handle special cases
+        switch (entry.key) {
+          case 'minStickers':
+            // If it's an int, convert to double for comparison
+            final valueAsDouble =
+                entry.value is int ? entry.value.toDouble() : entry.value;
+            return valueAsDouble != defaultValue;
+
+          case 'searchBy':
+            return entry.value != 'all';
+
+          case 'stickerType':
+            return entry.value != 'both';
+
+          default:
+            return true;
+        }
       }),
     );
   }
@@ -260,11 +291,11 @@ class SelectedFiltersView extends StatelessWidget {
       case 'sort':
         return value.toString();
       case 'minStickers':
-        return '$value Stickers';
+        return '${value.round()} Stickers';
       case 'searchBy':
         return value == 'pack' ? 'Pack Name' : 'Creator';
       case 'stickerType':
-        return value == 'regular' ? 'Regular' : 'Animated';
+        return value.toString().capitalizeFirst()!;
       default:
         return value.toString();
     }

@@ -23,7 +23,18 @@ mixin _$SearchState {
   bool get hasErrorTrendingSearches => throw _privateConstructorUsedError;
   GeneralResponse? get error =>
       throw _privateConstructorUsedError; // Recent Searches
-  List<String> get recentSearches => throw _privateConstructorUsedError;
+  List<String> get recentSearches =>
+      throw _privateConstructorUsedError; // Search Results
+  bool get isLoadingSearch => throw _privateConstructorUsedError;
+  bool get isLoadingMore => throw _privateConstructorUsedError;
+  bool get hasErrorSearch => throw _privateConstructorUsedError;
+  bool get hasReachedMax => throw _privateConstructorUsedError;
+  bool get isSearchResultsScreenShowing => throw _privateConstructorUsedError;
+  int get currentPage => throw _privateConstructorUsedError;
+  SearchData? get searchResults =>
+      throw _privateConstructorUsedError; // Search Filters
+  bool get isFiltersApplied => throw _privateConstructorUsedError;
+  Map<String, dynamic> get activeFilters => throw _privateConstructorUsedError;
 
   /// Create a copy of SearchState
   /// with the given fields replaced by the non-null parameter values.
@@ -43,7 +54,16 @@ abstract class $SearchStateCopyWith<$Res> {
       List<TrendingSearchItem> trendingSearches,
       bool hasErrorTrendingSearches,
       GeneralResponse? error,
-      List<String> recentSearches});
+      List<String> recentSearches,
+      bool isLoadingSearch,
+      bool isLoadingMore,
+      bool hasErrorSearch,
+      bool hasReachedMax,
+      bool isSearchResultsScreenShowing,
+      int currentPage,
+      SearchData? searchResults,
+      bool isFiltersApplied,
+      Map<String, dynamic> activeFilters});
 }
 
 /// @nodoc
@@ -66,6 +86,15 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
     Object? hasErrorTrendingSearches = null,
     Object? error = freezed,
     Object? recentSearches = null,
+    Object? isLoadingSearch = null,
+    Object? isLoadingMore = null,
+    Object? hasErrorSearch = null,
+    Object? hasReachedMax = null,
+    Object? isSearchResultsScreenShowing = null,
+    Object? currentPage = null,
+    Object? searchResults = freezed,
+    Object? isFiltersApplied = null,
+    Object? activeFilters = null,
   }) {
     return _then(_value.copyWith(
       isLoadingTrendingSearches: null == isLoadingTrendingSearches
@@ -88,6 +117,42 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
           ? _value.recentSearches
           : recentSearches // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      isLoadingSearch: null == isLoadingSearch
+          ? _value.isLoadingSearch
+          : isLoadingSearch // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoadingMore: null == isLoadingMore
+          ? _value.isLoadingMore
+          : isLoadingMore // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hasErrorSearch: null == hasErrorSearch
+          ? _value.hasErrorSearch
+          : hasErrorSearch // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hasReachedMax: null == hasReachedMax
+          ? _value.hasReachedMax
+          : hasReachedMax // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSearchResultsScreenShowing: null == isSearchResultsScreenShowing
+          ? _value.isSearchResultsScreenShowing
+          : isSearchResultsScreenShowing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      searchResults: freezed == searchResults
+          ? _value.searchResults
+          : searchResults // ignore: cast_nullable_to_non_nullable
+              as SearchData?,
+      isFiltersApplied: null == isFiltersApplied
+          ? _value.isFiltersApplied
+          : isFiltersApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
+      activeFilters: null == activeFilters
+          ? _value.activeFilters
+          : activeFilters // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ) as $Val);
   }
 }
@@ -105,7 +170,16 @@ abstract class _$$SearchStateImplCopyWith<$Res>
       List<TrendingSearchItem> trendingSearches,
       bool hasErrorTrendingSearches,
       GeneralResponse? error,
-      List<String> recentSearches});
+      List<String> recentSearches,
+      bool isLoadingSearch,
+      bool isLoadingMore,
+      bool hasErrorSearch,
+      bool hasReachedMax,
+      bool isSearchResultsScreenShowing,
+      int currentPage,
+      SearchData? searchResults,
+      bool isFiltersApplied,
+      Map<String, dynamic> activeFilters});
 }
 
 /// @nodoc
@@ -126,6 +200,15 @@ class __$$SearchStateImplCopyWithImpl<$Res>
     Object? hasErrorTrendingSearches = null,
     Object? error = freezed,
     Object? recentSearches = null,
+    Object? isLoadingSearch = null,
+    Object? isLoadingMore = null,
+    Object? hasErrorSearch = null,
+    Object? hasReachedMax = null,
+    Object? isSearchResultsScreenShowing = null,
+    Object? currentPage = null,
+    Object? searchResults = freezed,
+    Object? isFiltersApplied = null,
+    Object? activeFilters = null,
   }) {
     return _then(_$SearchStateImpl(
       isLoadingTrendingSearches: null == isLoadingTrendingSearches
@@ -148,6 +231,42 @@ class __$$SearchStateImplCopyWithImpl<$Res>
           ? _value._recentSearches
           : recentSearches // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      isLoadingSearch: null == isLoadingSearch
+          ? _value.isLoadingSearch
+          : isLoadingSearch // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoadingMore: null == isLoadingMore
+          ? _value.isLoadingMore
+          : isLoadingMore // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hasErrorSearch: null == hasErrorSearch
+          ? _value.hasErrorSearch
+          : hasErrorSearch // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hasReachedMax: null == hasReachedMax
+          ? _value.hasReachedMax
+          : hasReachedMax // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSearchResultsScreenShowing: null == isSearchResultsScreenShowing
+          ? _value.isSearchResultsScreenShowing
+          : isSearchResultsScreenShowing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      searchResults: freezed == searchResults
+          ? _value.searchResults
+          : searchResults // ignore: cast_nullable_to_non_nullable
+              as SearchData?,
+      isFiltersApplied: null == isFiltersApplied
+          ? _value.isFiltersApplied
+          : isFiltersApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
+      activeFilters: null == activeFilters
+          ? _value._activeFilters
+          : activeFilters // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -160,9 +279,19 @@ class _$SearchStateImpl implements _SearchState {
       final List<TrendingSearchItem> trendingSearches = const [],
       this.hasErrorTrendingSearches = false,
       this.error,
-      final List<String> recentSearches = const []})
+      final List<String> recentSearches = const [],
+      this.isLoadingSearch = false,
+      this.isLoadingMore = false,
+      this.hasErrorSearch = false,
+      this.hasReachedMax = false,
+      this.isSearchResultsScreenShowing = false,
+      this.currentPage = 1,
+      this.searchResults,
+      this.isFiltersApplied = false,
+      final Map<String, dynamic> activeFilters = const {}})
       : _trendingSearches = trendingSearches,
-        _recentSearches = recentSearches;
+        _recentSearches = recentSearches,
+        _activeFilters = activeFilters;
 
 // Trending Searches
   @override
@@ -194,9 +323,43 @@ class _$SearchStateImpl implements _SearchState {
     return EqualUnmodifiableListView(_recentSearches);
   }
 
+// Search Results
+  @override
+  @JsonKey()
+  final bool isLoadingSearch;
+  @override
+  @JsonKey()
+  final bool isLoadingMore;
+  @override
+  @JsonKey()
+  final bool hasErrorSearch;
+  @override
+  @JsonKey()
+  final bool hasReachedMax;
+  @override
+  @JsonKey()
+  final bool isSearchResultsScreenShowing;
+  @override
+  @JsonKey()
+  final int currentPage;
+  @override
+  final SearchData? searchResults;
+// Search Filters
+  @override
+  @JsonKey()
+  final bool isFiltersApplied;
+  final Map<String, dynamic> _activeFilters;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get activeFilters {
+    if (_activeFilters is EqualUnmodifiableMapView) return _activeFilters;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_activeFilters);
+  }
+
   @override
   String toString() {
-    return 'SearchState(isLoadingTrendingSearches: $isLoadingTrendingSearches, trendingSearches: $trendingSearches, hasErrorTrendingSearches: $hasErrorTrendingSearches, error: $error, recentSearches: $recentSearches)';
+    return 'SearchState(isLoadingTrendingSearches: $isLoadingTrendingSearches, trendingSearches: $trendingSearches, hasErrorTrendingSearches: $hasErrorTrendingSearches, error: $error, recentSearches: $recentSearches, isLoadingSearch: $isLoadingSearch, isLoadingMore: $isLoadingMore, hasErrorSearch: $hasErrorSearch, hasReachedMax: $hasReachedMax, isSearchResultsScreenShowing: $isSearchResultsScreenShowing, currentPage: $currentPage, searchResults: $searchResults, isFiltersApplied: $isFiltersApplied, activeFilters: $activeFilters)';
   }
 
   @override
@@ -214,7 +377,27 @@ class _$SearchStateImpl implements _SearchState {
                 other.hasErrorTrendingSearches == hasErrorTrendingSearches) &&
             (identical(other.error, error) || other.error == error) &&
             const DeepCollectionEquality()
-                .equals(other._recentSearches, _recentSearches));
+                .equals(other._recentSearches, _recentSearches) &&
+            (identical(other.isLoadingSearch, isLoadingSearch) ||
+                other.isLoadingSearch == isLoadingSearch) &&
+            (identical(other.isLoadingMore, isLoadingMore) ||
+                other.isLoadingMore == isLoadingMore) &&
+            (identical(other.hasErrorSearch, hasErrorSearch) ||
+                other.hasErrorSearch == hasErrorSearch) &&
+            (identical(other.hasReachedMax, hasReachedMax) ||
+                other.hasReachedMax == hasReachedMax) &&
+            (identical(other.isSearchResultsScreenShowing,
+                    isSearchResultsScreenShowing) ||
+                other.isSearchResultsScreenShowing ==
+                    isSearchResultsScreenShowing) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage) &&
+            (identical(other.searchResults, searchResults) ||
+                other.searchResults == searchResults) &&
+            (identical(other.isFiltersApplied, isFiltersApplied) ||
+                other.isFiltersApplied == isFiltersApplied) &&
+            const DeepCollectionEquality()
+                .equals(other._activeFilters, _activeFilters));
   }
 
   @override
@@ -224,7 +407,16 @@ class _$SearchStateImpl implements _SearchState {
       const DeepCollectionEquality().hash(_trendingSearches),
       hasErrorTrendingSearches,
       error,
-      const DeepCollectionEquality().hash(_recentSearches));
+      const DeepCollectionEquality().hash(_recentSearches),
+      isLoadingSearch,
+      isLoadingMore,
+      hasErrorSearch,
+      hasReachedMax,
+      isSearchResultsScreenShowing,
+      currentPage,
+      searchResults,
+      isFiltersApplied,
+      const DeepCollectionEquality().hash(_activeFilters));
 
   /// Create a copy of SearchState
   /// with the given fields replaced by the non-null parameter values.
@@ -241,7 +433,16 @@ abstract class _SearchState implements SearchState {
       final List<TrendingSearchItem> trendingSearches,
       final bool hasErrorTrendingSearches,
       final GeneralResponse? error,
-      final List<String> recentSearches}) = _$SearchStateImpl;
+      final List<String> recentSearches,
+      final bool isLoadingSearch,
+      final bool isLoadingMore,
+      final bool hasErrorSearch,
+      final bool hasReachedMax,
+      final bool isSearchResultsScreenShowing,
+      final int currentPage,
+      final SearchData? searchResults,
+      final bool isFiltersApplied,
+      final Map<String, dynamic> activeFilters}) = _$SearchStateImpl;
 
 // Trending Searches
   @override
@@ -253,7 +454,25 @@ abstract class _SearchState implements SearchState {
   @override
   GeneralResponse? get error; // Recent Searches
   @override
-  List<String> get recentSearches;
+  List<String> get recentSearches; // Search Results
+  @override
+  bool get isLoadingSearch;
+  @override
+  bool get isLoadingMore;
+  @override
+  bool get hasErrorSearch;
+  @override
+  bool get hasReachedMax;
+  @override
+  bool get isSearchResultsScreenShowing;
+  @override
+  int get currentPage;
+  @override
+  SearchData? get searchResults; // Search Filters
+  @override
+  bool get isFiltersApplied;
+  @override
+  Map<String, dynamic> get activeFilters;
 
   /// Create a copy of SearchState
   /// with the given fields replaced by the non-null parameter values.
