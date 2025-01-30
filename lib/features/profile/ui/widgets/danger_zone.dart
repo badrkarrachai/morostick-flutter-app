@@ -31,10 +31,10 @@ class DangerZone extends StatelessWidget {
       onTap: onDeleteTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.red.withOpacity(0.1),
+          color: Colors.red.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
-            color: Colors.red.withOpacity(0.3),
+            color: Colors.red.withValues(alpha: 0.3),
             width: 1,
           ),
         ),
@@ -44,7 +44,7 @@ class DangerZone extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(8.r),
               decoration: BoxDecoration(
-                color: Colors.red.withOpacity(0.1),
+                color: Colors.red.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: Icon(
@@ -67,7 +67,7 @@ class DangerZone extends StatelessWidget {
                   Text(
                     'This will delete all your data.',
                     style: TextStyles.font13GrayPurpleRegular.copyWith(
-                      color: Colors.red.withOpacity(0.7),
+                      color: Colors.red.withValues(alpha: 0.7),
                     ),
                   ),
                 ],

@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:morostick/core/data/models/pack_model.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/widgets/app_cached_network_image.dart';
 
 class StickerGrid extends StatelessWidget {
-  final List<String> stickers;
+  final List<Sticker> stickers;
   final bool showAnimatedIndicator;
-  final Function(int index) onFavoriteToggle;
-  final List<bool> favoritedStickers;
+  final Function(Sticker sticker) onFavoriteToggle;
+  final List<Color> colors;
 
   const StickerGrid({
     super.key,
     required this.stickers,
     this.showAnimatedIndicator = false,
     required this.onFavoriteToggle,
-    required this.favoritedStickers,
+    this.colors = const [],
   });
 
   @override
@@ -35,14 +36,16 @@ class StickerGrid extends StatelessWidget {
     );
   }
 
-  Widget _buildStickerItem(String url, int index) {
+  Widget _buildStickerItem(Sticker sticker, int index) {
     return Container(
       decoration: BoxDecoration(
-        color: ColorsManager.getRandomColorWithOpacity(0.05),
+        color: colors.isEmpty
+            ? ColorsManager.getRandomColorWithOpacity(0.05)
+            : colors[index % colors.length].withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -53,21 +56,10 @@ class StickerGrid extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(8.w),
             child: AspectRatio(
-              aspectRatio: 1,
-              child: AppCachedNetworkImage(
-                imageUrl: url,
-                fit: BoxFit.contain,
-                borderRadius: BorderRadius.circular(16.r),
-                errorBuilder: (context, url, error) => Container(
-                  color: ColorsManager.lighterPurple,
-                  child: Icon(
-                    Icons.emoji_emotions_outlined,
-                    color: ColorsManager.mainPurple,
-                    size: 32.sp,
-                  ),
-                ),
-              ),
-            ),
+                aspectRatio: 1,
+                child: AppCachedNetworkImage.thumbnail(
+                  imageUrl: sticker.webpUrl ?? '',
+                )),
           ),
           Positioned(
             top: 5.h,
@@ -81,7 +73,7 @@ class StickerGrid extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(4.r),
                 decoration: BoxDecoration(
-                  color: ColorsManager.mainPurple.withOpacity(0.9),
+                  color: ColorsManager.mainPurple.withValues(alpha: 0.9),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -99,11 +91,11 @@ class StickerGrid extends StatelessWidget {
   Widget _buildFavoriteButton(int index) {
     return Container(
       decoration: BoxDecoration(
-        color: ColorsManager.white.withOpacity(0.9),
+        color: ColorsManager.white.withValues(alpha: 0.9),
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -112,12 +104,12 @@ class StickerGrid extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => onFavoriteToggle(index),
+          onTap: () => onFavoriteToggle(stickers[index]),
           borderRadius: BorderRadius.circular(50),
           child: Padding(
-            padding: EdgeInsets.all(8.r),
+            padding: EdgeInsets.all(7.r),
             child: Icon(
-              favoritedStickers[index]
+              (stickers[index].isFavorite ?? false)
                   ? Icons.favorite_rounded
                   : Icons.favorite_outline_rounded,
               color: ColorsManager.mainPurple,

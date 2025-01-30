@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/widgets/app_text_form_field.dart';
-import 'package:morostick/features/main_navigation/ui/main_navigation.dart';
+import 'package:morostick/features/main_navigation/logic/main_navigation_cubit.dart';
 
 class HomeSearchBar extends StatelessWidget {
   final TextEditingController controller;
@@ -30,7 +31,7 @@ class HomeSearchBar extends StatelessWidget {
         hintStyle: TextStyles.font14HintTextRegular,
         isEnabled: false,
         onTap: () {
-          MainNavigation.controller.jumpToTab(1);
+          context.read<MainNavigationCubit>().selectIndex(1);
         },
         prefixIcon: Icon(
           Icons.search,

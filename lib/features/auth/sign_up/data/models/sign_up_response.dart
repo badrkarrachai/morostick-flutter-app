@@ -24,14 +24,13 @@ class SignUpData {
 class SignUpResponse extends GeneralResponse {
   SignUpData? get signUpData =>
       data != null ? SignUpData.fromJson(data as Map<String, dynamic>) : null;
-  final Metadata metadata;
 
   const SignUpResponse({
     required super.status,
     required super.success,
     required super.message,
     super.data,
-    required this.metadata,
+    super.metadata,
   });
 
   factory SignUpResponse.fromJson(Map<String, dynamic> json) {

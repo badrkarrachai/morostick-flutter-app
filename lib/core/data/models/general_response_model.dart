@@ -8,14 +8,17 @@ class GeneralResponse {
   final bool success;
   final String message;
   final ErrorDetails? error;
-  final dynamic data;
+  final dynamic data; // Changed from dynamic to Map<String, dynamic>?
+  final Metadata? metadata;
 
-  const GeneralResponse(
-      {required this.status,
-      required this.success,
-      required this.message,
-      this.error,
-      this.data});
+  const GeneralResponse({
+    required this.status,
+    required this.success,
+    required this.message,
+    this.error,
+    this.data,
+    this.metadata,
+  });
 
   factory GeneralResponse.fromJson(Map<String, dynamic> json) =>
       _$GeneralResponseFromJson(json);
@@ -46,12 +49,36 @@ class Metadata {
   final String? timestamp;
   final String? version;
 
-  Metadata({
-    required this.timestamp,
-    required this.version,
+  const Metadata({
+    // Added const
+    this.timestamp, // Removed required since they're nullable
+    this.version,
   });
 
   factory Metadata.fromJson(Map<String, dynamic> json) =>
       _$MetadataFromJson(json);
   Map<String, dynamic> toJson() => _$MetadataToJson(this);
+}
+
+@JsonSerializable()
+class PaginationData {
+  final int? currentPage;
+  final int? pageSize;
+  final int? totalPages;
+  final int? totalItems;
+  final bool? hasNextPage;
+  final bool? hasPrevPage;
+
+  PaginationData({
+    this.currentPage,
+    this.pageSize,
+    this.totalPages,
+    this.totalItems,
+    this.hasNextPage,
+    this.hasPrevPage,
+  });
+
+  factory PaginationData.fromJson(Map<String, dynamic> json) =>
+      _$PaginationDataFromJson(json);
+  Map<String, dynamic> toJson() => _$PaginationDataToJson(this);
 }

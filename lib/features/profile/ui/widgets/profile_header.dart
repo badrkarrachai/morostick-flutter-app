@@ -51,7 +51,7 @@ class _CoverImage extends StatelessWidget {
       height: 180.h,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: ColorsManager.mainPurple.withOpacity(0.1),
+        color: ColorsManager.mainPurple.withValues(alpha: 0.1),
       ),
       child: Stack(
         children: [
@@ -60,7 +60,7 @@ class _CoverImage extends StatelessWidget {
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
-            errorBuilder: (context, url, error) => Center(
+            errorWidget: Center(
               child: Icon(
                 Icons.image_outlined,
                 color: ColorsManager.mainPurple,
@@ -105,7 +105,7 @@ class _ProfileImage extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -122,7 +122,7 @@ class _ProfileImage extends StatelessWidget {
                   width: 100.w,
                   height: 100.w,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, url, error) => Icon(
+                  errorWidget: Icon(
                     Icons.person_outline_rounded,
                     color: ColorsManager.mainPurple,
                     size: 40.sp,

@@ -1,13 +1,11 @@
 import 'package:morostick/core/data/models/general_response_model.dart';
 
 class VerifyCodeResponse extends GeneralResponse {
-  final Metadata metadata;
-
   const VerifyCodeResponse({
     required super.status,
     required super.success,
     required super.message,
-    required this.metadata,
+    super.metadata,
   });
 
   factory VerifyCodeResponse.fromJson(Map<String, dynamic> json) {

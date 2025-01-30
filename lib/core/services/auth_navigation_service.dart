@@ -2,9 +2,16 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:morostick/core/di/dependency_injection.dart';
+import 'package:morostick/core/helpers/extensions.dart';
+import 'package:morostick/core/networking/token_interceptor.dart';
+import 'package:morostick/core/routing/routes.dart';
 import 'package:morostick/core/services/facebook_auth_service.dart';
 import 'package:morostick/core/services/google_auth_service.dart';
-import 'package:morostick/core/widgets/app_offline_banner.dart';
+import 'package:morostick/core/widgets/app_message_box.dart';
+import 'package:morostick/core/widgets/app_offline_messagebox.dart';
+import 'package:synchronized/synchronized.dart';
 import '../helpers/constants.dart';
 import '../helpers/shared_pref_helper.dart';
 import '../networking/api_constants.dart';
@@ -17,14 +24,28 @@ class AuthNavigationService extends ChangeNotifier {
   bool _isAuthenticated = false;
   bool _isFirstTime = true;
   bool _isOffline = false;
+  bool _isGuestMode = false;
   StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
   bool get isAuthenticated => _isAuthenticated;
   bool get isFirstTime => _isFirstTime;
   bool get isOffline => _isOffline;
+  bool get isGuestMode => _isGuestMode;
 
   OfflineReason? _offlineReason;
   OfflineReason? get offlineReason => _offlineReason;
+
+  Future<void> enableGuestMode() async {
+    _isGuestMode = true;
+    await SharedPrefHelper.setBool('is_guest_mode', true);
+    notifyListeners();
+  }
+
+  Future<void> disableGuestMode() async {
+    _isGuestMode = false;
+    await SharedPrefHelper.setBool('is_guest_mode', false);
+    notifyListeners();
+  }
 
   AuthNavigationService({
     required GoogleAuthService googleAuthService,
@@ -55,7 +76,7 @@ class AuthNavigationService extends ChangeNotifier {
     });
   }
 
-  Future<bool> _checkConnectivity() async {
+  Future<bool> checkConnectivity() async {
     final connectivityResults = await Connectivity().checkConnectivity();
     _isOffline = connectivityResults.contains(ConnectivityResult.none) ||
         connectivityResults.isEmpty;
@@ -114,7 +135,7 @@ class AuthNavigationService extends ChangeNotifier {
   }
 
   Future<void> login(String accessToken, {String? refreshToken}) async {
-    final hasConnection = await _checkConnectivity();
+    final hasConnection = await checkConnectivity();
     if (!hasConnection) {
       _isOffline = true;
       notifyListeners();
@@ -132,7 +153,8 @@ class AuthNavigationService extends ChangeNotifier {
 
   Future<bool> logout() async {
     try {
-      if (!await _checkConnectivity()) {
+      await enableGuestMode();
+      if (!await checkConnectivity()) {
         // Allow logout even when offline
         await Future.wait<void>([
           SharedPrefHelper.removeSecuredString(SharedPrefKeys.userToken),
@@ -168,91 +190,116 @@ class AuthNavigationService extends ChangeNotifier {
     return token;
   }
 
-  static const Duration _connectTimeout = Duration(seconds: 3);
-  static const Duration _receiveTimeout = Duration(seconds: 5);
-  static const Duration _sendTimeout = Duration(seconds: 5);
+  final _refreshLock = Lock();
 
   Future<bool> refreshTokenMethod() async {
-    try {
-      final hasConnection = await _checkConnectivity();
-      if (!hasConnection) {
-        _isOffline = true;
-        notifyListeners();
-        // Keep existing token if offline
-        return _isAuthenticated;
-      }
+    // Use a lock to prevent multiple simultaneous refresh attempts
+    return await _refreshLock.synchronized(() async {
+      try {
+        final hasConnection = await checkConnectivity();
+        if (!hasConnection) {
+          _isOffline = true;
+          notifyListeners();
+          return _isAuthenticated;
+        }
 
-      final refreshToken =
-          await SharedPrefHelper.getSecuredString(SharedPrefKeys.refreshToken);
-      if (refreshToken.isEmpty || _isRefreshTokenExpired(refreshToken)) {
-        await logout();
+        final refreshToken = await SharedPrefHelper.getSecuredString(
+            SharedPrefKeys.refreshToken);
+        if (refreshToken.isEmpty || _isRefreshTokenExpired(refreshToken)) {
+          await logout();
+          return false;
+        }
+
+        // Use the main DioFactory instance instead of creating a new one
+        final dio = DioFactory.getDio();
+
+        // Remove the token interceptor temporarily to prevent infinite loop
+        final tokenInterceptor =
+            dio.interceptors.whereType<TokenInterceptor>().firstOrNull;
+        if (tokenInterceptor != null) {
+          dio.interceptors.remove(tokenInterceptor);
+        }
+
+        try {
+          final response = await dio.post(
+            '${ApiConstants.apiBaseUrl}auth/refresh-token',
+            options: Options(
+              headers: {'X-Refresh-Token': refreshToken},
+              // Don't follow redirects for refresh token requests
+              followRedirects: false,
+              validateStatus: (status) => status != null && status < 500,
+            ),
+          );
+
+          // Add back the token interceptor
+          if (tokenInterceptor != null) {
+            dio.interceptors.add(tokenInterceptor);
+          }
+
+          if (response.statusCode == 200 && response.data['data'] != null) {
+            final newAccessToken = response.data['data']['accessToken'];
+            await SharedPrefHelper.setSecuredString(
+                SharedPrefKeys.userToken, newAccessToken);
+            DioFactory.setTokenIntoHeaderAfterLogin(newAccessToken);
+            _isOffline = false;
+            notifyListeners();
+            return true;
+          }
+
+          await logout();
+          return false;
+        } finally {
+          // Ensure token interceptor is added back even if there's an error
+          if (tokenInterceptor != null &&
+              !dio.interceptors.contains(tokenInterceptor)) {
+            dio.interceptors.add(tokenInterceptor);
+          }
+        }
+      } on DioException catch (e) {
+        debugPrint('Token refresh DioError: $e');
+
+        if (e.type == DioExceptionType.connectionTimeout ||
+            e.type == DioExceptionType.receiveTimeout ||
+            e.type == DioExceptionType.sendTimeout) {
+          _isOffline = true;
+          _offlineReason = OfflineReason.serverTimeout;
+          notifyListeners();
+          return _isAuthenticated;
+        }
+
+        if (await checkConnectivity()) {
+          await logout();
+        } else {
+          _isOffline = true;
+          notifyListeners();
+          return _isAuthenticated;
+        }
+        return false;
+      } catch (e) {
+        debugPrint('Token refresh failed: $e');
+        if (await checkConnectivity()) {
+          await logout();
+        } else {
+          _isOffline = true;
+          notifyListeners();
+          return _isAuthenticated;
+        }
         return false;
       }
-
-      final dio = Dio()
-        ..options = BaseOptions(
-          connectTimeout: _connectTimeout,
-          receiveTimeout: _receiveTimeout,
-          sendTimeout: _sendTimeout,
-        );
-
-      final response = await dio.post(
-        '${ApiConstants.apiBaseUrl}auth/refresh-token',
-        options: Options(headers: {'X-Refresh-Token': refreshToken}),
-      );
-
-      if (response.statusCode == 200 && response.data['data'] != null) {
-        final newAccessToken = response.data['data']['accessToken'];
-        await SharedPrefHelper.setSecuredString(
-            SharedPrefKeys.userToken, newAccessToken);
-        DioFactory.setTokenIntoHeaderAfterLogin(newAccessToken);
-        _isOffline = false;
-        return true;
-      }
-
-      await logout();
-      return false;
-    } on DioException catch (e) {
-      debugPrint('Token refresh DioError: $e');
-
-      // Handle timeout cases - stay logged in
-      if (e.type == DioExceptionType.connectionTimeout ||
-          e.type == DioExceptionType.receiveTimeout ||
-          e.type == DioExceptionType.sendTimeout) {
-        _isOffline = true;
-        _offlineReason = OfflineReason.serverTimeout;
-        notifyListeners();
-        return _isAuthenticated;
-      }
-
-      // For other network errors, check connectivity
-      if (await _checkConnectivity()) {
-        await logout();
-      } else {
-        _isOffline = true;
-        notifyListeners();
-        // Keep existing login state if offline
-        return _isAuthenticated;
-      }
-      return false;
-    } catch (e) {
-      debugPrint('Token refresh failed: $e');
-      if (await _checkConnectivity()) {
-        await logout();
-      } else {
-        _isOffline = true;
-        notifyListeners();
-        // Keep existing login state if offline
-        return _isAuthenticated;
-      }
-      return false;
-    }
+    });
   }
 
   Future<void> checkInitialStatus() async {
     final hasSeenOnboarding =
-        await SharedPrefHelper.getBool('has_seen_onboarding') ?? false;
+        await SharedPrefHelper.getBool('has_seen_onboarding');
     _isFirstTime = !hasSeenOnboarding;
+
+    // Check guest mode first
+    _isGuestMode = await SharedPrefHelper.getBool('is_guest_mode');
+    if (_isGuestMode) {
+      setAuthStatus(false);
+      return;
+    }
 
     String accessToken =
         await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
@@ -260,7 +307,7 @@ class AuthNavigationService extends ChangeNotifier {
         await SharedPrefHelper.getSecuredString(SharedPrefKeys.refreshToken);
 
     if (accessToken.isNotEmpty) {
-      if (await _checkConnectivity()) {
+      if (await checkConnectivity()) {
         // Online flow
         if (_shouldRefreshToken(accessToken)) {
           final refreshSuccessful = await refreshTokenMethod();
@@ -302,5 +349,31 @@ class AuthNavigationService extends ChangeNotifier {
   Future<void> completeOnboarding() async {
     await SharedPrefHelper.setBool('has_seen_onboarding', true);
     setFirstTimeStatus(false);
+  }
+}
+
+class GuestDialogService {
+  static GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
+  static void init(GlobalKey<NavigatorState> key) {
+    _navigatorKey = key;
+  }
+
+  static BuildContext? get _context => _navigatorKey.currentContext;
+
+  static void showGuestRestriction({String? message}) {
+    if (_context != null) {
+      AppMessageBoxDialogServiceNonContext.showConfirm(
+        title: 'Login Required',
+        message: message ?? 'Sorry, Please login to access this feature',
+        confirmText: 'Login',
+        cancelText: 'Cancel',
+        icon: HugeIcons.strokeRoundedUser,
+        onConfirm: () async {
+          await getIt<AuthNavigationService>().disableGuestMode();
+          _context?.pushReplacementNamed(Routes.loginScreen);
+        },
+      );
+    }
   }
 }

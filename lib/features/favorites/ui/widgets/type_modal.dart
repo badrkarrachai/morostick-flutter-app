@@ -26,7 +26,7 @@ class WhatsAppStickerTypeSelector extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, -2),
           ),
@@ -122,10 +122,10 @@ class WhatsAppStickerTypeSelector extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16.r),
         decoration: BoxDecoration(
-          color: ColorsManager.lighterPurple.withOpacity(0.5),
+          color: ColorsManager.lighterPurple.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color: ColorsManager.mainPurple.withOpacity(0.1),
+            color: ColorsManager.mainPurple.withValues(alpha: 0.1),
             width: 1.5,
           ),
         ),
@@ -134,7 +134,7 @@ class WhatsAppStickerTypeSelector extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(12.r),
               decoration: BoxDecoration(
-                color: ColorsManager.mainPurple.withOpacity(0.1),
+                color: ColorsManager.mainPurple.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12.r),
               ),
               child: Icon(
@@ -205,7 +205,7 @@ class WhatsAppStickerTypeSelector extends StatelessWidget {
         textStyle: TextStyles.font16DarkPurpleSemiBold,
         onPressed: () => Navigator.pop(context),
         backgroundColor: ColorsManager.lighterPurple,
-        borderColor: ColorsManager.mainPurple.withOpacity(0.1),
+        borderColor: ColorsManager.mainPurple.withValues(alpha: 0.1),
       ),
     );
   }

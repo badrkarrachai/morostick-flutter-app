@@ -79,7 +79,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
                 controller: context.read<LoginCubit>().emailController,
                 // Override background color when there's an error
                 backgroundColor: hasError && emailErrorMessage != null
-                    ? Colors.red.withOpacity(0.1)
+                    ? Colors.red.withValues(alpha: 0.1)
                     : ColorsManager.grayInputBackground,
                 // Override border colors when there's an error
                 enabledBorder: hasError && emailErrorMessage != null
@@ -123,7 +123,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
                 errorText: passwordErrorMessage,
                 // Override background color when there's an error
                 backgroundColor: hasError && passwordErrorMessage != null
-                    ? Colors.red.withOpacity(0.1)
+                    ? Colors.red.withValues(alpha: 0.1)
                     : ColorsManager.grayInputBackground,
                 // Override border colors when there's an error
                 enabledBorder: hasError && passwordErrorMessage != null

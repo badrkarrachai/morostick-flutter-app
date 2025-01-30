@@ -30,8 +30,7 @@ class PackReportDialog extends StatelessWidget {
           ),
           verticalSpace(16),
           ...['Inappropriate content', 'Spam', 'Violates terms', 'Other']
-              .map((reason) => _buildReportOption(context, reason))
-              .toList(),
+              .map((reason) => _buildReportOption(context, reason)),
         ],
       ),
     );

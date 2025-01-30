@@ -1,169 +1,207 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:morostick/core/di/dependency_injection.dart';
+import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/theming/colors.dart';
-import 'package:morostick/core/theming/images.dart';
-import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/features/favorites/ui/favorites_screen.dart';
-import 'package:morostick/features/home/logic/for_you_tab_cubit.dart';
+import 'package:morostick/features/home/logic/category_packs_cubit/category_packs_cubit.dart';
+import 'package:morostick/features/home/logic/category_tabs_cubit/category_tabs_cubit.dart';
+import 'package:morostick/features/home/logic/foryou_tab_cubit/foryou_tab_cubit.dart';
+import 'package:morostick/features/home/logic/trending_tab_cubit/trending_tab_cubit.dart';
 import 'package:morostick/features/home/ui/home_screen.dart';
+import 'package:morostick/features/main_navigation/logic/main_navigation_cubit.dart';
+import 'package:morostick/features/main_navigation/logic/main_navigation_state.dart';
 import 'package:morostick/features/profile/ui/profile_screen.dart';
+import 'package:morostick/features/search/logic/search_cubit.dart';
 import 'package:morostick/features/search/ui/search_screen.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
-  static late PersistentTabController controller;
+
   @override
   State<MainNavigation> createState() => _MainNavigationState();
 }
 
 class _MainNavigationState extends State<MainNavigation> {
-  late PersistentTabController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = PersistentTabController(initialIndex: 0);
-    MainNavigation.controller = _controller;
+  Widget _buildHomeScreen() {
+    // Key helps Flutter maintain state
+    return MultiBlocProvider(
+      key: const PageStorageKey('home_screen'),
+      providers: [
+        BlocProvider.value(
+          value: getIt<ForYouCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt<TrendingTabCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt<CategoriesCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt<CategoryPacksCubit>(),
+        ),
+      ],
+      child: const HomeScreen(),
+    );
   }
 
-  List<Widget> _buildScreens() {
-    return [
-      MultiBlocProvider(providers: [
-        BlocProvider(
-          create: (context) => getIt<ForYouCubit>(),
-        ),
-      ], child: const HomeScreen()),
-      const SearchScreen(),
-      const FavoritesScreen(),
-      const ProfileScreen(),
-    ];
+  Widget _buildSearchScreen() {
+    return BlocProvider.value(
+      key: const PageStorageKey('search_screen'),
+      value: getIt<SearchCubit>(),
+      child: const SearchScreen(),
+    );
   }
 
-  List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          Images.homeFilled,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.mainPurple, BlendMode.srcIn),
-        ),
-        inactiveIcon: SvgPicture.asset(
-          Images.homeStroke,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.grayPurple, BlendMode.srcIn),
-        ),
-        title: ('Home'),
-        textStyle: TextStyles.font12PurpleRegular,
-        activeColorPrimary: ColorsManager.mainPurple.withOpacity(0.3),
-        activeColorSecondary: ColorsManager.mainPurple,
-        inactiveColorPrimary: ColorsManager.grayPurple,
-      ),
-      PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          Images.searchFilled,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.mainPurple, BlendMode.srcIn),
-        ),
-        inactiveIcon: SvgPicture.asset(
-          Images.searchStroke,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.grayPurple, BlendMode.srcIn),
-        ),
-        title: ('Search'),
-        textStyle: TextStyles.font12PurpleRegular,
-        activeColorPrimary: ColorsManager.mainPurple.withOpacity(0.3),
-        activeColorSecondary: ColorsManager.mainPurple,
-        inactiveColorPrimary: ColorsManager.grayPurple,
-      ),
-      PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          Images.favouriteFilled,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.mainPurple, BlendMode.srcIn),
-        ),
-        inactiveIcon: SvgPicture.asset(
-          Images.favouriteStroke,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.grayPurple, BlendMode.srcIn),
-        ),
-        title: ('Favorites'),
-        textStyle: TextStyles.font12PurpleRegular,
-        activeColorPrimary: ColorsManager.mainPurple.withOpacity(0.3),
-        activeColorSecondary: ColorsManager.mainPurple,
-        inactiveColorPrimary: ColorsManager.grayPurple,
-      ),
-      PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          Images.userFilled,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.mainPurple, BlendMode.srcIn),
-        ),
-        inactiveIcon: SvgPicture.asset(
-          Images.userStroke,
-          width: 20.sp,
-          height: 20.sp,
-          colorFilter:
-              const ColorFilter.mode(ColorsManager.grayPurple, BlendMode.srcIn),
-        ),
-        title: ('Profile'),
-        textStyle: TextStyles.font12PurpleRegular,
-        activeColorPrimary: ColorsManager.mainPurple.withOpacity(0.3),
-        activeColorSecondary: ColorsManager.mainPurple,
-        inactiveColorPrimary: ColorsManager.grayPurple,
-      ),
-    ];
+  Widget _buildFavoritesScreen() {
+    return const FavoritesScreen(
+      key: PageStorageKey('favorites_screen'),
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      screens: _buildScreens(),
-      items: _navBarsItems(),
-      backgroundColor: Colors.white,
-      handleAndroidBackButtonPress: true,
-      resizeToAvoidBottomInset: true,
-      stateManagement: true,
-      hideNavigationBarWhenKeyboardAppears: true,
-      navBarHeight: 63.h,
-      bottomScreenMargin: 63.h,
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(0),
-        colorBehindNavBar: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, -2),
-          ),
-        ],
+  Widget _buildProfileScreen() {
+    return const ProfileScreen(
+      key: PageStorageKey('profile_screen'),
+    );
+  }
+
+  Widget _buildCurrentScreen(int index) {
+    switch (index) {
+      case 0:
+        return _buildHomeScreen();
+      case 1:
+        return _buildSearchScreen();
+      case 2:
+        return _buildFavoritesScreen();
+      case 3:
+        return _buildProfileScreen();
+      default:
+        return const SizedBox.shrink();
+    }
+  }
+
+  Widget _buildNavItem(
+      BuildContext context, int index, IconData icon, int selectedIndex) {
+    final isSelected = index == selectedIndex;
+    return InkWell(
+      onTap: () {
+        if ((index == 2 || index == 3) &&
+            getIt<AuthNavigationService>().isGuestMode) {
+          GuestDialogService.showGuestRestriction(
+            message: 'Sorry, please login to access this page',
+          );
+          return;
+        }
+        context.read<MainNavigationCubit>().selectIndex(index);
+      },
+      child: SizedBox(
+        width: 68,
+        height: 35,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              left: isSelected ? 0 : 34,
+              right: isSelected ? 0 : 34,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 150),
+                opacity: isSelected ? 1.0 : 0.0,
+                child: Container(
+                  height: 35,
+                  decoration: BoxDecoration(
+                    color: ColorsManager.mainPurple.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(60),
+                  ),
+                ),
+              ),
+            ),
+            Icon(
+              icon,
+              color: isSelected
+                  ? ColorsManager.mainPurple
+                  : ColorsManager.grayPurple,
+              size: 24,
+            ),
+          ],
+        ),
       ),
-      navBarStyle: NavBarStyle.style7,
     );
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  Widget build(BuildContext context) {
+    return BlocBuilder<MainNavigationCubit, MainNavigationState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: Stack(
+            children: [
+              // Screens
+              Positioned.fill(
+                bottom: 56,
+                child: PageStorage(
+                  bucket: PageStorageBucket(),
+                  child: _buildCurrentScreen(state.selectedIndex),
+                ),
+              ),
+
+              // Navigation Bar
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.08),
+                        blurRadius: 8,
+                        offset: const Offset(0, -3),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildNavItem(
+                          context,
+                          0,
+                          HugeIcons.strokeRoundedHome01,
+                          state.selectedIndex,
+                        ),
+                        _buildNavItem(
+                          context,
+                          1,
+                          HugeIcons.strokeRoundedSearch01,
+                          state.selectedIndex,
+                        ),
+                        _buildNavItem(
+                          context,
+                          2,
+                          HugeIcons.strokeRoundedFavourite,
+                          state.selectedIndex,
+                        ),
+                        _buildNavItem(
+                          context,
+                          3,
+                          HugeIcons.strokeRoundedUser,
+                          state.selectedIndex,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

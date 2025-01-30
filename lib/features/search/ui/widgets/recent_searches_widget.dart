@@ -21,17 +21,19 @@ class RecentSearchesWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Recent Searches', style: TextStyles.font14RegularGray),
-            TextButton(
-              onPressed: onClearAll,
-              child: Text('Delete All', style: TextStyles.font14PurpleSemiBold),
-            ),
-          ],
-        ),
-        verticalSpace(12),
+        if (searches.isNotEmpty)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Recent Searches', style: TextStyles.font14RegularGray),
+              TextButton(
+                onPressed: onClearAll,
+                child:
+                    Text('Delete All', style: TextStyles.font14PurpleSemiBold),
+              ),
+            ],
+          ),
+        if (searches.isNotEmpty) verticalSpace(12),
         Wrap(
           spacing: 8.w,
           runSpacing: 8.h,

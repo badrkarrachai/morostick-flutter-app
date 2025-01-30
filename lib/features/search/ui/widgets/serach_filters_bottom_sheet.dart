@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/helpers/extensions.dart';
 import 'package:morostick/core/theming/colors.dart';
@@ -6,19 +7,50 @@ import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/widgets/app_button.dart';
 import 'package:morostick/core/widgets/app_drop_down_menu.dart';
+import 'package:morostick/features/search/logic/search_cubit.dart';
 
 class FilterBottomSheet extends StatefulWidget {
-  const FilterBottomSheet({super.key});
+  final Map<String, dynamic> initialFilters;
+  const FilterBottomSheet({
+    super.key,
+    required this.initialFilters,
+  });
 
   @override
   State<FilterBottomSheet> createState() => _FilterBottomSheetState();
 }
 
 class _FilterBottomSheetState extends State<FilterBottomSheet> {
-  String? selectedSort;
-  double minStickers = 5;
-  String searchBy = 'all';
-  String stickerType = 'regular';
+  late String? selectedSort;
+  late double minStickers;
+  late String searchBy;
+  late String stickerType;
+  final Map<String, String?> sortOptionMapping = {
+    'Default': null,
+    'Most Popular': 'popular',
+    'Most Recent': 'recent',
+    'Oldest': 'oldest',
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with current filters
+    selectedSort = widget.initialFilters['sort'];
+
+    // Safely handle minStickers conversion
+    final minStickersValue = widget.initialFilters['minStickers'];
+    if (minStickersValue is int) {
+      minStickers = minStickersValue.toDouble();
+    } else if (minStickersValue is double) {
+      minStickers = minStickersValue;
+    } else {
+      minStickers = 5.0;
+    }
+
+    searchBy = widget.initialFilters['searchBy'] ?? 'all';
+    stickerType = widget.initialFilters['stickerType'] ?? 'both';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,10 +116,10 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: ColorsManager.mainPurple.withOpacity(0.05),
+                    color: ColorsManager.mainPurple.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12.r),
                     border: Border.all(
-                      color: ColorsManager.mainPurple.withOpacity(0.1),
+                      color: ColorsManager.mainPurple.withValues(alpha: 0.1),
                     ),
                   ),
                   child: Material(
@@ -98,7 +130,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           selectedSort = null;
                           minStickers = 5;
                           searchBy = 'all';
-                          stickerType = 'regular';
+                          stickerType = 'both';
                         });
                       },
                       borderRadius: BorderRadius.circular(12.r),
@@ -141,17 +173,30 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   Text('Sort By', style: TextStyles.font14RegularGray),
                   verticalSpace(8),
                   AppDropDownMenu<String>(
-                    value: selectedSort,
+                    value: sortOptionMapping.entries
+                        .firstWhere(
+                          (entry) => entry.value == selectedSort,
+                          orElse: () => MapEntry('Default', null),
+                        )
+                        .key,
                     isExpanded: true,
                     hintText: 'Select sorting',
-                    items: ['Most Popular', 'Most Recent', 'Oldest']
-                        .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(e,
-                                  style: TextStyles.font14DarkPurpleMedium),
+                    items: sortOptionMapping.keys
+                        .map((displayValue) => DropdownMenuItem(
+                              value: displayValue,
+                              child: Text(
+                                displayValue,
+                                style: TextStyles.font14DarkPurpleMedium,
+                              ),
                             ))
                         .toList(),
-                    onChanged: (value) => setState(() => selectedSort = value),
+                    onChanged: (displayValue) {
+                      if (displayValue != null) {
+                        setState(() {
+                          selectedSort = sortOptionMapping[displayValue];
+                        });
+                      }
+                    },
                   ),
 
                   verticalSpace(15),
@@ -190,6 +235,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   // Sticker Type Radio Buttons
                   Text('Sticker Type', style: TextStyles.font14RegularGray),
                   verticalSpace(8),
+                  _buildRadioTile('Both Types', 'both', stickerType,
+                      (value) => setState(() => stickerType = value!)),
                   _buildRadioTile('Regular Stickers', 'regular', stickerType,
                       (value) => setState(() => stickerType = value!)),
                   _buildRadioTile('Animated Stickers', 'animated', stickerType,
@@ -209,12 +256,15 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               textStyle: TextStyles.font16WhiteMedium,
               onPressed: () {
                 // Handle filter application
-                Navigator.pop(context, {
+                final filters = {
                   'sort': selectedSort,
-                  'minStickers': minStickers,
+                  'minStickers': minStickers.round(),
                   'searchBy': searchBy,
                   'stickerType': stickerType,
-                });
+                };
+
+                context.read<SearchCubit>().updateFilters(filters);
+                Navigator.pop(context);
               },
             ),
           ),

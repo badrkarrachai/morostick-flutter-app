@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:morostick/core/helpers/extensions.dart';
 import 'package:morostick/core/helpers/spacing.dart';
+import 'package:morostick/core/routing/routes.dart';
+import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/widgets/app_button.dart';
+import 'package:morostick/core/widgets/app_custom_icon_button.dart';
 import 'package:morostick/features/auth/login/ui/widgets/terms_and_conditions_text.dart';
 import 'package:morostick/features/auth/sign_up/logic/sign_up_cubit.dart';
 import 'package:morostick/features/auth/sign_up/ui/widgets/google_facebook_buttons.dart';
@@ -28,6 +32,19 @@ class SignupScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Align(
+                        alignment: Alignment.topRight,
+                        child: AppCustomIconButton(
+                          icon: Icons.close_rounded,
+                          iconSize: 21.sp,
+                          onPressed: () {
+                            context
+                                .read<AuthNavigationService>()
+                                .enableGuestMode();
+                            context.pushNamed(Routes.homeScreen);
+                          },
+                        )),
+                    verticalSpace(10),
                     Text(
                       'Create New Account 🔥',
                       style: TextStyles.font24PurpleBold,

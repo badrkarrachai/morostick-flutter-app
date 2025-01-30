@@ -1,13 +1,13 @@
 class GoogleSignInRequestBody {
-  final String idToken;
+  final String accessToken;
 
   GoogleSignInRequestBody({
-    required this.idToken,
+    required this.accessToken,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'idToken': idToken,
+      'accessToken': accessToken,
     };
   }
 }

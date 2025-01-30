@@ -83,7 +83,7 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
           border: Border.all(
             color: isSelected
                 ? ColorsManager.mainPurple
-                : ColorsManager.mainPurple.withOpacity(0.3),
+                : ColorsManager.mainPurple.withValues(alpha: 0.3),
             width: 1.5,
           ),
         ),
@@ -137,7 +137,7 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -155,7 +155,7 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
                     imageUrl: url,
                     fit: BoxFit.contain,
                     borderRadius: BorderRadius.circular(16.r),
-                    errorBuilder: (context, url, error) => Container(
+                    errorWidget: Container(
                       color: ColorsManager.lighterPurple,
                       child: Icon(
                         Icons.emoji_emotions_outlined,
@@ -171,7 +171,8 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
                       child: Container(
                         padding: EdgeInsets.all(4.r),
                         decoration: BoxDecoration(
-                          color: ColorsManager.mainPurple.withOpacity(0.9),
+                          color:
+                              ColorsManager.mainPurple.withValues(alpha: 0.9),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
@@ -198,11 +199,11 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
   Widget _buildFavoriteButton(int index) {
     return Container(
       decoration: BoxDecoration(
-        color: ColorsManager.white.withOpacity(0.9),
+        color: ColorsManager.white.withValues(alpha: 0.9),
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),

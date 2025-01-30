@@ -3,11 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/routing/app_routes.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/theming/colors.dart';
-import 'package:morostick/core/widgets/app_offline_banner.dart';
+import 'package:morostick/core/widgets/app_offline_messagebox.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+class AppKeys {
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
+}
 
 class MoroStickApp extends StatelessWidget {
   final AuthNavigationService authService;
@@ -16,7 +19,7 @@ class MoroStickApp extends StatelessWidget {
   // Cache theme data
   static final _theme = ThemeData(
     primaryColor: ColorsManager.mainPurple,
-    highlightColor: ColorsManager.mainPurple.withOpacity(0.2),
+    highlightColor: ColorsManager.mainPurple.withValues(alpha: 0.2),
     secondaryHeaderColor: ColorsManager.secondaryLightPurple,
     scaffoldBackgroundColor: ColorsManager.backgroundLightColor,
     platform: TargetPlatform.android,
@@ -48,7 +51,7 @@ class MoroStickApp extends StatelessWidget {
         child: RepaintBoundary(
           child: ToastificationWrapper(
             child: MaterialApp(
-              navigatorKey: navigatorKey,
+              navigatorKey: AppKeys.navigatorKey,
               title: 'MoroStick App',
               theme: _theme,
               debugShowCheckedModeBanner: false,

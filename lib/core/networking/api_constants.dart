@@ -15,7 +15,23 @@ class ApiConstants {
   static const String refreshToken = 'auth/refresh-token';
 
   // Home routes
-  static const String getForYouTab = "home/for-you";
+  static const String getCategories = "home/top-category-tabs";
+  static const String getForYouTab = "home/for-you-tab";
+  static const String getTrendingTab = "home/trending-tab";
+  static const String getPacksListTab = "home/category-packs";
+
+  // Pack routes
+  static const String getPackById = "pack/get-by-id";
+  static const String togglePackFavorite = "pack/favorite-toggle";
+  static const String hidePack = "pack/hide";
+  static const String reportPack = "pack/report-create";
+
+  // Sticker routes
+  static const String toggleStickerFavorite = "sticker/favorite-toggle";
+
+  // Search routes
+  static const String getTrendingSearches = "search/trending-searches";
+  static const String getSearchResults = "search";
 }
 
 class ErrorConstantData {
@@ -156,6 +172,16 @@ class ApiErrors {
     ErrorDetails(
       code: 'ERR_DEFAULT',
       details: 'Sorry, an unexpected error occurred. Please try again later.',
+      errorFields: null,
+    ),
+  );
+
+  static const ErrorConstantData serverDown = ErrorConstantData(
+    'Server Unavailable',
+    ErrorDetails(
+      code: 'ERR_DEFAULT',
+      details:
+          'Sorry, our server is currently unavailable. Please try again later.',
       errorFields: null,
     ),
   );

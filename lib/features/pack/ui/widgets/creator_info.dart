@@ -39,7 +39,7 @@ class CreatorInfo extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.r),
           child: Row(
             children: [
-              AppCachedImageExtensions.avatar(
+              AppCachedNetworkImage.avatar(
                 imageUrl: imageUrl,
                 size: 40.w,
               ),

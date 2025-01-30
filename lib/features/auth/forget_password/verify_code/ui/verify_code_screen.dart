@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/widgets/app_button.dart';
-import 'package:morostick/core/widgets/app_back_button.dart';
+import 'package:morostick/core/widgets/app_custom_icon_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:morostick/features/auth/forget_password/verify_code/logic/verify_code_cubit.dart';
@@ -44,7 +44,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const AppBackButton(),
+                  const AppCustomIconButton(),
                   verticalSpace(30),
                   Text(
                     'Check Your Email 🧐',
