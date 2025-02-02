@@ -14,6 +14,8 @@ import 'package:morostick/features/auth/sign_up/data/models/sign_up_request_body
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_response.dart';
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_with_facebook_model.dart';
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_with_google_model.dart';
+import 'package:morostick/features/favorites/data/models/favorite_packs_response.dart';
+import 'package:morostick/features/favorites/data/models/favorite_stickers_response.dart';
 import 'package:morostick/features/home/data/models/category_tabs_requestbody.dart';
 import 'package:morostick/features/home/data/models/category_tabs_response.dart';
 import 'package:morostick/features/home/data/models/foryou_tab_response.dart';
@@ -147,5 +149,20 @@ abstract class ApiService {
     @Query('minStickers') int? minStickers,
     @Query('maxStickers') int? maxStickers,
     @Query('sortBy') String? sortBy,
+  );
+
+  // Favorites routes
+  @GET(ApiConstants.getFavoritePacks)
+  Future<FavoritePacksResponse> getFavoritePacks(
+    @Query('page') int page,
+    @Query('limit') int limit,
+    @Query('type') String? type,
+  );
+
+  @GET(ApiConstants.getFavoriteStickers)
+  Future<FavoriteStickersResponse> getFavoriteStickers(
+    @Query('page') int page,
+    @Query('limit') int limit,
+    @Query('type') String? type,
   );
 }

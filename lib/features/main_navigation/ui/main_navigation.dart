@@ -4,6 +4,8 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:morostick/core/di/dependency_injection.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/theming/colors.dart';
+import 'package:morostick/features/favorites/logic/favorite_packs_cubit/favorite_packs_cubit.dart';
+import 'package:morostick/features/favorites/logic/favorite_stickers_cubit/favorite_stickers_cubit.dart';
 import 'package:morostick/features/favorites/ui/favorites_screen.dart';
 import 'package:morostick/features/home/logic/category_packs_cubit/category_packs_cubit.dart';
 import 'package:morostick/features/home/logic/category_tabs_cubit/category_tabs_cubit.dart';
@@ -55,8 +57,19 @@ class _MainNavigationState extends State<MainNavigation> {
   }
 
   Widget _buildFavoritesScreen() {
-    return const FavoritesScreen(
-      key: PageStorageKey('favorites_screen'),
+    return MultiBlocProvider(
+      key: const PageStorageKey('favorites_screen'),
+      providers: [
+        BlocProvider.value(
+          key: const PageStorageKey('favorites_screen'),
+          value: getIt<FavoritePacksCubit>(),
+        ),
+        BlocProvider.value(
+          key: const PageStorageKey('favorites_screen'),
+          value: getIt<FavoriteStickersCubit>(),
+        ),
+      ],
+      child: const FavoritesScreen(),
     );
   }
 

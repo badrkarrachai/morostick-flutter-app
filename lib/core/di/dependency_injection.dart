@@ -17,6 +17,9 @@ import 'package:morostick/features/auth/login/logic/login_cubit.dart';
 import 'package:morostick/features/auth/sign_up/data/repos/sign_up_repo.dart';
 import 'package:morostick/features/auth/sign_up/logic/sign_up_cubit.dart';
 import 'package:morostick/features/auth/web_view/logic/web_view_cubit.dart';
+import 'package:morostick/features/favorites/data/repos/favorite_repo.dart';
+import 'package:morostick/features/favorites/logic/favorite_packs_cubit/favorite_packs_cubit.dart';
+import 'package:morostick/features/favorites/logic/favorite_stickers_cubit/favorite_stickers_cubit.dart';
 import 'package:morostick/features/home/data/repos/home_repo.dart';
 import 'package:morostick/features/home/logic/category_packs_cubit/category_packs_cubit.dart';
 import 'package:morostick/features/home/logic/category_tabs_cubit/category_tabs_cubit.dart';
@@ -105,7 +108,14 @@ Future<void> setupGetIt() async {
 
   // Search
   getIt.registerLazySingleton<SearchRepo>(() => SearchRepo(getIt()));
-  // Change this to lazySingleton
   getIt.registerLazySingleton<SearchCubit>(
       () => SearchCubit(getIt<SearchRepo>()));
+
+  // Favorites
+  getIt.registerLazySingleton<FavoriteRepo>(() => FavoriteRepo(getIt()));
+  getIt.registerLazySingleton<FavoritePacksCubit>(
+      () => FavoritePacksCubit(getIt<FavoriteRepo>()));
+  getIt.registerLazySingleton<FavoriteStickersCubit>(() =>
+      FavoriteStickersCubit(
+          getIt<FavoriteRepo>(), getIt<AuthNavigationService>()));
 }

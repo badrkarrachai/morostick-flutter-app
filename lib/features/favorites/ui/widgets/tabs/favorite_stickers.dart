@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:morostick/core/data/models/pack_model.dart';
 import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/theming/images.dart';
 import 'package:morostick/core/theming/text_styles.dart';
 import 'package:morostick/core/widgets/app_button.dart';
 import 'package:morostick/core/widgets/app_cached_network_image.dart';
+import 'package:morostick/core/widgets/app_message_box.dart';
+import 'package:morostick/features/favorites/logic/favorite_stickers_cubit/favorite_stickers_cubit.dart';
+import 'package:morostick/features/favorites/logic/favorite_stickers_cubit/favorite_stickers_state.dart';
 import 'package:morostick/features/favorites/ui/widgets/type_modal.dart';
+import 'package:morostick/features/home/ui/tabs/foryou_tab/widgets/no_data.dart';
+import 'package:morostick/features/home/ui/tabs/other_categories_tabs/widgets/other_categories_shimmer.dart';
 
 class FavoriteStickers extends StatefulWidget {
   const FavoriteStickers({super.key});
@@ -17,61 +24,187 @@ class FavoriteStickers extends StatefulWidget {
   State<FavoriteStickers> createState() => _FavoriteStickersState();
 }
 
-class _FavoriteStickersState extends State<FavoriteStickers> {
-  String selectedFilter = 'All';
+class _FavoriteStickersState extends State<FavoriteStickers>
+    with AutomaticKeepAliveClientMixin {
+  late final ScrollController _scrollController;
 
-  final List<String> regularStickerUrls = List.generate(
-    30,
-    (index) =>
-        'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/pngwing.com%20(2).png',
-  );
+  @override
+  bool get wantKeepAlive => true;
+  OverlayEntry? _overlayEntry;
 
-  final List<String> animatedStickerUrls = List.generate(
-    15,
-    (index) =>
-        'https://pub-77ec04db39ef4d8bb8dc21139a0e97e1.r2.dev/stickers/TestStickers/pngwing.com%20(2).png',
-  );
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _removeLoadingOverlay();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      context.read<FavoriteStickersCubit>().loadMore();
+    }
+  }
+
+  void _removeLoadingOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  void _showLoadingOverlay() {
+    if (_overlayEntry != null) return;
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Container(
+        color: Colors.black.withValues(alpha: 0.5),
+        child: const Center(
+          child: CircularProgressIndicator(
+            color: ColorsManager.mainPurple,
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context).insert(_overlayEntry!);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Column(
-          children: [
-            _buildFilterChips(),
-            Expanded(
-              child: _buildStickerGrid(),
-            ),
-          ],
-        ),
-        _buildBottomButton(),
-      ],
-    );
-  }
+    super.build(context);
 
-  Widget _buildFilterChips() {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 12.h),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Row(
-          children: [
-            _buildFilterChip('All'),
-            horizontalSpace(8),
-            _buildFilterChip('Regular'),
-            horizontalSpace(8),
-            _buildFilterChip('Animated'),
-          ],
-        ),
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(
+        physics: const ClampingScrollPhysics(),
+      ),
+      child: BlocConsumer<FavoriteStickersCubit, FavoriteStickersState>(
+        listener: (context, state) {
+          // Handle loading overlay
+          if (state.isLoadingFavoriteSticker) {
+            _showLoadingOverlay();
+          } else {
+            _removeLoadingOverlay();
+          }
+
+          // Handle error message box
+          if (state.isMessageBoxError) {
+            AppMessageBoxDialogServiceNonContext.showError(
+              title: state.error!.message,
+              message: state.error!.error?.details ??
+                  "Something went wrong please try again later.",
+              onConfirm: () {
+                // Optional callback after clicking OK
+              },
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state.isLoading) {
+            return const OtherCategoriesTabShimmer();
+          }
+
+          final stickers = state.filteredStickers;
+
+          if (state.isEmpty) {
+            return Column(
+              children: [
+                _buildFilterChips(context),
+                Expanded(
+                  child: NoDataWidget(
+                    title: "No Favorite Stickers",
+                    message:
+                        "You haven't added any stickers to your favorites yet",
+                    onRefresh: () =>
+                        context.read<FavoriteStickersCubit>().refresh(),
+                  ),
+                ),
+              ],
+            );
+          }
+
+          return Stack(
+            children: [
+              RefreshIndicator(
+                onRefresh: () async {
+                  if (!state.isLoading) {
+                    await context.read<FavoriteStickersCubit>().refresh();
+                  }
+                },
+                child: CustomScrollView(
+                  controller: _scrollController,
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: _buildFilterChips(context),
+                    ),
+                    SliverPadding(
+                      padding: EdgeInsets.only(
+                        bottom: 80.h,
+                        left: 12.w,
+                        right: 12.w,
+                      ),
+                      sliver: SliverMasonryGrid.count(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 12.h,
+                        crossAxisSpacing: 12.w,
+                        itemBuilder: (context, index) {
+                          if (index >= stickers.length) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          final sticker = stickers[index];
+                          return _buildStickerItem(
+                            context,
+                            index,
+                            sticker,
+                            state.selectedFilter == StickerType.animated ||
+                                state.selectedFilter == StickerType.all &&
+                                    state.animatedStickers.contains(sticker),
+                          );
+                        },
+                        childCount:
+                            stickers.length + (state.isLoadingMore ? 1 : 0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              _buildBottomButton(),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Widget _buildFilterChip(String filter) {
-    final bool isSelected = selectedFilter == filter;
+  Widget _buildFilterChips(BuildContext context) {
+    final cubit = context.read<FavoriteStickersCubit>();
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildFilterChip(context, 'All', StickerType.all, cubit),
+          horizontalSpace(8),
+          _buildFilterChip(context, 'Regular', StickerType.regular, cubit),
+          horizontalSpace(8),
+          _buildFilterChip(context, 'Animated', StickerType.animated, cubit),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterChip(BuildContext context, String label, StickerType type,
+      FavoriteStickersCubit cubit) {
+    final isSelected = cubit.state.selectedFilter == type;
     return InkWell(
-      onTap: () => setState(() => selectedFilter = filter),
+      onTap: () => cubit.setFilter(type),
       borderRadius: BorderRadius.circular(20.r),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
@@ -88,7 +221,7 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
           ),
         ),
         child: Text(
-          filter,
+          label,
           style: isSelected
               ? TextStyles.font13GrayWhiteRegular
               : TextStyles.font13PurpleRegular,
@@ -97,40 +230,35 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
     );
   }
 
-  Widget _buildStickerGrid() {
-    final List<String> filteredStickers = _getFilteredStickers();
-
+  Widget _buildStickerGrid(BuildContext context, FavoriteStickersState state,
+      List<Sticker> stickers) {
     return Padding(
       padding: EdgeInsets.only(bottom: 80.h),
       child: MasonryGridView.count(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 12.w),
         crossAxisCount: 3,
         mainAxisSpacing: 12.h,
         crossAxisSpacing: 12.w,
-        itemCount: filteredStickers.length,
-        itemBuilder: (context, index) => _buildStickerItem(
-          index,
-          filteredStickers[index],
-          selectedFilter == 'Animated' ||
-              (selectedFilter == 'All' &&
-                  animatedStickerUrls.contains(filteredStickers[index])),
-        ),
+        itemCount: stickers.length,
+        itemBuilder: (context, index) {
+          final sticker = stickers[index];
+          return _buildStickerItem(
+            context,
+            index,
+            sticker,
+            state.selectedFilter == StickerType.animated ||
+                state.selectedFilter == StickerType.all &&
+                    state.animatedStickers.contains(sticker),
+          );
+        },
       ),
     );
   }
 
-  List<String> _getFilteredStickers() {
-    switch (selectedFilter) {
-      case 'Regular':
-        return regularStickerUrls;
-      case 'Animated':
-        return animatedStickerUrls;
-      default:
-        return [...regularStickerUrls, ...animatedStickerUrls];
-    }
-  }
-
-  Widget _buildStickerItem(int index, String url, bool isAnimated) {
+  Widget _buildStickerItem(
+      BuildContext context, int index, Sticker sticker, bool isAnimated) {
     return Container(
       decoration: BoxDecoration(
         color: ColorsManager.getRandomColorWithOpacity(0.05),
@@ -152,7 +280,7 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
               child: Stack(
                 children: [
                   AppCachedNetworkImage(
-                    imageUrl: url,
+                    imageUrl: sticker.webpUrl!,
                     fit: BoxFit.contain,
                     borderRadius: BorderRadius.circular(16.r),
                     errorWidget: Container(
@@ -189,14 +317,14 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
           Positioned(
             top: 5.h,
             right: 5.w,
-            child: _buildFavoriteButton(index),
+            child: _buildFavoriteButton(context, sticker.id),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildFavoriteButton(int index) {
+  Widget _buildFavoriteButton(BuildContext context, String stickerId) {
     return Container(
       decoration: BoxDecoration(
         color: ColorsManager.white.withValues(alpha: 0.9),
@@ -212,7 +340,9 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => _handleRemoveFromFavorites(index),
+          onTap: () => context
+              .read<FavoriteStickersCubit>()
+              .toggleStickerFavorite(stickerId: stickerId),
           borderRadius: BorderRadius.circular(50),
           child: Padding(
             padding: EdgeInsets.all(8.r),
@@ -245,19 +375,6 @@ class _FavoriteStickersState extends State<FavoriteStickers> {
         backgroundColor: ColorsManager.whatsappGreen,
       ),
     );
-  }
-
-  void _handleRemoveFromFavorites(int index) {
-    setState(() {
-      final stickers = _getFilteredStickers();
-      final url = stickers[index];
-      if (regularStickerUrls.contains(url)) {
-        regularStickerUrls.remove(url);
-      }
-      if (animatedStickerUrls.contains(url)) {
-        animatedStickerUrls.remove(url);
-      }
-    });
   }
 
   void _handleAddToWhatsApp() {

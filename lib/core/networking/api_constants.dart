@@ -32,6 +32,10 @@ class ApiConstants {
   // Search routes
   static const String getTrendingSearches = "search/trending-searches";
   static const String getSearchResults = "search";
+
+  // Favorites routes
+  static const String getFavoritePacks = "favorite/get-favorite-packs";
+  static const String getFavoriteStickers = "favorite/get-favorite-stickers";
 }
 
 class ErrorConstantData {

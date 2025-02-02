@@ -13,7 +13,11 @@ class FavoritesCategoryContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Show different content based on category
+    return _buildContent();
+  }
+
+  Widget _buildContent() {
+    // Remove PrimaryScrollController wrapper and let each tab manage its own scroll controller
     if (categoryName == 'Packs') {
       return const FavoritePacks();
     }
@@ -21,7 +25,6 @@ class FavoritesCategoryContent extends StatelessWidget {
       return const FavoriteStickers();
     }
 
-    // Default content for other categories
     return Center(
       child: Text(
         'Content for $categoryName',

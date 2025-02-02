@@ -25,6 +25,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
       'icon': HugeIcons.strokeRoundedLaughing,
     },
   ];
+
   @override
   void initState() {
     super.initState();
@@ -44,31 +45,30 @@ class _FavoritesScreenState extends State<FavoritesScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Column(
-        children: [
-          // Header
-          Container(
-            decoration: const BoxDecoration(color: ColorsManager.white),
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: FavoritesCategoriesTab(
-              tabController: _tabController,
-              categories: _categories,
+        child: Column(
+          children: [
+            Container(
+              decoration: const BoxDecoration(color: ColorsManager.white),
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: FavoritesCategoriesTab(
+                tabController: _tabController,
+                categories: _categories,
+              ),
             ),
-          ),
-
-          // Content
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: _categories.map((category) {
-                return FavoritesCategoryContent(
-                  categoryName: category['title'],
-                );
-              }).toList(),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: _categories.map((category) {
+                  return FavoritesCategoryContent(
+                    key: PageStorageKey(category['title']),
+                    categoryName: category['title'],
+                  );
+                }).toList(),
+              ),
             ),
-          )
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }
