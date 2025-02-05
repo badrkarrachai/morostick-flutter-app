@@ -53,5 +53,7 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSUserNotificationUsageDescription</key>
+		<string>We need to send you notifications about new stickers and updates</string>
 	</dict>
 </plist>
