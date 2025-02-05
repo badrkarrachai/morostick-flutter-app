@@ -6,6 +6,7 @@ import 'package:morostick/core/networking/dio_factory.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/services/facebook_auth_service.dart';
 import 'package:morostick/core/services/google_auth_service.dart';
+import 'package:morostick/core/services/user_service.dart';
 import 'package:morostick/features/auth/forget_password/new_password/data/repos/new_password_repo.dart';
 import 'package:morostick/features/auth/forget_password/new_password/logic/new_password_cubit.dart';
 import 'package:morostick/features/auth/forget_password/send_code/data/repos/forget_password_repo.dart';
@@ -25,14 +26,19 @@ import 'package:morostick/features/home/logic/category_packs_cubit/category_pack
 import 'package:morostick/features/home/logic/category_tabs_cubit/category_tabs_cubit.dart';
 import 'package:morostick/features/home/logic/foryou_tab_cubit/foryou_tab_cubit.dart';
 import 'package:morostick/features/home/logic/trending_tab_cubit/trending_tab_cubit.dart';
+import 'package:morostick/features/main_navigation/logic/main_navigation_cubit.dart';
 import 'package:morostick/features/pack/data/repo/pack_repo.dart';
 import 'package:morostick/features/pack/logic/view_pack_details_cubit.dart';
 import 'package:morostick/features/search/data/repos/search_repo.dart';
 import 'package:morostick/features/search/logic/search_cubit.dart';
+import 'package:morostick/features/top_menu/data/repos/top_menu_repo.dart';
+import 'package:morostick/features/top_menu/logic/top_menu_cubit.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setupGetIt() async {
+  // User Service
+  getIt.registerLazySingleton<UserService>(() => UserService());
   // Auth Services
   getIt.registerLazySingleton<GoogleAuthService>(
     () => GoogleAuthService(),
@@ -44,6 +50,7 @@ Future<void> setupGetIt() async {
     () => AuthNavigationService(
       googleAuthService: getIt<GoogleAuthService>(),
       facebookAuthService: getIt<FacebookAuthService>(),
+      userService: getIt<UserService>(), // Add this
     ),
   );
   DioFactory.init(getIt<AuthNavigationService>());
@@ -59,6 +66,7 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<LoginCubit>(() => LoginCubit(
         getIt<LoginRepo>(),
         getIt<AuthNavigationService>(),
+        getIt<UserService>(),
       ));
 
   // signup
@@ -66,6 +74,7 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<SignupCubit>(() => SignupCubit(
         getIt<SignupRepo>(),
         getIt<AuthNavigationService>(),
+        getIt<UserService>(),
       ));
 
   // forget password
@@ -83,6 +92,9 @@ Future<void> setupGetIt() async {
 
   // webview
   getIt.registerFactory<WebViewCubit>(() => WebViewCubit());
+
+  // Main Navigation
+  getIt.registerLazySingleton<MainNavigationCubit>(() => MainNavigationCubit());
 
   // home
   getIt.registerLazySingleton<HomeRepo>(() => HomeRepo(getIt()));
@@ -118,4 +130,13 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<FavoriteStickersCubit>(() =>
       FavoriteStickersCubit(
           getIt<FavoriteRepo>(), getIt<AuthNavigationService>()));
+
+  // Top menu
+  getIt.registerLazySingleton<TopMenuRepo>(() => TopMenuRepo(getIt()));
+  getIt.registerLazySingleton<TopMenuCubit>(() => TopMenuCubit(
+        getIt<TopMenuRepo>(),
+        getIt<FacebookAuthService>(),
+        getIt<GoogleAuthService>(),
+        getIt<UserService>(),
+      ));
 }

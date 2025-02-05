@@ -9,6 +9,7 @@ import 'package:morostick/core/networking/token_interceptor.dart';
 import 'package:morostick/core/routing/routes.dart';
 import 'package:morostick/core/services/facebook_auth_service.dart';
 import 'package:morostick/core/services/google_auth_service.dart';
+import 'package:morostick/core/services/user_service.dart';
 import 'package:morostick/core/widgets/app_message_box.dart';
 import 'package:morostick/core/widgets/app_offline_messagebox.dart';
 import 'package:synchronized/synchronized.dart';
@@ -47,11 +48,15 @@ class AuthNavigationService extends ChangeNotifier {
     notifyListeners();
   }
 
+  final UserService _userService;
+
   AuthNavigationService({
     required GoogleAuthService googleAuthService,
     required FacebookAuthService facebookAuthService,
+    required UserService userService,
   })  : _googleAuthService = googleAuthService,
-        _facebookAuthService = facebookAuthService {
+        _facebookAuthService = facebookAuthService,
+        _userService = userService {
     _initConnectivityListener();
   }
 
@@ -159,6 +164,7 @@ class AuthNavigationService extends ChangeNotifier {
         await Future.wait<void>([
           SharedPrefHelper.removeSecuredString(SharedPrefKeys.userToken),
           SharedPrefHelper.removeSecuredString(SharedPrefKeys.refreshToken),
+          _userService.clearUser(), // Add this
         ]);
         DioFactory.removeTokenFromHeader();
         setAuthStatus(false);
@@ -173,6 +179,7 @@ class AuthNavigationService extends ChangeNotifier {
         _facebookAuthService.signOut(),
         SharedPrefHelper.removeSecuredString(SharedPrefKeys.userToken),
         SharedPrefHelper.removeSecuredString(SharedPrefKeys.refreshToken),
+        _userService.clearUser(), // Add this
       ]);
 
       DioFactory.removeTokenFromHeader();

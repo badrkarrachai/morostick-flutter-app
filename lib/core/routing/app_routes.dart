@@ -19,6 +19,7 @@ import 'package:morostick/features/auth/sign_up/ui/sign_up_screen.dart';
 import 'package:morostick/features/main_navigation/logic/main_navigation_cubit.dart';
 import 'package:morostick/features/main_navigation/ui/main_navigation.dart';
 import 'package:morostick/features/onboarding/onboarding_screen.dart';
+import 'package:morostick/features/top_menu/logic/top_menu_cubit.dart';
 import 'package:morostick/features/top_menu/ui/top_menu_screen.dart';
 
 // Route Types
@@ -74,15 +75,18 @@ class AppRouter {
     Routes.homeScreen: RouteConfig(
       path: Routes.homeScreen,
       type: RouteType.public,
-      builder: (args) => BlocProvider(
-        create: (context) => MainNavigationCubit(),
+      builder: (args) => BlocProvider.value(
+        value: getIt<MainNavigationCubit>(),
         child: const MainNavigation(),
       ),
     ),
     Routes.topMenuScreen: RouteConfig(
       path: Routes.topMenuScreen,
       type: RouteType.public,
-      builder: (args) => const TopMenuScreen(),
+      builder: (args) => BlocProvider.value(
+        value: getIt<TopMenuCubit>(),
+        child: const TopMenuScreen(),
+      ),
     ),
 
     // Auth Routes
@@ -181,8 +185,9 @@ class AppRouter {
       if (isFirstTime) {
         return const OnboardingScreen();
       } else if (isAuthenticated || isGuestMode) {
-        return BlocProvider(
-          create: (context) => MainNavigationCubit(),
+        // Use BlocProvider.value with the existing cubit
+        return BlocProvider.value(
+          value: getIt<MainNavigationCubit>(), // Singleton instance
           child: const MainNavigation(),
         );
       } else {
@@ -199,8 +204,8 @@ class AppRouter {
 
       case RouteType.auth:
         if (isAuthenticated || isGuestMode) {
-          return BlocProvider(
-            create: (context) => MainNavigationCubit(),
+          return BlocProvider.value(
+            value: getIt<MainNavigationCubit>(),
             child: const MainNavigation(),
           );
         }
@@ -254,8 +259,8 @@ class AppRouter {
         });
 
         // Return the navigation destination (like home screen) as fallback
-        return BlocProvider(
-          create: (context) => MainNavigationCubit(),
+        return BlocProvider.value(
+          value: getIt<MainNavigationCubit>(), // Use singleton
           child: const MainNavigation(),
         );
       },

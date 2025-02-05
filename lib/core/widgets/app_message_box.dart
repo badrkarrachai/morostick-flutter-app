@@ -322,11 +322,17 @@ class AppMessageBoxDialogManager {
     String? confirmText,
     String? cancelText,
     IconData? icon,
+    Color? iconColor,
+    Color? iconBackgroundColor,
+    Color? confirmButtonBackgroundColor,
   }) {
     _dialogQueue.add(_DialogRequest(
       context: context,
       title: title,
       message: message,
+      iconColor: iconColor ?? ColorsManager.mainPurple,
+      iconBackgroundColor: iconBackgroundColor ??
+          ColorsManager.mainPurple.withValues(alpha: 0.1),
       icon: icon ?? Icons.help_outline,
       buttons: [
         AppMessageBoxButton(
@@ -336,6 +342,9 @@ class AppMessageBoxDialogManager {
         ),
         AppMessageBoxButton(
           text: confirmText ?? 'Confirm',
+          backgroundColor:
+              confirmButtonBackgroundColor ?? ColorsManager.mainPurple,
+          borderColor: confirmButtonBackgroundColor,
           onPressed: () {
             onConfirm();
           },

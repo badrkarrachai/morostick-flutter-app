@@ -31,10 +31,10 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'name': instance.name,
       'email': instance.email,
       'role': instance.role,
-      'avatar': instance.avatar,
+      'avatar': instance.avatar?.toJson(),
       'isActivated': instance.isActivated,
-      'preferences': instance.preferences,
-      'notificationSettings': instance.notificationSettings,
+      'preferences': instance.preferences.toJson(),
+      'notificationSettings': instance.notificationSettings.toJson(),
       'socialMedia': instance.socialMedia,
       'isDeleted': instance.isDeleted,
       'twoFactorEnabled': instance.twoFactorEnabled,
@@ -64,6 +64,8 @@ Preferences _$PreferencesFromJson(Map<String, dynamic> json) => Preferences(
       currency: json['currency'] as String?,
       language: json['language'] as String?,
       theme: json['theme'] as String?,
+      isFacebookAuthEnabled: json['isFacebookAuthEnabled'] as bool?,
+      isGoogleAuthEnabled: json['isGoogleAuthEnabled'] as bool?,
     );
 
 Map<String, dynamic> _$PreferencesToJson(Preferences instance) =>
@@ -71,6 +73,8 @@ Map<String, dynamic> _$PreferencesToJson(Preferences instance) =>
       'currency': instance.currency,
       'language': instance.language,
       'theme': instance.theme,
+      'isFacebookAuthEnabled': instance.isFacebookAuthEnabled,
+      'isGoogleAuthEnabled': instance.isGoogleAuthEnabled,
     };
 
 NotificationSettings _$NotificationSettingsFromJson(

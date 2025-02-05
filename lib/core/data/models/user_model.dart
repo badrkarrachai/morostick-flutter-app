@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class User {
   final String id;
   final String name;
@@ -16,8 +16,8 @@ class User {
   final Map<String, dynamic> socialMedia;
   final bool isDeleted;
   final bool twoFactorEnabled;
-  final String? authProvider; // Made nullable
-  final List<dynamic> messages; // Changed from List<String> to List<dynamic>
+  final String? authProvider;
+  final List<dynamic> messages;
 
   User({
     required this.id,
@@ -36,17 +36,26 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = _$UserToJson(this);
+    if (avatar != null) {
+      data['avatar'] = avatar!.toJson();
+    }
+    data['preferences'] = preferences.toJson();
+    data['notificationSettings'] = notificationSettings.toJson();
+    return data;
+  }
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Avatar {
-  final String? id; // Made nullable
-  final String? name; // Made nullable
-  final String? url; // Made nullable
+  final String? id;
+  final String? name;
+  final String? url;
   final bool isDeleted;
-  final String? createdAt; // Made nullable
-  final String? updatedAt; // Made nullable
+  final String? createdAt;
+  final String? updatedAt;
 
   Avatar({
     this.id,
@@ -66,11 +75,15 @@ class Preferences {
   final String? currency;
   final String? language;
   final String? theme;
+  final bool? isFacebookAuthEnabled;
+  final bool? isGoogleAuthEnabled;
 
   Preferences({
     required this.currency,
     required this.language,
     required this.theme,
+    this.isFacebookAuthEnabled,
+    this.isGoogleAuthEnabled,
   });
 
   factory Preferences.fromJson(Map<String, dynamic> json) =>

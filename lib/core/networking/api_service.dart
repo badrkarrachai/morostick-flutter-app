@@ -29,6 +29,8 @@ import 'package:morostick/features/pack/data/models/toggle_pack_favorite_respons
 import 'package:morostick/features/pack/data/models/toggle_sticker_favorite_response.dart';
 import 'package:morostick/features/search/data/models/search_response.dart';
 import 'package:morostick/features/search/data/models/trending_searches_response.dart';
+import 'package:morostick/features/top_menu/data/models/update_user_pref_request_body.dart';
+import 'package:morostick/features/top_menu/data/models/update_user_pref_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_service.g.dart';
@@ -164,5 +166,11 @@ abstract class ApiService {
     @Query('page') int page,
     @Query('limit') int limit,
     @Query('type') String? type,
+  );
+
+  // Top menu routes
+  @PATCH(ApiConstants.updateUserPreferences)
+  Future<UpdateUserPrefResponse> updateUserPreferences(
+    @Body() UpdateUserPrefRequestBody updateUserPrefRequestBody,
   );
 }

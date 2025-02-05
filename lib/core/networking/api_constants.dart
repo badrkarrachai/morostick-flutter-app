@@ -36,6 +36,9 @@ class ApiConstants {
   // Favorites routes
   static const String getFavoritePacks = "favorite/get-favorite-packs";
   static const String getFavoriteStickers = "favorite/get-favorite-stickers";
+
+  // Top menu routes
+  static const String updateUserPreferences = "user/update-user-preferences";
 }
 
 class ErrorConstantData {

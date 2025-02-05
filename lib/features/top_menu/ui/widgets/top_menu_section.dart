@@ -5,7 +5,7 @@ import 'package:morostick/features/top_menu/ui/widgets/top_menu_item.dart';
 
 class TopMenuSection extends StatelessWidget {
   final String? title;
-  final List<TopMenuItem> items;
+  final dynamic items;
 
   const TopMenuSection({
     super.key,
@@ -26,7 +26,9 @@ class TopMenuSection extends StatelessWidget {
               style: TextStyles.font14RegularGray,
             ),
           ),
-        ...items.map((item) => TopMenuItemWidget(item: item)),
+        if (items is List<TopMenuItem>)
+          ...items.map((item) => TopMenuItemWidget(item: item)),
+        if (items is! List<TopMenuItem>) items,
       ],
     );
   }

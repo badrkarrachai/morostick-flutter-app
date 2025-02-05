@@ -5,6 +5,7 @@ import 'package:morostick/core/data/models/general_response_model.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
 import 'package:morostick/core/services/facebook_auth_service.dart';
 import 'package:morostick/core/services/google_auth_service.dart';
+import 'package:morostick/core/services/user_service.dart';
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_with_facebook_model.dart';
 import 'package:morostick/features/auth/sign_up/data/models/sign_up_with_google_model.dart';
 import 'package:morostick/features/auth/sign_up/data/repos/sign_up_repo.dart';
@@ -15,8 +16,9 @@ import '../data/models/sign_up_request_body.dart';
 class SignupCubit extends Cubit<SignupState> {
   final SignupRepo _signupRepo;
   final AuthNavigationService _authService;
+  final UserService _userService;
 
-  SignupCubit(this._signupRepo, this._authService)
+  SignupCubit(this._signupRepo, this._authService, this._userService)
       : super(const SignupState.initial());
 
   // Services
@@ -28,6 +30,27 @@ class SignupCubit extends Cubit<SignupState> {
   TextEditingController passwordController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
+
+  Future<void> _handleSuccessfullSignup(dynamic signupResponse) async {
+    try {
+      // Save tokens
+      await _authService.login(
+        signupResponse.loginData?.accessToken ?? '',
+        refreshToken: signupResponse.loginData?.refreshToken,
+      );
+
+      // Save user data if available
+      if (signupResponse.loginData?.user != null) {
+        await _userService.saveUser(signupResponse.loginData!.user);
+      }
+
+      emit(SignupState.signupSuccess(signupResponse));
+    } catch (e) {
+      debugPrint('Error handling successful signup: $e');
+      // If saving user data fails, still consider login successful but log the error
+      emit(SignupState.signupSuccess(signupResponse));
+    }
+  }
 
   void emitSignupStates() async {
     try {
@@ -41,11 +64,7 @@ class SignupCubit extends Cubit<SignupState> {
       );
       response.when(
         success: (signupResponse) async {
-          await _authService.login(
-            signupResponse.signUpData?.accessToken ?? '',
-            refreshToken: signupResponse.signUpData?.refreshToken,
-          );
-          emit(SignupState.signupSuccess(signupResponse));
+          _handleSuccessfullSignup(signupResponse);
         },
         failure: (error) {
           emit(SignupState.signupError(error: error.apiErrorModel));
@@ -75,11 +94,7 @@ class SignupCubit extends Cubit<SignupState> {
 
         response.when(
           success: (signUpResponse) async {
-            await _authService.login(
-              signUpResponse.signUpData?.accessToken ?? '',
-              refreshToken: signUpResponse.signUpData?.refreshToken,
-            );
-            emit(SignupState.signupSuccess(signUpResponse));
+            _handleSuccessfullSignup(signUpResponse);
           },
           failure: (error) {
             emit(SignupState.signupError(error: error.apiErrorModel));
@@ -128,11 +143,7 @@ class SignupCubit extends Cubit<SignupState> {
 
         response.when(
           success: (signUpResponse) async {
-            await _authService.login(
-              signUpResponse.signUpData?.accessToken ?? '',
-              refreshToken: signUpResponse.signUpData?.refreshToken,
-            );
-            emit(SignupState.signupSuccess(signUpResponse));
+            _handleSuccessfullSignup(signUpResponse);
           },
           failure: (error) {
             emit(SignupState.signupError(error: error.apiErrorModel));

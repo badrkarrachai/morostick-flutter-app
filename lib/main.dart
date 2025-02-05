@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:morostick/core/di/dependency_injection.dart';
 import 'package:morostick/core/helpers/extensions.dart';
 import 'package:morostick/core/services/auth_navigation_service.dart';
+import 'package:morostick/core/services/user_service.dart';
 import 'package:morostick/morostick_app.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/helpers/constants.dart';
@@ -22,6 +23,10 @@ Future<void> main() async {
 
     // Initialize screen util
     await ScreenUtil.ensureScreenSize();
+
+    // Load user before running the app
+    final userService = getIt<UserService>();
+    await userService.loadUser();
 
     // Initialize auth service
     final authService = getIt<AuthNavigationService>();
