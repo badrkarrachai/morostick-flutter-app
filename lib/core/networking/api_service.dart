@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:morostick/core/networking/api_constants.dart';
 import 'package:morostick/features/auth/forget_password/new_password/data/models/new_password_request_body.dart';
@@ -27,6 +29,10 @@ import 'package:morostick/features/pack/data/models/report_pack_request_body.dar
 import 'package:morostick/features/pack/data/models/report_pack_response.dart';
 import 'package:morostick/features/pack/data/models/toggle_pack_favorite_response.dart';
 import 'package:morostick/features/pack/data/models/toggle_sticker_favorite_response.dart';
+import 'package:morostick/features/profile/data/models/update_avatar_response.dart';
+import 'package:morostick/features/profile/data/models/update_coverimage_response.dart';
+import 'package:morostick/features/profile/data/models/update_name_request_body.dart';
+import 'package:morostick/features/profile/data/models/update_name_response.dart';
 import 'package:morostick/features/search/data/models/search_response.dart';
 import 'package:morostick/features/search/data/models/trending_searches_response.dart';
 import 'package:morostick/features/top_menu/data/models/update_user_pref_request_body.dart';
@@ -172,5 +178,23 @@ abstract class ApiService {
   @PATCH(ApiConstants.updateUserPreferences)
   Future<UpdateUserPrefResponse> updateUserPreferences(
     @Body() UpdateUserPrefRequestBody updateUserPrefRequestBody,
+  );
+
+  // Profile routes
+  @POST(ApiConstants.updateUserName)
+  Future<UpdateNameResponse> updateUserName(
+    @Body() UpdateNameRequestBody updateUserPrefRequestBody,
+  );
+
+  @MultiPart()
+  @PUT(ApiConstants.updateUserAvatar)
+  Future<UpdateAvatarResponse> updateUserAvatar(
+    @Part(name: "avatarImage") File avatarImage,
+  );
+
+  @MultiPart()
+  @PUT(ApiConstants.updateUserCoverImage)
+  Future<UpdateCoverimageResponse> updateUserCoverImage(
+    @Part() File coverImage,
   );
 }

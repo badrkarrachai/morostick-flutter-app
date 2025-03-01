@@ -10,10 +10,14 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       id: json['id'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
+      emailVerified: json['emailVerified'] as bool,
       role: json['role'] as String,
       avatar: json['avatar'] == null
           ? null
           : Avatar.fromJson(json['avatar'] as Map<String, dynamic>),
+      coverImage: json['coverImage'] == null
+          ? null
+          : Avatar.fromJson(json['coverImage'] as Map<String, dynamic>),
       isActivated: json['isActivated'] as bool,
       preferences:
           Preferences.fromJson(json['preferences'] as Map<String, dynamic>),
@@ -30,8 +34,10 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'email': instance.email,
+      'emailVerified': instance.emailVerified,
       'role': instance.role,
       'avatar': instance.avatar?.toJson(),
+      'coverImage': instance.coverImage?.toJson(),
       'isActivated': instance.isActivated,
       'preferences': instance.preferences.toJson(),
       'notificationSettings': instance.notificationSettings.toJson(),

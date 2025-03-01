@@ -15,12 +15,12 @@ class DangerZone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          verticalSpace(16),
           _buildDeleteButton(),
+          verticalSpace(16),
         ],
       ),
     );

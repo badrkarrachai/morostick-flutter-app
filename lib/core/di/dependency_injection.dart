@@ -29,6 +29,8 @@ import 'package:morostick/features/home/logic/trending_tab_cubit/trending_tab_cu
 import 'package:morostick/features/main_navigation/logic/main_navigation_cubit.dart';
 import 'package:morostick/features/pack/data/repo/pack_repo.dart';
 import 'package:morostick/features/pack/logic/view_pack_details_cubit.dart';
+import 'package:morostick/features/profile/data/repos/profile_repo.dart';
+import 'package:morostick/features/profile/logic/profile_cubit.dart';
 import 'package:morostick/features/search/data/repos/search_repo.dart';
 import 'package:morostick/features/search/logic/search_cubit.dart';
 import 'package:morostick/features/top_menu/data/repos/top_menu_repo.dart';
@@ -139,4 +141,9 @@ Future<void> setupGetIt() async {
         getIt<GoogleAuthService>(),
         getIt<UserService>(),
       ));
+
+  // Profile
+  getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt(), dio));
+  getIt.registerLazySingleton<ProfileCubit>(
+      () => ProfileCubit(getIt<ProfileRepo>(), getIt<UserService>()));
 }

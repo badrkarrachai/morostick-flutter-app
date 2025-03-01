@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:morostick/core/helpers/spacing.dart';
 import 'package:morostick/core/theming/colors.dart';
 import 'package:morostick/core/widgets/app_cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:morostick/core/widgets/app_shimmer_loading.dart';
 import 'package:morostick/features/profile/ui/widgets/image_edit_button.dart';
 
 class ProfileHeader extends StatelessWidget {
-  final String coverImageUrl;
+  final String? coverImageUrl;
   final String profileImageUrl;
   final VoidCallback onCoverImageTap;
   final VoidCallback onProfileImageTap;
+  final bool isLoadingProfileImage;
 
   const ProfileHeader({
     super.key,
@@ -16,130 +19,156 @@ class ProfileHeader extends StatelessWidget {
     required this.profileImageUrl,
     required this.onCoverImageTap,
     required this.onProfileImageTap,
+    required this.isLoadingProfileImage,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
+    return Column(
       children: [
-        _CoverImage(
-          imageUrl: coverImageUrl,
-          onTap: onCoverImageTap,
+        // Cover image container with fixed height
+        Container(
+          height: 180.h,
+          width: screenW,
+          decoration: BoxDecoration(
+            color: ColorsManager.mainPurple.withValues(alpha: 0.1),
+          ),
+          child: Stack(
+            children: [
+              // Cover image
+              AppCachedNetworkImage(
+                imageUrl: coverImageUrl ?? '',
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+                errorWidget: Center(child: SizedBox()),
+              ),
+              // Cover edit button
+              Positioned(
+                bottom: 16.h,
+                right: 16.w,
+                child: ImageEditButton(
+                  onTap: onCoverImageTap,
+                  size: 36.w,
+                  icon: Icons.camera_alt_outlined,
+                ),
+              ),
+            ],
+          ),
         ),
-        _ProfileImage(
-          imageUrl: profileImageUrl,
-          onTap: onProfileImageTap,
+        // Profile image and content section
+        Container(
+          color: Colors.transparent,
+          padding: EdgeInsets.only(left: 24.w, right: 24.w),
+          transform: Matrix4.translationValues(0, -50.h, 0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Profile image as a separate widget not positioned in a Stack
+              _StandaloneProfileImage(
+                imageUrl: profileImageUrl,
+                onTap: onProfileImageTap,
+                onEditTap: onProfileImageTap,
+                isLoading: isLoadingProfileImage,
+              ),
+              SizedBox(width: 16.w),
+              // Additional content can go here
+            ],
+          ),
         ),
       ],
     );
   }
 }
 
-class _CoverImage extends StatelessWidget {
+// New standalone widget for profile image
+class _StandaloneProfileImage extends StatelessWidget {
   final String imageUrl;
   final VoidCallback onTap;
+  final VoidCallback onEditTap;
+  final bool isLoading;
 
-  const _CoverImage({
+  const _StandaloneProfileImage({
     required this.imageUrl,
     required this.onTap,
+    required this.onEditTap,
+    required this.isLoading,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 180.h,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: ColorsManager.mainPurple.withValues(alpha: 0.1),
-      ),
-      child: Stack(
-        children: [
-          AppCachedNetworkImage(
-            imageUrl: imageUrl,
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-            errorWidget: Center(
-              child: Icon(
-                Icons.image_outlined,
-                color: ColorsManager.mainPurple,
-                size: 40.sp,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(100),
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: ColorsManager.white,
+              width: 4.w,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
               ),
-            ),
+            ],
           ),
-          Positioned(
-            bottom: 16.h,
-            right: 16.w,
-            child: ImageEditButton(
-              onTap: onTap,
-              icon: Icons.camera_alt_outlined,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ProfileImage extends StatelessWidget {
-  final String imageUrl;
-  final VoidCallback onTap;
-
-  const _ProfileImage({
-    required this.imageUrl,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      bottom: -50.h,
-      left: 24.w,
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: ColorsManager.white,
-            width: 4.w,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Stack(
-          children: [
-            CircleAvatar(
-              radius: 50.r,
-              backgroundColor: ColorsManager.lighterPurple,
-              child: ClipOval(
-                child: AppCachedNetworkImage(
-                  imageUrl: imageUrl,
-                  width: 100.w,
-                  height: 100.w,
-                  fit: BoxFit.cover,
-                  errorWidget: Icon(
-                    Icons.person_outline_rounded,
-                    color: ColorsManager.mainPurple,
-                    size: 40.sp,
+          child: Stack(
+            children: [
+              if (isLoading)
+                AppShimmerLoading(
+                  child: CircleAvatar(
+                    radius: 50.r,
+                    backgroundColor: ColorsManager.lighterPurple,
+                    child: ClipOval(
+                      child: SizedBox(
+                        width: 100.w,
+                        height: 100.w,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: ImageEditButton(
-                onTap: onTap,
-                icon: Icons.camera_alt_outlined,
-                size: 32.w,
-              ),
-            ),
-          ],
+              if (!isLoading)
+                CircleAvatar(
+                  radius: 50.r,
+                  backgroundColor: ColorsManager.lighterPurple,
+                  child: ClipOval(
+                    child: AppCachedNetworkImage(
+                      imageUrl: imageUrl,
+                      width: 100.w,
+                      height: 100.w,
+                      fit: BoxFit.cover,
+                      errorWidget: Icon(
+                        Icons.person_outline_rounded,
+                        color: ColorsManager.mainPurple,
+                        size: 40.sp,
+                      ),
+                    ),
+                  ),
+                ),
+              if (!isLoading)
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(100),
+                      onTap: onEditTap,
+                      child: ImageEditButton(
+                        onTap: onEditTap,
+                        icon: Icons.camera_alt_outlined,
+                        size: 32.w,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

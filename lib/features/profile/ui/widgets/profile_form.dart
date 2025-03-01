@@ -35,28 +35,31 @@ class ProfileForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(20.w, 70.h, 20.w, 24.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Profile Information',
-            style: TextStyles.font16BlackSemiBold,
-          ),
-          verticalSpace(24),
-          _buildNameField(),
-          verticalSpace(16),
-          _buildEmailField(),
-          if (!isEmailVerified) ...[
-            verticalSpace(8),
-            _buildEmailVerification(),
+    return Transform.translate(
+      offset: const Offset(0, -30),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(20.w, 0.h, 20.w, 24.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Profile Information',
+              style: TextStyles.font15DarkPurpleSemiBold,
+            ),
+            verticalSpace(24),
+            _buildNameField(),
+            verticalSpace(16),
+            _buildEmailField(),
+            if (!isEmailVerified) ...[
+              verticalSpace(8),
+              _buildEmailVerification(),
+            ],
+            verticalSpace(24),
+            _buildPasswordSection(),
+            verticalSpace(16),
+            _buildInfoText()
           ],
-          verticalSpace(24),
-          _buildPasswordSection(),
-          verticalSpace(16),
-          _buildInfoText()
-        ],
+        ),
       ),
     );
   }
@@ -220,7 +223,6 @@ class ProfileForm extends StatelessWidget {
             ],
           ),
         ),
-        verticalSpace(24),
       ],
     );
   }

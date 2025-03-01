@@ -14,6 +14,7 @@ import 'package:morostick/features/home/logic/trending_tab_cubit/trending_tab_cu
 import 'package:morostick/features/home/ui/home_screen.dart';
 import 'package:morostick/features/main_navigation/logic/main_navigation_cubit.dart';
 import 'package:morostick/features/main_navigation/logic/main_navigation_state.dart';
+import 'package:morostick/features/profile/logic/profile_cubit.dart';
 import 'package:morostick/features/profile/ui/profile_screen.dart';
 import 'package:morostick/features/search/logic/search_cubit.dart';
 import 'package:morostick/features/search/ui/search_screen.dart';
@@ -74,8 +75,16 @@ class _MainNavigationState extends State<MainNavigation> {
   }
 
   Widget _buildProfileScreen() {
-    return const ProfileScreen(
-      key: PageStorageKey('profile_screen'),
+    return MultiBlocProvider(
+      key: const PageStorageKey('profile_screen'),
+      providers: [
+        BlocProvider.value(
+          value: getIt<ProfileCubit>(),
+        ),
+      ],
+      child: const ProfileScreen(
+        key: PageStorageKey('profile_screen'),
+      ),
     );
   }
 

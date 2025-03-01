@@ -67,6 +67,13 @@ class TextStyles {
     color: ColorsManager.darkPurple,
   );
 
+  static TextStyle font15DarkPurpleSemiBold = TextStyle(
+    fontSize: 16.sp,
+    fontFamily: 'LexendDeca',
+    fontWeight: FontWeightHelper.semiBold,
+    color: ColorsManager.darkPurple,
+  );
+
   static TextStyle font14HintTextRegular = TextStyle(
     fontSize: 14.sp,
     fontFamily: 'LexendDeca',

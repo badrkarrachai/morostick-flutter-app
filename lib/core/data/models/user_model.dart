@@ -7,8 +7,10 @@ class User {
   final String id;
   final String name;
   final String email;
+  final bool emailVerified;
   final String role;
   final Avatar? avatar;
+  final Avatar? coverImage;
   final bool isActivated;
   final Preferences preferences;
   final NotificationSettings notificationSettings;
@@ -23,8 +25,10 @@ class User {
     required this.id,
     required this.name,
     required this.email,
+    required this.emailVerified,
     required this.role,
     this.avatar,
+    this.coverImage,
     required this.isActivated,
     required this.preferences,
     required this.notificationSettings,

@@ -39,6 +39,11 @@ class ApiConstants {
 
   // Top menu routes
   static const String updateUserPreferences = "user/update-user-preferences";
+
+  // Profile routes
+  static const String updateUserName = "user/update-user-name";
+  static const String updateUserAvatar = "user/update-profile-picture";
+  static const String updateUserCoverImage = "user/update-cover-image";
 }
 
 class ErrorConstantData {
