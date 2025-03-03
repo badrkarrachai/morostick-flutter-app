@@ -15,7 +15,7 @@ UpdateCoverimageResponse _$UpdateCoverimageResponseFromJson(
       error: json['error'] == null
           ? null
           : ErrorDetails.fromJson(json['error'] as Map<String, dynamic>),
-      updatedAvatarData: json['data'] == null
+      updatedCoverData: json['data'] == null
           ? null
           : UpdatedCoverData.fromJson(json['data'] as Map<String, dynamic>),
       metadata: json['metadata'] == null
@@ -31,7 +31,7 @@ Map<String, dynamic> _$UpdateCoverimageResponseToJson(
       'message': instance.message,
       'error': instance.error,
       'metadata': instance.metadata,
-      'data': instance.updatedAvatarData,
+      'data': instance.updatedCoverData,
     };
 
 UpdatedCoverData _$UpdatedCoverDataFromJson(Map<String, dynamic> json) =>

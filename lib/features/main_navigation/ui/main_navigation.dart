@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -162,7 +164,7 @@ class _MainNavigationState extends State<MainNavigation> {
             children: [
               // Screens
               Positioned.fill(
-                bottom: 56,
+                bottom: Platform.isIOS ? 20 : 56,
                 child: PageStorage(
                   bucket: PageStorageBucket(),
                   child: _buildCurrentScreen(state.selectedIndex),
@@ -173,7 +175,7 @@ class _MainNavigationState extends State<MainNavigation> {
               Positioned(
                 left: 0,
                 right: 0,
-                bottom: 0,
+                bottom: Platform.isIOS ? 18 : 0,
                 child: Container(
                   height: 56,
                   decoration: BoxDecoration(

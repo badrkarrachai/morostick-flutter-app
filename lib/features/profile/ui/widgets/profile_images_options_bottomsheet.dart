@@ -7,11 +7,13 @@ import 'package:morostick/features/pack/ui/widgets/pack_option_tile.dart';
 class ProfileImagesOptionsBottomSheet extends StatelessWidget {
   final VoidCallback onUpload;
   final VoidCallback onDelete;
+  final String imageType;
 
   const ProfileImagesOptionsBottomSheet({
     super.key,
     required this.onUpload,
     required this.onDelete,
+    required this.imageType,
   });
 
   @override
@@ -38,12 +40,14 @@ class ProfileImagesOptionsBottomSheet extends StatelessWidget {
           verticalSpace(16),
           PackOptionTile(
             icon: Icons.file_upload_outlined,
-            title: 'Upload Profile Image',
+            title:
+                'Upload ${imageType == "avatar" ? "Profile Image" : "Cover Image"}',
             onTap: onUpload,
           ),
           PackOptionTile(
             icon: Icons.delete_outlined,
-            title: 'Delete Profile Image',
+            title:
+                'Delete ${imageType == "avatar" ? "Profile Image" : "Cover Image"}',
             isDestructive: true,
             onTap: onDelete,
           ),

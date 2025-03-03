@@ -40,6 +40,10 @@
                     android:scheme="770314268811-ga8pf9gkgt960dd4edr4qbnmje7hf3s8.apps.googleusercontent.com"/>
             </intent-filter>
         </activity>
+        <activity
+  android:name="com.yalantis.ucrop.UCropActivity"
+  android:screenOrientation="portrait"
+  android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

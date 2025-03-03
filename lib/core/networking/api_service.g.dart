@@ -898,27 +898,19 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<UpdateAvatarResponse> updateUserAvatar(File avatarImage) async {
+  Future<void> deleteUserAvatar() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.files.add(MapEntry(
-      'avatarImage',
-      MultipartFile.fromFileSync(
-        avatarImage.path,
-        filename: avatarImage.path.split(Platform.pathSeparator).last,
-      ),
-    ));
-    final _options = _setStreamType<UpdateAvatarResponse>(Options(
-      method: 'PUT',
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<void>(Options(
+      method: 'DELETE',
       headers: _headers,
       extra: _extra,
-      contentType: 'multipart/form-data',
     )
         .compose(
           _dio.options,
-          'user/update-profile-picture',
+          'user/delete-profile-picture',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -927,39 +919,23 @@ class _ApiService implements ApiService {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late UpdateAvatarResponse _value;
-    try {
-      _value = UpdateAvatarResponse.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
+    await _dio.fetch<void>(_options);
   }
 
   @override
-  Future<UpdateCoverimageResponse> updateUserCoverImage(File coverImage) async {
+  Future<void> deleteUserCoverImage() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.files.add(MapEntry(
-      'coverImage',
-      MultipartFile.fromFileSync(
-        coverImage.path,
-        filename: coverImage.path.split(Platform.pathSeparator).last,
-      ),
-    ));
-    final _options = _setStreamType<UpdateCoverimageResponse>(Options(
-      method: 'PUT',
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<void>(Options(
+      method: 'DELETE',
       headers: _headers,
       extra: _extra,
-      contentType: 'multipart/form-data',
     )
         .compose(
           _dio.options,
-          'user/update-cover-image',
+          'user/delete-cover-image',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -968,15 +944,7 @@ class _ApiService implements ApiService {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late UpdateCoverimageResponse _value;
-    try {
-      _value = UpdateCoverimageResponse.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
+    await _dio.fetch<void>(_options);
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

@@ -6,14 +6,14 @@ part 'update_coverimage_response.g.dart';
 @JsonSerializable()
 class UpdateCoverimageResponse extends GeneralResponse {
   @JsonKey(name: 'data')
-  final UpdatedCoverData? updatedAvatarData;
+  final UpdatedCoverData? updatedCoverData;
 
   const UpdateCoverimageResponse({
     required super.status,
     required super.success,
     required super.message,
     super.error,
-    this.updatedAvatarData,
+    this.updatedCoverData,
     super.metadata,
   });
 

@@ -20,103 +20,65 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   static ProfileState _initialState() {
     final userData = getIt<UserService>().currentUser;
-    return ProfileState.initial(
+    return ProfileState(
       name: userData?.name ?? '',
       email: userData?.email ?? '',
-      avatarUrl: userData?.avatar?.url ?? '',
-      coverImageUrl: userData?.coverImage?.url ?? '',
+      avatarUrl: userData?.avatar?.url,
+      coverImageUrl: userData?.coverImage?.url,
     );
   }
 
   // Update name locally (without API call)
   void updateNameLocally(String name) {
-    final currentState = state;
-    emit(ProfileState.initial(
-      name: name,
-      email: currentState.email,
-      avatarUrl: currentState.avatarUrl,
-      coverImageUrl: currentState.coverImageUrl,
-    ));
+    emit(state.copyWith(name: name));
   }
 
   // Update email locally (without API call)
   void updateEmailLocally(String email) {
-    final currentState = state;
-    emit(ProfileState.initial(
-      name: currentState.name,
-      email: email,
-      avatarUrl: currentState.avatarUrl,
-      coverImageUrl: currentState.coverImageUrl,
-    ));
+    emit(state.copyWith(email: email));
   }
 
   // Submit name update to backend
   Future<void> updateUserProfile() async {
-    // Get current values from state
-    final currentState = state;
-    final name = currentState.name;
-    final email = currentState.email;
-    final avatarUrl = currentState.avatarUrl;
-    final coverUrl = currentState.coverImageUrl;
-
-    // Emit loading state
-    emit(ProfileState.loading(
-      name: name,
-      email: email,
-      avatarUrl: avatarUrl,
-      coverImageUrl: coverUrl,
-    ));
+    // Set loading state
+    emit(state.copyWith(isUpdatingProfile: true, error: null));
 
     // Call the repository to update the name
-    final result = await _profileRepo.updateUserName(name, email);
+    final result = await _profileRepo.updateUserName(state.name, state.email);
 
     // Handle the result
     result.when(
       success: (response) {
         // Update the UserService with the new data
         _userService.updateUser({
-          'name': name,
-          'email': email,
+          'name': state.name,
+          'email': state.email,
         });
 
         // Emit success state
-        emit(ProfileState.success(
-          name: name,
-          email: email,
-          avatarUrl: avatarUrl,
-          coverImageUrl: coverUrl,
+        emit(state.copyWith(
+          isUpdatingProfile: false,
+          didUpdateSuccessfully: true,
         ));
       },
       failure: (error) {
-        print(error);
         // Emit error state
-        emit(ProfileState.error(
+        emit(state.copyWith(
+          isUpdatingProfile: false,
           error: error.apiErrorModel,
-          name: name,
-          email: email,
-          avatarUrl: avatarUrl,
-          coverImageUrl: coverUrl,
         ));
       },
     );
   }
 
+  void resetUpdateFlag() {
+    emit(state.copyWith(didUpdateSuccessfully: false));
+  }
+
   // Upload avatar image
   Future<void> updateUserAvatar(File avatarImage) async {
-    // Get current values from state
-    final currentState = state;
-    final name = currentState.name;
-    final email = currentState.email;
-    final avatarUrl = currentState.avatarUrl;
-    final coverUrl = currentState.coverImageUrl;
-
-    // Emit loading state
-    emit(ProfileState.loading(
-      name: name,
-      email: email,
-      avatarUrl: avatarUrl,
-      coverImageUrl: coverUrl,
-    ));
+    // Set loading state
+    emit(state.copyWith(isUpdatingAvatar: true, error: null));
 
     // Call the repository to update the avatar
     final result = await _profileRepo.updateUserAvatar(avatarImage);
@@ -126,27 +88,115 @@ class ProfileCubit extends Cubit<ProfileState> {
       success: (response) {
         final newAvatarUrl = response.updatedAvatarData?.avatarUrl;
 
-// Update the UserService with the new avatar URL
+        // Update the UserService with the new avatar URL
         _userService.updateUser({
           'avatar': newAvatarUrl,
         });
 
         // Emit success state
-        emit(ProfileState.success(
-          name: name,
-          email: email,
+        emit(state.copyWith(
+          isUpdatingAvatar: false,
           avatarUrl: newAvatarUrl,
-          coverImageUrl: coverUrl,
         ));
       },
       failure: (error) {
         // Emit error state
-        emit(ProfileState.error(
+        emit(state.copyWith(
+          isUpdatingAvatar: false,
           error: error.apiErrorModel,
-          name: name,
-          email: email,
-          avatarUrl: avatarUrl,
-          coverImageUrl: coverUrl,
+        ));
+      },
+    );
+  }
+
+  Future<void> updateUserCoverImage(File coverImage) async {
+    // Set loading state
+    emit(state.copyWith(isUploadingCoverImage: true, error: null));
+
+    // Call the repository to update the cover image
+    final result = await _profileRepo.updateUserCoverImage(coverImage);
+
+    // Handle the result
+    result.when(
+      success: (response) {
+        final newCoverImageUrl = response.updatedCoverData?.coverImageUrl;
+
+        // Update the UserService with the new cover image URL
+        _userService.updateUser({
+          'coverImage': newCoverImageUrl,
+        });
+
+        // Emit success state
+        emit(state.copyWith(
+          isUploadingCoverImage: false,
+          coverImageUrl: newCoverImageUrl,
+        ));
+      },
+      failure: (error) {
+        // Emit error state
+        emit(state.copyWith(
+          isUploadingCoverImage: false,
+          error: error.apiErrorModel,
+        ));
+      },
+    );
+  }
+
+  // Delete user avatar
+  Future<void> deleteUserAvatar() async {
+    // Set loading state
+    emit(state.copyWith(isUpdatingAvatar: true, error: null));
+
+    // Call the repository to delete the avatar
+    final result = await _profileRepo.deleteUserAvatar();
+
+    // Handle the result
+    result.when(
+      success: (response) {
+        // Update the UserService with the new avatar URL
+        _userService.updateUser({
+          'avatar': null,
+        });
+
+        // Emit success state
+        emit(state.copyWith(
+          isUpdatingAvatar: false,
+          avatarUrl: null,
+        ));
+      },
+      failure: (error) {
+        // Emit error state
+        emit(state.copyWith(
+          isUpdatingAvatar: false,
+          error: error.apiErrorModel,
+        ));
+      },
+    );
+  }
+
+  Future<void> deleteUserCoverImage() async {
+    emit(state.copyWith(isUploadingCoverImage: true, error: null));
+
+    final result = await _profileRepo.deleteUserCoverImage();
+
+    result.when(
+      success: (response) {
+        // Update the UserService with the new avatar URL
+        _userService.updateUser({
+          'cover': null,
+        });
+
+        // Emit success state
+        emit(state.copyWith(
+          isUploadingCoverImage: false,
+          coverImageUrl: null,
+        ));
+      },
+      failure: (error) {
+        // Emit error state
+        emit(state.copyWith(
+          isUploadingCoverImage: false,
+          error: error.apiErrorModel,
         ));
       },
     );

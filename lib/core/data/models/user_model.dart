@@ -46,6 +46,9 @@ class User {
     if (avatar != null) {
       data['avatar'] = avatar!.toJson();
     }
+    if (coverImage != null) {
+      data['coverImage'] = coverImage!.toJson();
+    }
     data['preferences'] = preferences.toJson();
     data['notificationSettings'] = notificationSettings.toJson();
     return data;

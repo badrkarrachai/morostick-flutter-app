@@ -12,6 +12,7 @@ class ProfileHeader extends StatelessWidget {
   final VoidCallback onCoverImageTap;
   final VoidCallback onProfileImageTap;
   final bool isLoadingProfileImage;
+  final bool isLoadingCoverImage;
 
   const ProfileHeader({
     super.key,
@@ -20,6 +21,7 @@ class ProfileHeader extends StatelessWidget {
     required this.onCoverImageTap,
     required this.onProfileImageTap,
     required this.isLoadingProfileImage,
+    required this.isLoadingCoverImage,
   });
 
   @override
@@ -27,53 +29,56 @@ class ProfileHeader extends StatelessWidget {
     return Column(
       children: [
         // Cover image container with fixed height
-        Container(
-          height: 180.h,
-          width: screenW,
-          decoration: BoxDecoration(
-            color: ColorsManager.mainPurple.withValues(alpha: 0.1),
-          ),
-          child: Stack(
-            children: [
-              // Cover image
-              AppCachedNetworkImage(
-                imageUrl: coverImageUrl ?? '',
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-                errorWidget: Center(child: SizedBox()),
-              ),
-              // Cover edit button
-              Positioned(
-                bottom: 16.h,
-                right: 16.w,
-                child: ImageEditButton(
-                  onTap: onCoverImageTap,
-                  size: 36.w,
-                  icon: Icons.camera_alt_outlined,
-                ),
-              ),
-            ],
+        GestureDetector(
+          onTap: onCoverImageTap,
+          child: Container(
+            height: 180.h,
+            width: screenW,
+            decoration: BoxDecoration(
+              color: ColorsManager.mainPurple.withValues(alpha: 0.1),
+            ),
+            child: Stack(
+              children: [
+                if (isLoadingCoverImage)
+                  AppShimmerLoading(
+                    child: Container(
+                      color: ColorsManager.lighterPurple,
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
+                  ),
+                // Cover image
+                if (!isLoadingCoverImage)
+                  AppCachedNetworkImage(
+                    imageUrl: coverImageUrl ?? '',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                    errorWidget: Center(child: SizedBox()),
+                  ),
+                // Cover edit button
+                if (!isLoadingCoverImage)
+                  Positioned(
+                    bottom: 16.h,
+                    right: 16.w,
+                    child: ImageEditButton(
+                      onTap: onCoverImageTap,
+                      size: 36.w,
+                      icon: Icons.camera_alt_outlined,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
         // Profile image and content section
-        Container(
-          color: Colors.transparent,
-          padding: EdgeInsets.only(left: 24.w, right: 24.w),
-          transform: Matrix4.translationValues(0, -50.h, 0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Profile image as a separate widget not positioned in a Stack
-              _StandaloneProfileImage(
-                imageUrl: profileImageUrl,
-                onTap: onProfileImageTap,
-                onEditTap: onProfileImageTap,
-                isLoading: isLoadingProfileImage,
-              ),
-              SizedBox(width: 16.w),
-              // Additional content can go here
-            ],
+        Transform.translate(
+          offset: Offset(-110, -52.h),
+          child: _StandaloneProfileImage(
+            imageUrl: profileImageUrl,
+            onTap: onProfileImageTap,
+            onEditTap: onProfileImageTap,
+            isLoading: isLoadingProfileImage,
           ),
         ),
       ],

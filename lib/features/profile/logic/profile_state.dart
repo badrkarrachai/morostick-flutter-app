@@ -2,32 +2,15 @@ part of 'profile_cubit.dart';
 
 @freezed
 class ProfileState with _$ProfileState {
-  const factory ProfileState.initial({
+  const factory ProfileState({
     required String name,
     required String email,
-    required String? avatarUrl,
-    required String? coverImageUrl,
-  }) = _Initial;
-
-  const factory ProfileState.loading({
-    required String name,
-    required String email,
-    required String? avatarUrl,
-    required String? coverImageUrl,
-  }) = _Loading;
-
-  const factory ProfileState.success({
-    required String name,
-    required String email,
-    required String? avatarUrl,
-    required String? coverImageUrl,
-  }) = _Success;
-
-  const factory ProfileState.error({
-    required GeneralResponse error,
-    required String name,
-    required String email,
-    required String? avatarUrl,
-    required String? coverImageUrl,
-  }) = _Error;
+    String? avatarUrl,
+    String? coverImageUrl,
+    @Default(false) bool isUpdatingProfile,
+    @Default(false) bool isUpdatingAvatar,
+    @Default(false) bool isUploadingCoverImage,
+    @Default(false) bool didUpdateSuccessfully,
+    GeneralResponse? error,
+  }) = _ProfileState;
 }

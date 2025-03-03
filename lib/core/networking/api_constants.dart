@@ -43,7 +43,9 @@ class ApiConstants {
   // Profile routes
   static const String updateUserName = "user/update-user-name";
   static const String updateUserAvatar = "user/update-profile-picture";
+  static const String deleteUserAvatar = "user/delete-profile-picture";
   static const String updateUserCoverImage = "user/update-cover-image";
+  static const String deleteUserCoverImage = "user/delete-cover-image";
 }
 
 class ErrorConstantData {

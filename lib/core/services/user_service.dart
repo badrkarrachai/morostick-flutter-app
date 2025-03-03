@@ -82,6 +82,15 @@ class UserService extends ChangeNotifier {
               // Create a new Avatar object with the URL string
               finalUpdates[key] = {'url': value, 'isDeleted': false};
             }
+          } else if (key == 'cover' || key == 'coverImage') {
+            // Use 'coverImage' as the key in finalUpdates regardless of input key
+            if (value is Avatar) {
+              finalUpdates['coverImage'] = value.toJson();
+            } else if (value is Map<String, dynamic>) {
+              finalUpdates['coverImage'] = value;
+            } else if (value is String) {
+              finalUpdates['coverImage'] = {'url': value, 'isDeleted': false};
+            }
           } else {
             finalUpdates[key] = value;
           }

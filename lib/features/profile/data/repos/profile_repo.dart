@@ -4,6 +4,7 @@ import 'package:morostick/core/networking/api_error_handler.dart';
 import 'package:morostick/core/networking/api_result.dart';
 import 'package:morostick/core/networking/api_service.dart';
 import 'package:morostick/features/profile/data/models/update_avatar_response.dart';
+import 'package:morostick/features/profile/data/models/update_coverimage_response.dart';
 import 'package:morostick/features/profile/data/models/update_name_request_body.dart';
 import 'package:morostick/features/profile/data/models/update_name_response.dart';
 import 'package:dio/dio.dart';
@@ -62,6 +63,60 @@ class ProfileRepo {
       );
 
       return ApiResult.success(UpdateAvatarResponse.fromJson(response.data));
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  Future<ApiResult<UpdateCoverimageResponse>> updateUserCoverImage(
+    File avatarImage,
+  ) async {
+    try {
+      // Get file extension
+      String fileName = avatarImage.path.split('/').last;
+      String extension = fileName.split('.').last.toLowerCase();
+
+      // Create MultipartFile manually with correct mime type
+      final formData = FormData.fromMap({
+        'coverImage': await MultipartFile.fromFile(
+          avatarImage.path,
+          filename: fileName,
+          contentType: MediaType('image', extension),
+        ),
+      });
+
+      // Make a direct request instead of using the generated API service
+      final response = await _dio.put(
+        '${_dio.options.baseUrl}${ApiConstants.updateUserCoverImage}',
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': _dio.options.headers['Authorization'],
+            'Content-Type': 'multipart/form-data',
+          },
+        ),
+      );
+
+      return ApiResult.success(
+          UpdateCoverimageResponse.fromJson(response.data));
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  Future<ApiResult<void>> deleteUserAvatar() async {
+    try {
+      final response = await _apiService.deleteUserAvatar();
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  Future<ApiResult<void>> deleteUserCoverImage() async {
+    try {
+      final response = await _apiService.deleteUserCoverImage();
+      return ApiResult.success(response);
     } catch (error) {
       return ApiResult.failure(ErrorHandler.handle(error));
     }

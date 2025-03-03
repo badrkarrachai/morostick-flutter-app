@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
                 Container(
                   color: Colors.white,
-                  height: 104.5,
+                  height: 104.8,
                   child: Column(
                     children: [
                       verticalSpace(5),

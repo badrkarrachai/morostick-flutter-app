@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -215,17 +217,23 @@ class _PackScreenState extends State<PackScreen> {
                 ),
               ],
             ),
-            child: AppButton(
-              buttonText: 'Add to WhatsApp',
-              textStyle: TextStyles.font16WhiteSemiBold,
-              onPressed: () => showWhatsAppStickerTypeModal(context),
-              borderColor: ColorsManager.whatsappGreen,
-              leftIcon: SizedBox(
-                width: 23.w,
-                height: 23.h,
-                child: SvgPicture.asset(Images.whatsappLogo),
-              ),
-              backgroundColor: ColorsManager.whatsappGreen,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AppButton(
+                  buttonText: 'Add to WhatsApp',
+                  textStyle: TextStyles.font16WhiteSemiBold,
+                  onPressed: () => showWhatsAppStickerTypeModal(context),
+                  borderColor: ColorsManager.whatsappGreen,
+                  leftIcon: SizedBox(
+                    width: 23.w,
+                    height: 23.h,
+                    child: SvgPicture.asset(Images.whatsappLogo),
+                  ),
+                  backgroundColor: ColorsManager.whatsappGreen,
+                ),
+                verticalSpace(Platform.isIOS ? 20 : 10)
+              ],
             ),
           ),
         );
